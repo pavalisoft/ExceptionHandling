@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{92FD9D41-A33A-4C66-83D4-DD06FDB04AFC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{014F9E2C-CA38-4430-A40A-469575CD77A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D51D52A0-BA95-417C-8FBA-AE0970D37B50}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{9482E134-512F-4122-88FA-C0CF98EF4D3C}"
+	ProjectSection(SolutionItems) = preProject
+		Doxyfile = Doxyfile
+		LICENSE = LICENSE
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pavalisoft.ExceptionHandling", "Source\Pavalisoft.ExceptionHandling\Pavalisoft.ExceptionHandling.csproj", "{D8009A00-DE02-49A3-BFD6-DA06AB0DD4BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8009A00-DE02-49A3-BFD6-DA06AB0DD4BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8009A00-DE02-49A3-BFD6-DA06AB0DD4BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8009A00-DE02-49A3-BFD6-DA06AB0DD4BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8009A00-DE02-49A3-BFD6-DA06AB0DD4BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D8009A00-DE02-49A3-BFD6-DA06AB0DD4BC} = {92FD9D41-A33A-4C66-83D4-DD06FDB04AFC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2A580C62-723F-4CC9-8343-26065AFC73AE}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Venkataswamy Pavali</Authors>
+    <Company>https://www.pavalisoft.com</Company>
+    <Description>Pavalisoft.ExceptionHandling is an open source exception handler extension for .NET Standard written in C#, which provides single unified API to handle both .NET Core and ASP.NET Core Exceptions at Single place</Description>
+    <Copyright>Copyright (c) 2019 Pavalisoft</Copyright>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://www.nuget.org/packages/Pavalisoft.ExceptionHandling/</PackageProjectUrl>
+    <PackageIconUrl>https://secure.gravatar.com/avatar/7967778615733d0a09563016e438f8f5?s=512&amp;r=g&amp;d=retro</PackageIconUrl>
+    <RepositoryUrl>https://github.com/pavalisoft/ExceptionHandling</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>exception-handling;exception;exception-manager;handler;manager;handling</PackageTags>
+    <PackageReleaseNotes>Pavalisoft.ExceptionHandling is an open source exception handler extension for .NET Standard written in C#, which provides single unified API to handle both .NET Core and ASP.NET Core Exceptions at Single place</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\Pavalisoft.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Pavalisoft.ExceptionHandling.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.2.0" />    
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+  </ItemGroup>
+
+</Project>
