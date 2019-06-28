@@ -14,35 +14,33 @@
    limitations under the License. 
 */
 
-using Microsoft.Extensions.Configuration;
 using Pavalisoft.ExceptionHandling.Interfaces;
 using System;
 
 namespace Pavalisoft.ExceptionHandling
 {
     /// <summary>
-    /// Provides Json based <see cref="ExceptionSettings"/> configuration
+    /// Provides Base implementation <see cref="ExceptionDataProvider"/> of <see cref="ExceptionSettings"/> configuration
     /// </summary>
-    public class ConfigurationExceptionDataProvider : DefaultExceptionDataProvider
+    public class DefaultExceptionDataProvider : ExceptionDataProvider
     {
-        private readonly IConfiguration _configuration;
+        private readonly IServiceProvider _serviceProvider;
 
         /// <summary>
-        /// Creates an instance of <see cref="ConfigurationExceptionDataProvider"/> with <see cref="IConfiguration"/>
+        /// Creates an instance of <see cref="DefaultExceptionDataProvider"/> with <see cref="IServiceProvider"/>
         /// </summary>
-        /// <param name="configuration"><see cref="IConfiguration"/> object to read appSettings.json</param>
         /// <param name="serviceProvider"><see cref="IServiceProvider"/></param>
         /// <param name="exceptionHandlerAccessor">Dependency Service Provider for <see cref="IExceptionHandler"/></param>
-        public ConfigurationExceptionDataProvider(IConfiguration configuration, IServiceProvider serviceProvider, Func<HandlingBehaviour
-            , IExceptionHandler> exceptionHandlerAccessor) : base(serviceProvider, exceptionHandlerAccessor)
+        public DefaultExceptionDataProvider(IServiceProvider serviceProvider, Func<HandlingBehaviour, IExceptionHandler> exceptionHandlerAccessor)
+            : base(exceptionHandlerAccessor)
         {
-            _configuration = configuration;
+            _serviceProvider = serviceProvider;
         }
 
         /// <inheritdoc />
         public override ExceptionSettings LoadExceptionSettings()
         {
-            return _configuration.GetSection("Exceptions").Get<ExceptionSettings>();
+            return _serviceProvider.GetService(typeof(ExceptionSettings)) as ExceptionSettings;
         }
     }
 }

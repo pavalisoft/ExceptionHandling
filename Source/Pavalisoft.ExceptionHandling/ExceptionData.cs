@@ -14,7 +14,6 @@
    limitations under the License. 
 */
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -22,12 +21,12 @@ using System.Runtime.Serialization;
 namespace Pavalisoft.ExceptionHandling
 {
     /// <summary>
-    /// Class to hold the Business Exception details
+    /// Datastructure holding Exception details
     /// </summary>
     public class ExceptionData : Dictionary<string, object>
     {
         /// <summary>
-        /// ExceptionCode
+        /// Gets or Sets Exception Code
         /// </summary>
         public string ExceptionCode
         {
@@ -36,7 +35,7 @@ namespace Pavalisoft.ExceptionHandling
         }
 
         /// <summary>
-        /// Message
+        /// Gets or Sets Exception Message
         /// </summary>
         public string Message
         {
@@ -45,25 +44,7 @@ namespace Pavalisoft.ExceptionHandling
         }
 
         /// <summary>
-        /// DeferralPeriod
-        /// </summary>
-        public TimeSpan? DeferralPeriod
-        {
-            get => (TimeSpan?)this["DeferralPeriod"];
-            set => this["DeferralPeriod"] = value;
-        }
-
-        /// <summary>
-        /// RetryCount
-        /// </summary>
-        public int? RetryCount
-        {
-            get => (int?)this["RetryCount"];
-            set => this["RetryCount"] = value;
-        }
-
-        /// <summary>
-        /// EventId
+        /// Gets or Sets Event Id
         /// </summary>
         [IgnoreDataMember]
         public int? EventId
@@ -73,7 +54,7 @@ namespace Pavalisoft.ExceptionHandling
         }
 
         /// <summary>
-        /// Message
+        /// Gets or Sets Exception Event Name
         /// </summary>
         public string EventName
         {
@@ -82,7 +63,7 @@ namespace Pavalisoft.ExceptionHandling
         }
 
         /// <summary>
-        /// Method to add a collection of key/value pairs in the Exception object to provide additional user-defined information about the exception.
+        /// Adds additional application specific details to the Exception Details.
         /// </summary>
         /// <param name="data"></param>
         public void AddRange(IDictionary data)

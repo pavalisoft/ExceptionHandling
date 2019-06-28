@@ -14,63 +14,105 @@
    limitations under the License. 
 */
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Pavalisoft.ExceptionHandling.Handlers;
 using Pavalisoft.ExceptionHandling.Interfaces;
 
 namespace Pavalisoft.ExceptionHandling
 {
+    /// <summary>
+    /// Provides base implementation for <see cref="IExceptionDataProvider"/>
+    /// </summary>
     public abstract class ExceptionDataProvider : IExceptionDataProvider
     {
         private ExceptionSettings _exceptionSettings;
         private IReadOnlyDictionary<string, IExceptionHandler> _exceptionHandlers;
-        private IReadOnlyDictionary<string, ErrorDetail> _exceptionDetails;
+        private IReadOnlyDictionary<string, ErrorDetailWithHandler> _exceptionDetails;
+        private readonly Func<HandlingBehaviour, string, IExceptionHandler> _exceptionHandlerAccessor;
+
+        /// <summary>
+        /// Creates an instance of <see cref="ExceptionDataProvider"/>
+        /// </summary>
+        /// <param name="exceptionHandlerAccessor">Dependency Service Provider for <see cref="IExceptionHandler"/></param>
+        protected ExceptionDataProvider(Func<HandlingBehaviour, string, IExceptionHandler> exceptionHandlerAccessor)
+        {
+            _exceptionHandlerAccessor = exceptionHandlerAccessor;
+        }
 
         private ExceptionSettings ExceptionSettings =>
             _exceptionSettings ?? (_exceptionSettings = LoadExceptionSettings());
 
+        /// <summary>
+        /// Loads Exception Settings Configuration
+        /// </summary>
+        /// <returns><see cref="ExceptionSettings"/> object</returns>
         public abstract ExceptionSettings LoadExceptionSettings();
 
+        /// <summary>
+        /// Gets <see cref="ExceptionSettings"/> from configuration
+        /// </summary>
+        /// <returns><see cref="ExceptionSettings"/> object</returns>
         public ExceptionSettings GetExceptionSettings()
         {
             return ExceptionSettings;
         }
 
+        /// <summary>
+        /// Gets <see cref="IExceptionHandler"/>s from <see cref="ExceptionSettings"/>
+        /// </summary>
+        /// <returns><see cref="IExceptionHandler"/>s</returns>
         public IEnumerable<IExceptionHandler> GetExceptionHandlers()
         {
             LoadExceptionHandlers();
             return _exceptionHandlers.Values;
         }
 
-        public IEnumerable<ErrorDetail> GetExceptionDetails()
+        /// <summary>
+        /// Gets <see cref="ErrorDetailWithHandler"/>s from <see cref="ExceptionSettings"/>
+        /// </summary>
+        /// <returns><see cref="ErrorDetailWithHandler"/>s</returns>
+        public IEnumerable<ErrorDetailWithHandler> GetExceptionDetails()
         {
             LoadExceptionDetails();
             return _exceptionDetails.Values;
         }
 
-        public ErrorDetail GetExceptionDetail(string errorCodeName)
+        /// <summary>
+        /// Gets <see cref="ErrorDetailWithHandler"/> having <paramref name="errorCodeName"/>
+        /// </summary>
+        /// <param name="errorCodeName">Error Code</param>
+        /// <returns><see cref="ErrorDetail"/></returns>
+        public ErrorDetailWithHandler GetExceptionDetail(string errorCodeName)
         {
             LoadExceptionDetails();
             return _exceptionDetails.TryGetValue(string.IsNullOrWhiteSpace(errorCodeName)
-                ? ExceptionSettings.DefaultException
-                : errorCodeName, out ErrorDetail errorDetail)
+                ? ExceptionSettings.DefaultErrorDetail
+                : errorCodeName, out ErrorDetailWithHandler errorDetail)
                 ? errorDetail
                 : null;
         }
 
+        /// <summary>
+        /// Gets <see cref="IExceptionHandler"/> have name as <paramref name="handlerName"/>
+        /// </summary>
+        /// <param name="handlerName">Exception Exception Handler</param>
+        /// <returns><see cref="IExceptionHandler"/></returns>
         public IExceptionHandler GetExceptionHandler(string handlerName)
         {
             LoadExceptionHandlers();
             return _exceptionHandlers.TryGetValue(string.IsNullOrWhiteSpace(handlerName)
-                ? ExceptionSettings.DefaultHandler
+                ? ExceptionSettings.DefaulExceptiontHandler
                 : handlerName, out IExceptionHandler handler)
                 ? handler
                 : null;
         }
 
+        /// <inheritdoc />
         public bool LocalizationEnabled => _exceptionSettings.EnableLocalization;
+
+        /// <inheritdoc />
         public bool LoggingEnabled => _exceptionSettings.EnableLogging;
 
         private void LoadExceptionHandlers()
@@ -78,9 +120,9 @@ namespace Pavalisoft.ExceptionHandling
             if (_exceptionHandlers == null || !_exceptionHandlers.Any())
             {
                 Dictionary<string, IExceptionHandler> exceptionHandlers = new Dictionary<string, IExceptionHandler>();
-                foreach (var handler in ExceptionSettings.Handlers)
+                foreach (var handler in ExceptionSettings.ExceptionHandlers)
                 {
-                    exceptionHandlers.Add(handler.Name, ConstructHandler(handler));
+                    exceptionHandlers.Add(handler.Name, _exceptionHandlerAccessor.Invoke(handler.HandlingBehaviour, handler.HandlerData));
                 }
                 _exceptionHandlers = new ReadOnlyDictionary<string, IExceptionHandler>(exceptionHandlers);
             }
@@ -90,46 +132,12 @@ namespace Pavalisoft.ExceptionHandling
         {
             if (_exceptionDetails == null || !_exceptionDetails.Any())
             {
-                Dictionary<string, ErrorDetail> exceptionDetails = new Dictionary<string, ErrorDetail>();
-                foreach (var exceptionDetail in ExceptionSettings.Exceptions)
+                Dictionary<string, ErrorDetailWithHandler> exceptionDetails = new Dictionary<string, ErrorDetailWithHandler>();
+                foreach (var exceptionDetail in ExceptionSettings.ErrorDetails)
                 {
-                    exceptionDetails.Add(exceptionDetail.Name, ConstructExceptionDetail(exceptionDetail));
+                    exceptionDetails.Add(exceptionDetail.Name, new ErrorDetailWithHandler(exceptionDetail.Clone() as ErrorDetail, GetExceptionHandler(exceptionDetail.HandlerName)));
                 }
-                _exceptionDetails = new ReadOnlyDictionary<string, ErrorDetail>(exceptionDetails);
-            }
-        }
-
-        private ErrorDetail ConstructExceptionDetail(ErrorDetailInfo exceptionDetail)
-        {
-            return new ErrorDetail
-            {
-                Name = exceptionDetail.Name,
-                Type = exceptionDetail.Type,
-                ErrorCode = exceptionDetail.ErrorCode,
-                StatusCode = exceptionDetail.StatusCode,
-                Message = exceptionDetail.Message,
-                DeferralPeriod = exceptionDetail.DeferralPeriod,
-                RetryAttempts = exceptionDetail.RetryAttempts,
-                EventId = exceptionDetail.EventId,
-                ViewName = exceptionDetail.ViewName,
-                ExceptionHandler = GetExceptionHandler(exceptionDetail.Handler)
-            };
-        }
-
-        private IExceptionHandler ConstructHandler(ExceptionHandlerInfo handlerInfo)
-        {
-            switch (handlerInfo.HandlerType)
-            {
-                // ReSharper disable once RedundantCaseLabel
-                case HandlerType.Rethrow:
-                // ReSharper disable once RedundantCaseLabel
-                case HandlerType.Supress:
-                // ReSharper disable once RedundantCaseLabel
-                case HandlerType.Wrap:
-                // ReSharper disable once RedundantCaseLabel
-                case HandlerType.Custom:
-                default:
-                    return new BaseExceptionHandler();
+                _exceptionDetails = new ReadOnlyDictionary<string, ErrorDetailWithHandler>(exceptionDetails);
             }
         }
     }

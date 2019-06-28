@@ -23,6 +23,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Pavalisoft.ExceptionHandling
 {
+    /// <summary>
+    /// <see cref="IExceptionManager"/> implementation as middleware component.
+    /// </summary>
     public class ExceptionHandlingMiddleware
     {
         private readonly RequestDelegate _next;
@@ -30,7 +33,13 @@ namespace Pavalisoft.ExceptionHandling
         private readonly IActionResultHandler _actionResultHandler;
         private readonly ILogger<ExceptionHandlingMiddleware> _logger;
 
-
+        /// <summary>
+        /// Creates and instance of <see cref="ExceptionHandlingMiddleware"/>
+        /// </summary>
+        /// <param name="next">Next <see cref="RequestDelegate"/> to be executed after <see cref="ExceptionHandlerDefinition"/> invocation.</param>
+        /// <param name="exceptionManager"><see cref="IExceptionManager"/> added to the middleware</param>
+        /// <param name="actionResultHandler"><see cref="IActionResultHandler"/> used to handle created <see cref="IExceptionManager"/></param>
+        /// <param name="logger"><see cref="ILogger"/> instance used to log <see cref="Exception"/>s</param>
         public ExceptionHandlingMiddleware(
             RequestDelegate next,
             IExceptionManager exceptionManager,
@@ -43,6 +52,11 @@ namespace Pavalisoft.ExceptionHandling
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        /// <summary>
+        /// Executes the <see cref="ExceptionHandlingMiddleware"/> to catch and handle exception using <see cref="IExceptionManager"/>
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async Task Invoke(HttpContext context)
         {
             string url = context.Request.GetDisplayUrl();

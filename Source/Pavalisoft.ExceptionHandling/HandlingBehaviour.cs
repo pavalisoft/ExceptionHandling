@@ -16,19 +16,31 @@
 
 using System;
 
-namespace Pavalisoft.ExceptionHandling.Interfaces
+namespace Pavalisoft.ExceptionHandling
 {
     /// <summary>
-    /// Represents the <see cref="IExceptionHandler"/> to be implemented
+    /// Defines the <see cref="Exception"/> handling behaviours
     /// </summary>
-    public interface IExceptionHandler
+    public enum HandlingBehaviour
     {
         /// <summary>
-        /// Handles exception <paramref name="ex"/> with error <paramref name="detail"/>
+        /// Supresses the raised exception after handling
         /// </summary>
-        /// <param name="detail"><see cref="ErrorDetail"/> used to handle exception <paramref name="ex"/></param>
-        /// <param name="ex"><see cref="Exception"/> to be handled.</param>
-        /// <returns><see cref="ExceptionData"/> after handling the exception <paramref name="ex"/></returns>
-        ExceptionData HandleException(ErrorDetail detail, Exception ex = null);
+        Supress,
+
+        /// <summary>
+        /// Rethrows the raised exception after handling.
+        /// </summary>
+        Rethrow,
+
+        /// <summary>
+        /// Wraps the exception after handling.
+        /// </summary>
+        Wrap,
+
+        /// <summary>
+        /// Custom behavior applies to the exception after handling.
+        /// </summary>
+        Custom
     }
 }

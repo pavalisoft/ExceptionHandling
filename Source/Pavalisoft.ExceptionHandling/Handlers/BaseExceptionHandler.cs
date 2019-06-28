@@ -19,16 +19,18 @@ using Pavalisoft.ExceptionHandling.Interfaces;
 
 namespace Pavalisoft.ExceptionHandling.Handlers
 {
+    /// <summary>
+    /// Base implementation of <see cref="IExceptionHandler"/>
+    /// </summary>
     public class BaseExceptionHandler : IExceptionHandler
     {
+        /// <inheritdoc />
         public virtual ExceptionData HandleException(ErrorDetail detail, Exception ex = null)
         {
             return new ExceptionData
             {
                 ExceptionCode = detail.Name,
                 Message = ex == null ? detail.Message : string.Format(detail.Message, ex.Message),
-                DeferralPeriod = detail.DeferralPeriod,
-                RetryCount = detail.RetryAttempts,
                 EventId = detail.EventId.Id,
                 EventName = detail.EventId.Name
             };

@@ -20,8 +20,12 @@ using Pavalisoft.ExceptionHandling.Interfaces;
 
 namespace Pavalisoft.ExceptionHandling.ActionResultCreators
 {
+    /// <summary>
+    /// Provides implementation to create <see cref="ActionResult"/>
+    /// </summary>
     public class ObjectResultCreator : IActionResultCreator
     {
+        /// <inheritdoc />
         public virtual IActionResult CreateActionResult(ErrorDetail details, IDictionary<string, object> data)
         {
             return new ObjectResult(data) { StatusCode = (int)details.StatusCode };

@@ -15,18 +15,36 @@
 */
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace Pavalisoft.ExceptionHandling.Interfaces
 {
+    /// <summary>
+    /// <see cref="IActionResult"/> response handler implementation
+    /// </summary>
     public interface IActionResultHandler
     {
+        /// <summary>
+        /// Handles <see cref="IActionResult"/> using <paramref name="actionResultContext"/> for application level handling
+        /// </summary>
+        /// <param name="actionResultContext">The <see cref="ErrorDetail"/> used in <see cref="IActionResult"/> creation</param>
         Task HandleActionResult(ActionResultContext actionResultContext);
     }
 
+    /// <summary>
+    /// Datastructure holds <see cref="IActionResult"/> response information
+    /// </summary>
     public class ActionResultContext
     {
+        /// <summary>
+        /// Creates an instance of <see cref="ActionResultContext"/>
+        /// </summary>
+        /// <param name="exceptionManager"><see cref="IExceptionManager"/> which created the <see cref="IActionResult"/></param>
+        /// <param name="context">Created Response <see cref="HttpContext"/></param>
+        /// <param name="loggingScope">Created logging scope</param>
+        /// <param name="exception">Handled <see cref="Exception"/></param>
         public ActionResultContext(IExceptionManager exceptionManager, HttpContext context, 
             string loggingScope, Exception exception = default)
         {
@@ -35,9 +53,25 @@ namespace Pavalisoft.ExceptionHandling.Interfaces
             LoggingScope = loggingScope;
             Exception = exception;
         }
+
+        /// <summary>
+        /// Gets the <see cref="IExceptionManager"/> used to handle <see cref="Exception"/>
+        /// </summary>
         public IExceptionManager ExceptionManager { get; }
+
+        /// <summary>
+        /// Gets the Response <see cref="HttpContext"/>
+        /// </summary>
         public HttpContext Context { get; }
+
+        /// <summary>
+        /// Gets the Logging scope created in the <see cref="IExceptionManager"/>
+        /// </summary>
         public string LoggingScope { get; }
+
+        /// <summary>
+        /// Gets the handled <see cref="Exception"/>
+        /// </summary>
         public Exception Exception { get; set; }
     }
 }

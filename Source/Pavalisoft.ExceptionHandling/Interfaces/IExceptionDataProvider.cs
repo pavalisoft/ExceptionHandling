@@ -18,14 +18,51 @@ using System.Collections.Generic;
 
 namespace Pavalisoft.ExceptionHandling.Interfaces
 {
+    /// <summary>
+    /// Implementation to provide <see cref="ExceptionSettings"/> to <see cref="IExceptionManager"/> and <see cref="IExceptionHandler"/>
+    /// </summary>
     public interface IExceptionDataProvider
     {
+        /// <summary>
+        /// Provides configured <see cref="ExceptionSettings"/>
+        /// </summary>
+        /// <returns><see cref="ExceptionSettings"/> for <see cref="IExceptionHandler"/></returns>
         ExceptionSettings GetExceptionSettings();
+
+        /// <summary>
+        /// Provides the configured <see cref="IExceptionHandler"/>s
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<IExceptionHandler> GetExceptionHandlers();
+
+        /// <summary>
+        /// Gets the <see cref="IExceptionHandler"/> having name <paramref name="handlerName"/>.
+        /// </summary>
+        /// <param name="handlerName">The name of <see cref="IExceptionHandler"/></param>
+        /// <returns><see cref="IExceptionHandler"/> instance from <see cref="ExceptionSettings"/></returns>
         IExceptionHandler GetExceptionHandler(string handlerName = null);
-        IEnumerable<ErrorDetail> GetExceptionDetails();
-        ErrorDetail GetExceptionDetail(string errorCodeName = null);
+
+        /// <summary>
+        /// Gets list of configured <see cref="ErrorDetailWithHandler"/>
+        /// </summary>
+        /// <returns>List of <see cref="ErrorDetailWithHandler"/></returns>
+        IEnumerable<ErrorDetailWithHandler> GetExceptionDetails();
+
+        /// <summary>
+        /// Gets <see cref="ErrorDetailWithHandler"/> having <paramref name="errorCodeName"/>
+        /// </summary>
+        /// <param name="errorCodeName">Error code of the <see cref="ErrorDetailWithHandler"/></param>
+        /// <returns><see cref="ErrorDetailWithHandler"/> with <paramref name="errorCodeName"/></returns>
+        ErrorDetailWithHandler GetExceptionDetail(string errorCodeName = null);
+
+        /// <summary>
+        /// Gets true if the Localization enabled otherwise false
+        /// </summary>
         bool LocalizationEnabled { get; }
+
+        /// <summary>
+        /// Returns true if logging enbaled otherwsie false.
+        /// </summary>
         bool LoggingEnabled { get; }
     }
 }

@@ -16,65 +16,98 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net;
-using Microsoft.Extensions.Logging;
 
 namespace Pavalisoft.ExceptionHandling
 {
     /// <summary>
+    /// Provides configuration structure for the Exception manager and its handlers including Exception details.
+    /// </summary>
+    /// <example>
     /// {
     ///     "Exceptions" : {
     ///         "EnableLocalization" : "true",
     ///         "EnableLogging" : "true",
-    ///         "DefaultException" : "Default",
-    ///         "DefaultHandler" : "BaseHandler",
-    ///         "Exceptions" : [
-    ///             { "Name" : "Default", "Type" : "Error", "ErrorCode" : "6001", "StatusCode" : "200", "Message" : "Test", "DeferralPeriod" : "00:00:05", "RetryAttempts" : "0", "Handler" : "BaseHandler", "EventId" : {"Id" : "1", "Name" : "General" }, "ViewName" :"Error"}
+    ///         "DefaultErrorDetail" : "Default",
+    ///         "DefaulExceptiontHandler" : "BaseHandler",
+    ///         "ErrorDetails" : [
+    ///             { "Name" : "Default", "LogLevel" : "Error", "ErrorCode" : "6001", "StatusCode" : "200", "Message" : "Test", "HandlerName" : "BaseHandler", "EventId" : {"Id" : "1", "Name" : "General" }, "ViewName" :"Error"}
     ///         ],
-    ///         "Handlers" : [
-    ///             { "Name" : "BaseHandler", "Type" : "Supress", "HandlerData" : "" }
+    ///         "ExceptionHandlers" : [
+    ///             { "Name" : "BaseHandler", "HandlingBehaviour" : "Supress", "HandlerData" : "" }
     ///         ]
     ///     }
     /// }
-    /// </summary>
+    /// </example>
     public class ExceptionSettings
     {
+        /// <summary>
+        /// Gets or Sets flat to indicate enabling localization
+        /// </summary>
         public bool EnableLocalization { get; set; }
+
+        /// <summary>
+        /// Gets or Sets flat to indicate enabling localization
+        /// </summary>
         public bool EnableLogging { get; set; }
-        public string DefaultHandler { get; set; }
-        public string DefaultException { get; set; }
-        public List<ErrorDetailInfo> Exceptions { get; set; }
-        public List<ExceptionHandlerInfo> Handlers { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the default exception handler name
+        /// </summary>
+        public string DefaulExceptiontHandler { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the default error details name when no error code found
+        /// </summary>
+        public string DefaultErrorDetail { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the Error Details
+        /// </summary>
+        public List<ErrorDetail> ErrorDetails { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the Exception Handler definitions
+        /// </summary>
+        public List<ExceptionHandlerDefinition> ExceptionHandlers { get; set; }
     }
 
-    public class ExceptionHandlerInfo
+    /// <summary>
+    /// Defines the Exception Handler Definition
+    /// </summary>
+    public class ExceptionHandlerDefinition
     {
+        /// <summary>
+        /// Gets or Sets the Exception Handler Name
+        /// </summary>
         public string Name { get; set; }
-        public string Type { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the Exception Handler specific data to be used while creating Handler instance.
+        /// </summary>
         public string HandlerData { get; set; }
-        public HandlerType HandlerType { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the Exception Handler behaviour by the exception handler.
+        /// </summary>
+        public HandlingBehaviour HandlingBehaviour { get; set; }
     }
 
-    public class ErrorDetailInfo
-    {
-        public string Name { get; set; }
-        public ExceptionType Type { get; set; }
-        public string ErrorCode { get; set; }
-        public HttpStatusCode StatusCode { get; set; }
-        public string Message { get; set; }
-        public string WrapMessage { get; set; }
-        public TimeSpan DeferralPeriod { get; set; }
-        public int RetryAttempts { get; set; }
-        public string Handler { get; set; }
-        public EventId EventId { get; set; }
-        public string ViewName { get; set; }
-    }
-
+    /// <summary>
+    /// Defines Log Event Id
+    /// </summary>
     public class EventId : ICloneable
     {
+        /// <summary>
+        /// Gets or Sets the Log event Id
+        /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the Log Event Name
+        /// </summary>
         public string Name { get; set; }
 
+        /// <inheritdoc />
         public object Clone()
         {
             return new EventId
@@ -83,20 +116,5 @@ namespace Pavalisoft.ExceptionHandling
                 Name = Name
             };
         }
-    }
-
-    public enum ExceptionType
-    {
-        Error,
-        Warning,
-        Information
-    }
-
-    public enum HandlerType
-    {
-        Supress,
-        Rethrow,
-        Wrap,
-        Custom
     }
 }

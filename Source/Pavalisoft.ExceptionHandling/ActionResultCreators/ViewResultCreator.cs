@@ -22,15 +22,23 @@ using Pavalisoft.ExceptionHandling.Interfaces;
 
 namespace Pavalisoft.ExceptionHandling.ActionResultCreators
 {
+    /// <summary>
+    /// Provides implementation to create <see cref="ViewResult"/>
+    /// </summary>
     public class ViewResultCreator : IActionResultCreator
     {
         private readonly IModelMetadataProvider _modelMetadataProvider;
 
+        /// <summary>
+        /// Creates and instance of <see cref="ViewResultCreator"/> with <see cref="IModelMetadataProvider"/>
+        /// </summary>
+        /// <param name="modelMetadataProvider"><see cref="IModelMetadataProvider"/> instance</param>
         public ViewResultCreator(IModelMetadataProvider modelMetadataProvider)
         {
             _modelMetadataProvider = modelMetadataProvider;
         }
 
+        /// <inheritdoc />
         public virtual IActionResult CreateActionResult(ErrorDetail details, IDictionary<string, object> data)
         {
             var viewResult = new ViewResult

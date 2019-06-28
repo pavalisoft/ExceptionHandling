@@ -22,10 +22,19 @@ using Microsoft.AspNetCore.Http;
 
 namespace Pavalisoft.ExceptionHandling
 {
+    /// <summary>
+    /// Provides <see cref="IApplicationBuilder"/> extension to inject custom ASP.NET Core application level Exception handling.
+    /// </summary>
     public static class ApplicationExtensions
     {
+        /// <summary>
+        /// Injects Custom ASP.NET Core Application exception handling to <see cref="IExceptionHandlerFeature"/>
+        /// </summary>
+        /// <param name="applicationBuilder"><<see cref="IExceptionHandlerFeature"/>/param>
+        /// <param name="responseFunc"><see cref="IExceptionHandlerFeature"/> delegate with <see cref="ResponseInformation"/></param>
+        /// <returns><see cref="IApplicationBuilder"/> instance</returns>
         public static IApplicationBuilder UseExceptionHandling(this IApplicationBuilder applicationBuilder,
-            Func<IExceptionHandlerFeature, ResponseInfo> responseFunc)
+            Func<IExceptionHandlerFeature, ResponseInformation> responseFunc)
         {
             applicationBuilder.UseExceptionHandler(
                 options =>
@@ -36,7 +45,7 @@ namespace Pavalisoft.ExceptionHandling
                             var ex = context.Features.Get<IExceptionHandlerFeature>();
                             if (ex != null)
                             {
-                                ResponseInfo info = responseFunc.Invoke(ex);
+                                ResponseInformation info = responseFunc.Invoke(ex);
                                 context.Response.StatusCode = (int)info.StatusCode;
                                 context.Response.ContentType = info.ContentType;
                                 await context.Response.WriteAsync(info.Message).ConfigureAwait(false);
@@ -45,9 +54,14 @@ namespace Pavalisoft.ExceptionHandling
                 }
             );
 
-            return app;
+            return applicationBuilder;
         }
 
+        /// <summary>
+        /// Adds <see cref="ExceptionHandlingMiddleware"/> to application request pipeline
+        /// </summary>
+        /// <param name="applicationBuilder"><see cref="IApplicationBuilder"/>application request pipeline</param>
+        /// <returns><see cref="IApplicationBuilder"/> instance</returns>
         public static IApplicationBuilder UseExceptionHandling(this IApplicationBuilder applicationBuilder)
         {
             applicationBuilder.UseMiddleware<ExceptionHandlingMiddleware>();
@@ -56,10 +70,24 @@ namespace Pavalisoft.ExceptionHandling
         }
     }
 
-    public class ResponseInfo
+    /// <summary>
+    /// Datastructure holds Response code information
+    /// </summary>
+    public class ResponseInformation
     {
+        /// <summary>
+        /// Gets or Sets <see cref="HttpStatusCode"/>
+        /// </summary>
         public HttpStatusCode StatusCode { get; set; }
+
+        /// <summary>
+        /// Gets or gets the Response Content type
+        /// </summary>
         public string ContentType { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the Response Message
+        /// </summary>
         public string Message { get; set; }
     }
 }
