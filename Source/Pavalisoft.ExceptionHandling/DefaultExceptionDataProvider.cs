@@ -31,7 +31,7 @@ namespace Pavalisoft.ExceptionHandling
         /// </summary>
         /// <param name="serviceProvider"><see cref="IServiceProvider"/></param>
         /// <param name="exceptionHandlerAccessor">Dependency Service Provider for <see cref="IExceptionHandler"/></param>
-        public DefaultExceptionDataProvider(IServiceProvider serviceProvider, Func<HandlingBehaviour, IExceptionHandler> exceptionHandlerAccessor)
+        public DefaultExceptionDataProvider(IServiceProvider serviceProvider, Func<HandlingBehaviour, string, IExceptionHandler> exceptionHandlerAccessor)
             : base(exceptionHandlerAccessor)
         {
             _serviceProvider = serviceProvider;

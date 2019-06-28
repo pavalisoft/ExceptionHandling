@@ -82,7 +82,7 @@ namespace Pavalisoft.ExceptionHandling
             {
                 var eventId = new Microsoft.Extensions.Logging.EventId(detail.EventId.Id, detail.EventId.Name);
 
-                switch (detail.Type)
+                switch (detail.LogLevel)
                 {
                     case LogLevel.Critical:
                         if (ex == null)
@@ -138,7 +138,7 @@ namespace Pavalisoft.ExceptionHandling
         {
             var expDetail = _exceptionDataProvider.GetExceptionDetail(errorCode);
 
-            if (!(expDetail.Clone() is ErrorDetail errorDetail))
+            if (!(expDetail.Clone() is ErrorDetailWithHandler errorDetail))
                 return;
 
             SetLocalizedMessage(errorDetail, args);

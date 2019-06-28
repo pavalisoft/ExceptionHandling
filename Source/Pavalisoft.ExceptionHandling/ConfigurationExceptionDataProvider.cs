@@ -33,7 +33,7 @@ namespace Pavalisoft.ExceptionHandling
         /// <param name="configuration"><see cref="IConfiguration"/> object to read appSettings.json</param>
         /// <param name="serviceProvider"><see cref="IServiceProvider"/></param>
         /// <param name="exceptionHandlerAccessor">Dependency Service Provider for <see cref="IExceptionHandler"/></param>
-        public ConfigurationExceptionDataProvider(IConfiguration configuration, IServiceProvider serviceProvider, Func<HandlingBehaviour
+        public ConfigurationExceptionDataProvider(IConfiguration configuration, IServiceProvider serviceProvider, Func<HandlingBehaviour, string
             , IExceptionHandler> exceptionHandlerAccessor) : base(serviceProvider, exceptionHandlerAccessor)
         {
             _configuration = configuration;

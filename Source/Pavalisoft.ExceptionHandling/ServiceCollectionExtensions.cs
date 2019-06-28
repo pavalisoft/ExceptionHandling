@@ -36,7 +36,7 @@ namespace Pavalisoft.ExceptionHandling
         /// <param name="exceptionSettings"><see cref="ExceptionSettings"/> object to be used in <see cref="IExceptionManager"/></param>
         /// <returns><see cref="IServiceCollection"/> add with Exception Manager</returns>
         public static IServiceCollection AddExceptionHandling<TActionResultCreatorType, TActionResultHandlerType>(this IServiceCollection services
-            , Func<HandlingBehaviour, IExceptionHandler> exceptionHandlerAccessor = default, ExceptionSettings exceptionSettings = default)             
+            , Func<HandlingBehaviour, string, IExceptionHandler> exceptionHandlerAccessor = default, ExceptionSettings exceptionSettings = default)             
             where TActionResultCreatorType: IActionResultCreator
             where TActionResultHandlerType: IActionResultHandler
         {
@@ -51,7 +51,7 @@ namespace Pavalisoft.ExceptionHandling
             else
             {
                 services.AddTransient<IExceptionHandler, BaseExceptionHandler>();
-                services.AddSingleton<Func<HandlingBehaviour, IExceptionHandler>>(serviceProvider => handlingBehaviour =>
+                services.AddSingleton<Func<HandlingBehaviour, string, IExceptionHandler>>(serviceProvider => (handlingBehaviour, handlerData) =>
                 {
                     switch (handlingBehaviour)
                     {
