@@ -14,79 +14,60 @@
    limitations under the License. 
 */
 
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Net;
 using Microsoft.Extensions.Logging;
-using Pavalisoft.ExceptionHandling.Interfaces;
 
-namespace Pavalisoft.ExceptionHandling
+namespace Pavalisoft.ExceptionHandling.Interfaces
 {
     /// <summary>
     /// Defines the Error Detail information
     /// </summary>
-    public class ErrorDetail : IErrorDetail
+    public interface IErrorDetail : ICloneable
     {
         /// <summary>
         /// Gets or Sets the Error detail unique name
         /// </summary>
-        public string Name { get; set; }
+        string Name { get; set; }
 
         /// <summary>
         /// Gets or Sets the <see cref="LogLevel"/> to define type of error.
         /// </summary>
-        public LogLevel LogLevel { get; set; }
+        LogLevel LogLevel { get; set; }
 
         /// <summary>
         /// Gets or Sets the unique error code
         /// </summary>
-        public string ErrorCode { get; set; }
+        string ErrorCode { get; set; }
 
         /// <summary>
         /// Gets or Sets the type <see cref="HttpStatusCode"/> response to be created
         /// </summary>
-        public HttpStatusCode StatusCode { get; set; }
+        HttpStatusCode StatusCode { get; set; }
 
         /// <summary>
         /// Gets or Sets the Error Message
         /// </summary>
-        public string Message { get; set; }
+        string Message { get; set; }
 
         /// <summary>
         /// Gets or Sets the Error Wraping message
         /// </summary>
-        public string WrapMessage { get; set; }
+        string WrapMessage { get; set; }
 
         /// <summary>
         /// Gets or Sets the Exception Handle name to be used to handled this error.
         /// </summary>
-        public string HandlerName { get; set; }
+        string HandlerName { get; set; }
 
         /// <summary>
         /// Gets or Sets the <see cref="EventId"/> to be used for logging while handling this error.
         /// </summary>
-        public EventId EventId { get; set; }
+        EventId EventId { get; set; }
 
         /// <summary>
         /// Gets or Sets the MVC view name to be used while creating ViewResult
         /// </summary>
-        public string ViewName { get; set; }
-
-        /// <inheritdoc />
-        public virtual object Clone()
-        {
-            return new ErrorDetail {
-                Name = Name,
-                LogLevel = LogLevel,
-                ErrorCode = ErrorCode,
-                StatusCode = StatusCode,
-                Message = Message,
-                WrapMessage = WrapMessage,
-                HandlerName = HandlerName,
-                EventId = (EventId)EventId.Clone(),
-                ViewName = ViewName
-            };
-        }
+        string ViewName { get; set; }
     }
 }

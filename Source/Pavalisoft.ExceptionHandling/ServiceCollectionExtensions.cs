@@ -40,42 +40,76 @@ namespace Pavalisoft.ExceptionHandling
             where TActionResultCreatorType: IActionResultCreator
             where TActionResultHandlerType: IActionResultHandler
         {
+            services.AddExceptionHandling<TActionResultCreatorType, TActionResultHandlerType, BaseExceptionHandler>(exceptionHandlerAccessor, exceptionSettings);
+            return services;
+        }
+
+        /// <summary>
+        /// Adds Exception Handling Middleware to pipeline with Exception Manager functionality
+        /// </summary>
+        /// <typeparam name="TActionResultCreatorType"><see cref="IActionResultCreator"/> type</typeparam>
+        /// <typeparam name="TActionResultHandlerType"><see cref="IActionResultHandler"/> type</typeparam>
+        /// <typeparam name="TCustomExceptionHandlerType"><see cref="IExceptionHandler"/> type</typeparam>
+        /// <param name="services"><see cref="IServiceCollection"/> instance</param>
+        /// <param name="exceptionHandlerAccessor">Dependency Accessor for <see cref="IExceptionHandler"/></param>
+        /// <param name="exceptionSettings"><see cref="ExceptionSettings"/> object to be used in <see cref="IExceptionManager"/></param>
+        /// <returns><see cref="IServiceCollection"/> add with Exception Manager</returns>
+        public static IServiceCollection AddExceptionHandling<TActionResultCreatorType, TActionResultHandlerType, TCustomExceptionHandlerType>(this IServiceCollection services
+            , Func<HandlingBehaviour, string, IExceptionHandler> exceptionHandlerAccessor = default, ExceptionSettings exceptionSettings = default)
+            where TActionResultCreatorType : IActionResultCreator
+            where TActionResultHandlerType : IActionResultHandler
+            where TCustomExceptionHandlerType : IExceptionHandler
+        {
             services.AddTransient(typeof(IActionResultCreator), typeof(TActionResultCreatorType));
-            services.AddTransient(typeof(IActionResultHandler), typeof(TActionResultHandlerType));            
+            services.AddTransient(typeof(IActionResultHandler), typeof(TActionResultHandlerType));
+            services.AddTransient(typeof(TCustomExceptionHandlerType));
             services.AddTransient<IExceptionManager, ExceptionManager>();
 
-            if(exceptionHandlerAccessor != null)
+            if (exceptionHandlerAccessor != null)
             {
                 services.AddSingleton(exceptionHandlerAccessor);
             }
             else
             {
-                services.AddTransient<IExceptionHandler, BaseExceptionHandler>();
-                services.AddSingleton<Func<HandlingBehaviour, string, IExceptionHandler>>(serviceProvider => (handlingBehaviour, handlerData) =>
+                services.AddTransient<RethrowExceptionHandler>();
+                services.AddTransient<WrapExceptionHandler>();
+                services.AddTransient<SupressExceptionHandler>();
+                services.AddTransient(typeof(TCustomExceptionHandlerType));
+                services.AddTransient<DefaultExceptionHandler>();
+                services.AddSingleton<Func<HandlingBehaviour, string, IExceptionHandler>>(serviceProvider => (handlingBehaviour, handlerConfig) =>
                 {
+                    IExceptionHandler exceptionHandler;
                     switch (handlingBehaviour)
                     {
                         case HandlingBehaviour.Rethrow:
-                            return serviceProvider.GetService<BaseExceptionHandler>();
+                            exceptionHandler = serviceProvider.GetService<RethrowExceptionHandler>();
+                            break;
                         case HandlingBehaviour.Wrap:
-                            return serviceProvider.GetService<BaseExceptionHandler>();
+                            exceptionHandler = serviceProvider.GetService<WrapExceptionHandler>();
+                            break;
                         case HandlingBehaviour.Supress:
-                            return serviceProvider.GetService<BaseExceptionHandler>();
+                            exceptionHandler = serviceProvider.GetService<SupressExceptionHandler>();
+                            break;
                         case HandlingBehaviour.Custom:
+                            exceptionHandler = serviceProvider.GetService<TCustomExceptionHandlerType>();
+                            break;
                         default:
-                            throw new InvalidOperationException();
+                            exceptionHandler = serviceProvider.GetService<DefaultExceptionHandler>();
+                            break;
                     }
+                    exceptionHandler.SetHandlerConfig(handlerConfig);
+                    return exceptionHandler;
                 });
             }
 
-            if(exceptionSettings != null)
+            if (exceptionSettings != null)
             {
                 services.AddSingleton<IExceptionDataProvider, DefaultExceptionDataProvider>();
                 services.AddSingleton(exceptionSettings);
             }
             else
                 services.AddSingleton<IExceptionDataProvider, ConfigurationExceptionDataProvider>();
-            
+
             return services;
         }
     }

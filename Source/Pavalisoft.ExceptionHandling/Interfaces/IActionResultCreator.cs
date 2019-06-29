@@ -27,9 +27,9 @@ namespace Pavalisoft.ExceptionHandling.Interfaces
         /// <summary>
         /// Creates <see cref="IActionResult"/> using <paramref name="details"/> and <paramref name="data"/>
         /// </summary>
-        /// <param name="details">The <see cref="ErrorDetail"/> used in <see cref="IActionResult"/> creation</param>
+        /// <param name="details">The <see cref="IErrorDetail"/> used in <see cref="IActionResult"/> creation</param>
         /// <param name="data">Additionl data added to the <see cref="IActionResult"/></param>
         /// <returns>The <see cref="IActionResult"/> for <paramref name="details"/></returns>
-        IActionResult CreateActionResult(ErrorDetail details, IDictionary<string, object> data);
+        IActionResult CreateActionResult(IErrorDetail details, IDictionary<string, object> data);
     }
 }

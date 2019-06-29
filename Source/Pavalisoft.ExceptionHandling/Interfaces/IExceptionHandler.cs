@@ -26,9 +26,15 @@ namespace Pavalisoft.ExceptionHandling.Interfaces
         /// <summary>
         /// Handles exception <paramref name="ex"/> with error <paramref name="detail"/>
         /// </summary>
-        /// <param name="detail"><see cref="ErrorDetail"/> used to handle exception <paramref name="ex"/></param>
+        /// <param name="detail"><see cref="IErrorDetail"/> used to handle exception <paramref name="ex"/></param>
         /// <param name="ex"><see cref="Exception"/> to be handled.</param>
         /// <returns><see cref="ExceptionData"/> after handling the exception <paramref name="ex"/></returns>
-        ExceptionData HandleException(ErrorDetail detail, Exception ex = null);
+        ExceptionData HandleException(IErrorDetail detail, Exception ex = null);
+
+        /// <summary>
+        /// Sets the additional <see cref="IExceptionHandler"/> settings from <paramref name="handlerConfig"/>
+        /// </summary>
+        /// <param name="handlerConfig">Json string</param>
+        void SetHandlerConfig(string handlerConfig);
     }
 }

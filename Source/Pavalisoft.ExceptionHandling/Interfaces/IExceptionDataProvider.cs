@@ -43,17 +43,17 @@ namespace Pavalisoft.ExceptionHandling.Interfaces
         IExceptionHandler GetExceptionHandler(string handlerName = null);
 
         /// <summary>
-        /// Gets list of configured <see cref="ErrorDetailWithHandler"/>
+        /// Gets list of configured <see cref="IErrorDetail"/>
         /// </summary>
-        /// <returns>List of <see cref="ErrorDetailWithHandler"/></returns>
-        IEnumerable<ErrorDetailWithHandler> GetExceptionDetails();
+        /// <returns>List of <see cref="IErrorDetail"/></returns>
+        IEnumerable<IErrorDetail> GetExceptionDetails();
 
         /// <summary>
-        /// Gets <see cref="ErrorDetailWithHandler"/> having <paramref name="errorCodeName"/>
+        /// Gets <see cref="IErrorDetail"/> having <paramref name="errorCodeName"/>
         /// </summary>
-        /// <param name="errorCodeName">Error code of the <see cref="ErrorDetailWithHandler"/></param>
+        /// <param name="errorCodeName">Error code of the <see cref="IErrorDetail"/></param>
         /// <returns><see cref="ErrorDetailWithHandler"/> with <paramref name="errorCodeName"/></returns>
-        ErrorDetailWithHandler GetExceptionDetail(string errorCodeName = null);
+        IErrorDetail GetExceptionDetail(string errorCodeName = null);
 
         /// <summary>
         /// Gets true if the Localization enabled otherwise false

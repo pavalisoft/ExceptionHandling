@@ -14,6 +14,7 @@
    limitations under the License. 
 */
 
+using Pavalisoft.ExceptionHandling.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -24,16 +25,32 @@ namespace Pavalisoft.ExceptionHandling
     /// </summary>
     /// <example>
     /// {
-    ///     "Exceptions" : {
-    ///         "EnableLocalization" : "true",
-    ///         "EnableLogging" : "true",
-    ///         "DefaultErrorDetail" : "Default",
-    ///         "DefaulExceptiontHandler" : "BaseHandler",
-    ///         "ErrorDetails" : [
-    ///             { "Name" : "Default", "LogLevel" : "Error", "ErrorCode" : "6001", "StatusCode" : "200", "Message" : "Test", "HandlerName" : "BaseHandler", "EventId" : {"Id" : "1", "Name" : "General" }, "ViewName" :"Error"}
+    ///     "Exceptions": {
+    ///         "EnableLocalization": "true",
+    ///         "EnableLogging": "true",
+    ///         "DefaultErrorDetail": "Default",
+    ///         "DefaulExceptiontHandler": "BaseHandler",
+    ///         "ErrorDetails": [
+    ///             {
+    ///                 "Name": "Default",
+    ///                 "LogLevel": "Error",
+    ///                 "ErrorCode": "6001",
+    ///                 "StatusCode": "200",
+    ///                 "Message": "Test",
+    ///                 "HandlerName": "BaseHandler",
+    ///                 "EventId": {
+    ///                     "Id": "1",
+    ///                     "Name": "General"
+    ///                 },
+    ///                 "ViewName": "Error"
+    ///             }
     ///         ],
-    ///         "ExceptionHandlers" : [
-    ///             { "Name" : "BaseHandler", "HandlingBehaviour" : "Supress", "HandlerData" : "" }
+    ///         "ExceptionHandlers": [
+    ///             {
+    ///                 "Name": "BaseHandler",
+    ///                 "HandlingBehaviour": "Supress",
+    ///                 "HandlerData": ""
+    ///             }
     ///         ]
     ///     }
     /// }
@@ -84,12 +101,12 @@ namespace Pavalisoft.ExceptionHandling
         /// <summary>
         /// Gets or Sets the Exception Handler specific data to be used while creating Handler instance.
         /// </summary>
-        public string HandlerData { get; set; }
+        public string Config { get; set; }
 
         /// <summary>
         /// Gets or Sets the Exception Handler behaviour by the exception handler.
         /// </summary>
-        public HandlingBehaviour HandlingBehaviour { get; set; }
+        public HandlingBehaviour Behaviour { get; set; }
     }
 
     /// <summary>

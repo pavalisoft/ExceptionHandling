@@ -20,9 +20,9 @@ using Pavalisoft.ExceptionHandling.Interfaces;
 namespace Pavalisoft.ExceptionHandling.Handlers
 {
     /// <summary>
-    /// Base implementation of <see cref="IExceptionHandler"/>
+    /// Rethrow implementation of <see cref="IExceptionHandler"/>
     /// </summary>
-    public class BaseExceptionHandler : IExceptionHandler
+    public class RethrowExceptionHandler : IExceptionHandler
     {
         /// <inheritdoc />
         public virtual ExceptionData HandleException(IErrorDetail detail, Exception ex = null)

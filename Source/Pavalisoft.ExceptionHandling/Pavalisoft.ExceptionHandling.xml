@@ -9,7 +9,7 @@
             Provides implementation to create <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult"/>
             </summary>
         </member>
-        <member name="M:Pavalisoft.ExceptionHandling.ActionResultCreators.ObjectResultCreator.CreateActionResult(Pavalisoft.ExceptionHandling.ErrorDetail,System.Collections.Generic.IDictionary{System.String,System.Object})">
+        <member name="M:Pavalisoft.ExceptionHandling.ActionResultCreators.ObjectResultCreator.CreateActionResult(Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail,System.Collections.Generic.IDictionary{System.String,System.Object})">
             <inheritdoc />
         </member>
         <member name="T:Pavalisoft.ExceptionHandling.ActionResultCreators.ViewResultCreator">
@@ -23,7 +23,29 @@
             </summary>
             <param name="modelMetadataProvider"><see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider"/> instance</param>
         </member>
-        <member name="M:Pavalisoft.ExceptionHandling.ActionResultCreators.ViewResultCreator.CreateActionResult(Pavalisoft.ExceptionHandling.ErrorDetail,System.Collections.Generic.IDictionary{System.String,System.Object})">
+        <member name="M:Pavalisoft.ExceptionHandling.ActionResultCreators.ViewResultCreator.CreateActionResult(Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <inheritdoc />
+        </member>
+        <member name="T:Pavalisoft.ExceptionHandling.ActionResultHandlers.ObjectResultHandler">
+            <summary>
+            Provides implementation to handle <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult"/>
+            </summary>
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.ActionResultHandlers.ObjectResultHandler.HandleActionResult(Pavalisoft.ExceptionHandling.Interfaces.ActionResultContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:Pavalisoft.ExceptionHandling.ActionResultHandlers.ViewResultHandler">
+            <summary>
+            Provides implementation to create <see cref="T:Microsoft.AspNetCore.Mvc.ViewResult"/>
+            </summary>
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.ActionResultHandlers.ViewResultHandler.#ctor(Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider)">
+            <summary>
+            Creates and instance of <see cref="T:Pavalisoft.ExceptionHandling.ActionResultHandlers.ViewResultHandler"/> with <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider"/>
+            </summary>
+            <param name="modelMetadataProvider"><see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider"/> instance</param>
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.ActionResultHandlers.ViewResultHandler.HandleActionResult(Pavalisoft.ExceptionHandling.Interfaces.ActionResultContext)">
             <inheritdoc />
         </member>
         <member name="T:Pavalisoft.ExceptionHandling.ApplicationExtensions">
@@ -143,26 +165,6 @@
         <member name="M:Pavalisoft.ExceptionHandling.ErrorDetail.Clone">
             <inheritdoc />
         </member>
-        <member name="T:Pavalisoft.ExceptionHandling.ErrorDetailWithHandler">
-            <summary>
-            A wrapper of <see cref="T:Pavalisoft.ExceptionHandling.ErrorDetail"/> with <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/>
-            </summary>
-        </member>
-        <member name="M:Pavalisoft.ExceptionHandling.ErrorDetailWithHandler.#ctor(Pavalisoft.ExceptionHandling.ErrorDetail,Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler)">
-            <summary>
-            Creates an instance of <see cref="T:Pavalisoft.ExceptionHandling.ErrorDetailWithHandler"/> for <paramref name="errorDetail"/> with <paramref name="exceptionHandler"/>
-            </summary>
-            <param name="errorDetail"><see cref="T:Pavalisoft.ExceptionHandling.ErrorDetail"/></param>
-            <param name="exceptionHandler"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/></param>
-        </member>
-        <member name="P:Pavalisoft.ExceptionHandling.ErrorDetailWithHandler.ExceptionHandler">
-            <summary>
-            Gets <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/>
-            </summary>
-        </member>
-        <member name="M:Pavalisoft.ExceptionHandling.ErrorDetailWithHandler.Clone">
-            <inheritdoc />
-        </member>
         <member name="T:Pavalisoft.ExceptionHandling.ExceptionData">
             <summary>
             Datastructure holding Exception details
@@ -225,13 +227,13 @@
         </member>
         <member name="M:Pavalisoft.ExceptionHandling.ExceptionDataProvider.GetExceptionDetails">
             <summary>
-            Gets <see cref="T:Pavalisoft.ExceptionHandling.ErrorDetailWithHandler"/>s from <see cref="P:Pavalisoft.ExceptionHandling.ExceptionDataProvider.ExceptionSettings"/>
+            Gets <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail"/>s from <see cref="P:Pavalisoft.ExceptionHandling.ExceptionDataProvider.ExceptionSettings"/>
             </summary>
-            <returns><see cref="T:Pavalisoft.ExceptionHandling.ErrorDetailWithHandler"/>s</returns>
+            <returns><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail"/>s</returns>
         </member>
         <member name="M:Pavalisoft.ExceptionHandling.ExceptionDataProvider.GetExceptionDetail(System.String)">
             <summary>
-            Gets <see cref="T:Pavalisoft.ExceptionHandling.ErrorDetailWithHandler"/> having <paramref name="errorCodeName"/>
+            Gets <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail"/> having <paramref name="errorCodeName"/>
             </summary>
             <param name="errorCodeName">Error Code</param>
             <returns><see cref="T:Pavalisoft.ExceptionHandling.ErrorDetail"/></returns>
@@ -336,7 +338,7 @@
         <member name="M:Pavalisoft.ExceptionHandling.ExceptionManager.HandleException(System.String,System.Exception,System.Object[])">
             <inheritdoc />
         </member>
-        <member name="M:Pavalisoft.ExceptionHandling.ExceptionManager.LogException(Pavalisoft.ExceptionHandling.ErrorDetail,System.Exception)">
+        <member name="M:Pavalisoft.ExceptionHandling.ExceptionManager.LogException(Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail,System.Exception)">
             <inheritdoc />
         </member>
         <member name="M:Pavalisoft.ExceptionHandling.ExceptionManager.RaiseException(System.String,System.Object[])">
@@ -351,16 +353,32 @@
             </summary>
             <example>
             {
-                "Exceptions" : {
-                    "EnableLocalization" : "true",
-                    "EnableLogging" : "true",
-                    "DefaultErrorDetail" : "Default",
-                    "DefaulExceptiontHandler" : "BaseHandler",
-                    "ErrorDetails" : [
-                        { "Name" : "Default", "LogLevel" : "Error", "ErrorCode" : "6001", "StatusCode" : "200", "Message" : "Test", "HandlerName" : "BaseHandler", "EventId" : {"Id" : "1", "Name" : "General" }, "ViewName" :"Error"}
+                "Exceptions": {
+                    "EnableLocalization": "true",
+                    "EnableLogging": "true",
+                    "DefaultErrorDetail": "Default",
+                    "DefaulExceptiontHandler": "BaseHandler",
+                    "ErrorDetails": [
+                        {
+                            "Name": "Default",
+                            "LogLevel": "Error",
+                            "ErrorCode": "6001",
+                            "StatusCode": "200",
+                            "Message": "Test",
+                            "HandlerName": "BaseHandler",
+                            "EventId": {
+                                "Id": "1",
+                                "Name": "General"
+                            },
+                            "ViewName": "Error"
+                        }
                     ],
-                    "ExceptionHandlers" : [
-                        { "Name" : "BaseHandler", "HandlingBehaviour" : "Supress", "HandlerData" : "" }
+                    "ExceptionHandlers": [
+                        {
+                            "Name": "BaseHandler",
+                            "HandlingBehaviour": "Supress",
+                            "HandlerData": ""
+                        }
                     ]
                 }
             }
@@ -406,12 +424,12 @@
             Gets or Sets the Exception Handler Name
             </summary>
         </member>
-        <member name="P:Pavalisoft.ExceptionHandling.ExceptionHandlerDefinition.HandlerData">
+        <member name="P:Pavalisoft.ExceptionHandling.ExceptionHandlerDefinition.Config">
             <summary>
             Gets or Sets the Exception Handler specific data to be used while creating Handler instance.
             </summary>
         </member>
-        <member name="P:Pavalisoft.ExceptionHandling.ExceptionHandlerDefinition.HandlingBehaviour">
+        <member name="P:Pavalisoft.ExceptionHandling.ExceptionHandlerDefinition.Behaviour">
             <summary>
             Gets or Sets the Exception Handler behaviour by the exception handler.
             </summary>
@@ -469,7 +487,54 @@
             Base implementation of <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/>
             </summary>
         </member>
-        <member name="M:Pavalisoft.ExceptionHandling.Handlers.BaseExceptionHandler.HandleException(Pavalisoft.ExceptionHandling.ErrorDetail,System.Exception)">
+        <member name="M:Pavalisoft.ExceptionHandling.Handlers.BaseExceptionHandler.HandleException(Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.Handlers.BaseExceptionHandler.SetHandlerConfig(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Pavalisoft.ExceptionHandling.Handlers.DefaultExceptionHandler">
+            <summary>
+            Default implementation of <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/>
+            </summary>
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.Handlers.DefaultExceptionHandler.HandleException(Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.Handlers.DefaultExceptionHandler.SetHandlerConfig(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Pavalisoft.ExceptionHandling.Handlers.RethrowExceptionHandler">
+            <summary>
+            Rethrow implementation of <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/>
+            </summary>
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.Handlers.RethrowExceptionHandler.HandleException(Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.Handlers.RethrowExceptionHandler.SetHandlerConfig(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Pavalisoft.ExceptionHandling.Handlers.SupressExceptionHandler">
+            <summary>
+            Supress implementation of <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/>
+            </summary>
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.Handlers.SupressExceptionHandler.HandleException(Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.Handlers.SupressExceptionHandler.SetHandlerConfig(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Pavalisoft.ExceptionHandling.Handlers.WrapExceptionHandler">
+            <summary>
+            Wrap implementation of <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/>
+            </summary>
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.Handlers.WrapExceptionHandler.HandleException(Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.Handlers.WrapExceptionHandler.SetHandlerConfig(System.String)">
             <inheritdoc />
         </member>
         <member name="T:Pavalisoft.ExceptionHandling.HandlingBehaviour">
@@ -502,11 +567,11 @@
             <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/> creator implementation
             </summary>
         </member>
-        <member name="M:Pavalisoft.ExceptionHandling.Interfaces.IActionResultCreator.CreateActionResult(Pavalisoft.ExceptionHandling.ErrorDetail,System.Collections.Generic.IDictionary{System.String,System.Object})">
+        <member name="M:Pavalisoft.ExceptionHandling.Interfaces.IActionResultCreator.CreateActionResult(Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail,System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>
             Creates <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/> using <paramref name="details"/> and <paramref name="data"/>
             </summary>
-            <param name="details">The <see cref="T:Pavalisoft.ExceptionHandling.ErrorDetail"/> used in <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/> creation</param>
+            <param name="details">The <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail"/> used in <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/> creation</param>
             <param name="data">Additionl data added to the <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/></param>
             <returns>The <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/> for <paramref name="details"/></returns>
         </member>
@@ -555,6 +620,56 @@
             Gets the handled <see cref="P:Pavalisoft.ExceptionHandling.Interfaces.ActionResultContext.Exception"/>
             </summary>
         </member>
+        <member name="T:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail">
+            <summary>
+            Defines the Error Detail information
+            </summary>
+        </member>
+        <member name="P:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail.Name">
+            <summary>
+            Gets or Sets the Error detail unique name
+            </summary>
+        </member>
+        <member name="P:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail.LogLevel">
+            <summary>
+            Gets or Sets the <see cref="P:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail.LogLevel"/> to define type of error.
+            </summary>
+        </member>
+        <member name="P:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail.ErrorCode">
+            <summary>
+            Gets or Sets the unique error code
+            </summary>
+        </member>
+        <member name="P:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail.StatusCode">
+            <summary>
+            Gets or Sets the type <see cref="T:System.Net.HttpStatusCode"/> response to be created
+            </summary>
+        </member>
+        <member name="P:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail.Message">
+            <summary>
+            Gets or Sets the Error Message
+            </summary>
+        </member>
+        <member name="P:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail.WrapMessage">
+            <summary>
+            Gets or Sets the Error Wraping message
+            </summary>
+        </member>
+        <member name="P:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail.HandlerName">
+            <summary>
+            Gets or Sets the Exception Handle name to be used to handled this error.
+            </summary>
+        </member>
+        <member name="P:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail.EventId">
+            <summary>
+            Gets or Sets the <see cref="P:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail.EventId"/> to be used for logging while handling this error.
+            </summary>
+        </member>
+        <member name="P:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail.ViewName">
+            <summary>
+            Gets or Sets the MVC view name to be used while creating ViewResult
+            </summary>
+        </member>
         <member name="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionDataProvider">
             <summary>
             Implementation to provide <see cref="T:Pavalisoft.ExceptionHandling.ExceptionSettings"/> to <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionManager"/> and <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/>
@@ -581,16 +696,16 @@
         </member>
         <member name="M:Pavalisoft.ExceptionHandling.Interfaces.IExceptionDataProvider.GetExceptionDetails">
             <summary>
-            Gets list of configured <see cref="T:Pavalisoft.ExceptionHandling.ErrorDetailWithHandler"/>
+            Gets list of configured <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail"/>
             </summary>
-            <returns>List of <see cref="T:Pavalisoft.ExceptionHandling.ErrorDetailWithHandler"/></returns>
+            <returns>List of <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail"/></returns>
         </member>
         <member name="M:Pavalisoft.ExceptionHandling.Interfaces.IExceptionDataProvider.GetExceptionDetail(System.String)">
             <summary>
-            Gets <see cref="T:Pavalisoft.ExceptionHandling.ErrorDetailWithHandler"/> having <paramref name="errorCodeName"/>
+            Gets <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail"/> having <paramref name="errorCodeName"/>
             </summary>
-            <param name="errorCodeName">Error code of the <see cref="T:Pavalisoft.ExceptionHandling.ErrorDetailWithHandler"/></param>
-            <returns><see cref="T:Pavalisoft.ExceptionHandling.ErrorDetailWithHandler"/> with <paramref name="errorCodeName"/></returns>
+            <param name="errorCodeName">Error code of the <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail"/></param>
+            <returns><see cref="!:ErrorDetailWithHandler"/> with <paramref name="errorCodeName"/></returns>
         </member>
         <member name="P:Pavalisoft.ExceptionHandling.Interfaces.IExceptionDataProvider.LocalizationEnabled">
             <summary>
@@ -607,13 +722,19 @@
             Represents the <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/> to be implemented
             </summary>
         </member>
-        <member name="M:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler.HandleException(Pavalisoft.ExceptionHandling.ErrorDetail,System.Exception)">
+        <member name="M:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler.HandleException(Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail,System.Exception)">
             <summary>
             Handles exception <paramref name="ex"/> with error <paramref name="detail"/>
             </summary>
-            <param name="detail"><see cref="T:Pavalisoft.ExceptionHandling.ErrorDetail"/> used to handle exception <paramref name="ex"/></param>
+            <param name="detail"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail"/> used to handle exception <paramref name="ex"/></param>
             <param name="ex"><see cref="T:System.Exception"/> to be handled.</param>
             <returns><see cref="T:Pavalisoft.ExceptionHandling.ExceptionData"/> after handling the exception <paramref name="ex"/></returns>
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler.SetHandlerConfig(System.String)">
+            <summary>
+            Sets the additional <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/> settings from <paramref name="handlerConfig"/>
+            </summary>
+            <param name="handlerConfig">Json string</param>
         </member>
         <member name="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionManager">
             <summary>
@@ -663,6 +784,18 @@
             </summary>
             <typeparam name="TActionResultCreatorType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultCreator"/> type</typeparam>
             <typeparam name="TActionResultHandlerType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultHandler"/> type</typeparam>
+            <param name="services"><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance</param>
+            <param name="exceptionHandlerAccessor">Dependency Accessor for <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/></param>
+            <param name="exceptionSettings"><see cref="T:Pavalisoft.ExceptionHandling.ExceptionSettings"/> object to be used in <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionManager"/></param>
+            <returns><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> add with Exception Manager</returns>
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.ServiceCollectionExtensions.AddExceptionHandling``3(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{Pavalisoft.ExceptionHandling.HandlingBehaviour,System.String,Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler},Pavalisoft.ExceptionHandling.ExceptionSettings)">
+            <summary>
+            Adds Exception Handling Middleware to pipeline with Exception Manager functionality
+            </summary>
+            <typeparam name="TActionResultCreatorType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultCreator"/> type</typeparam>
+            <typeparam name="TActionResultHandlerType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultHandler"/> type</typeparam>
+            <typeparam name="TCustomExceptionHandlerType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/> type</typeparam>
             <param name="services"><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance</param>
             <param name="exceptionHandlerAccessor">Dependency Accessor for <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/></param>
             <param name="exceptionSettings"><see cref="T:Pavalisoft.ExceptionHandling.ExceptionSettings"/> object to be used in <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionManager"/></param>

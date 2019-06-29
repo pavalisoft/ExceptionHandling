@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pavalisoft.ExceptionHandling", "Source\Pavalisoft.ExceptionHandling\Pavalisoft.ExceptionHandling.csproj", "{D8009A00-DE02-49A3-BFD6-DA06AB0DD4BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pavalisoft.ExceptionHandling.Sample", "Samples\Pavalisoft.ExceptionHandling.Sample\Pavalisoft.ExceptionHandling.Sample.csproj", "{8E6EFC2D-AFF6-42ED-B867-42AF56850074}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,12 +29,17 @@ Global
 		{D8009A00-DE02-49A3-BFD6-DA06AB0DD4BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8009A00-DE02-49A3-BFD6-DA06AB0DD4BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8009A00-DE02-49A3-BFD6-DA06AB0DD4BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E6EFC2D-AFF6-42ED-B867-42AF56850074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E6EFC2D-AFF6-42ED-B867-42AF56850074}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E6EFC2D-AFF6-42ED-B867-42AF56850074}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E6EFC2D-AFF6-42ED-B867-42AF56850074}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D8009A00-DE02-49A3-BFD6-DA06AB0DD4BC} = {92FD9D41-A33A-4C66-83D4-DD06FDB04AFC}
+		{8E6EFC2D-AFF6-42ED-B867-42AF56850074} = {014F9E2C-CA38-4430-A40A-469575CD77A9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A580C62-723F-4CC9-8343-26065AFC73AE}

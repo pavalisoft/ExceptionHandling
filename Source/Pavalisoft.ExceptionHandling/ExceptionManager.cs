@@ -57,26 +57,26 @@ namespace Pavalisoft.ExceptionHandling
         /// <inheritdoc />
         public IActionResult HandleException(string errorCode, Exception ex, params object[] args)
         {
-            ErrorDetailWithHandler errorDetail;
+            IErrorDetail errorDetail;
             if (ex is FaultException)
             {
                 errorDetail =
                     _exceptionDataProvider.GetExceptionDetail(ex.Data["ExceptionCode"].ToString())
-                        .Clone() as ErrorDetailWithHandler;
+                        .Clone() as IErrorDetail;
                 errorDetail.Message = ex.Data["Message"].ToString();
             }
             else
             {
-                errorDetail = _exceptionDataProvider.GetExceptionDetail(errorCode).Clone() as ErrorDetailWithHandler;
+                errorDetail = _exceptionDataProvider.GetExceptionDetail(errorCode).Clone() as IErrorDetail;
                 SetLocalizedMessage(errorDetail, args);
                 LogException(errorDetail, ex);
             }
-            ExceptionData exceptionData = errorDetail.ExceptionHandler.HandleException(errorDetail, ex);
+            ExceptionData exceptionData = HandleException(errorDetail, ex);
             return _actionResultCreator.CreateActionResult(errorDetail, exceptionData);
         }
 
         /// <inheritdoc />
-        private void LogException(ErrorDetail detail, Exception ex = null)
+        private void LogException(IErrorDetail detail, Exception ex = null)
         {
             if (_exceptionDataProvider.LoggingEnabled)
             {
@@ -136,15 +136,15 @@ namespace Pavalisoft.ExceptionHandling
         /// <inheritdoc />
         public void RaiseException(string errorCode, Exception ex, params object[] args)
         {
-            var expDetail = _exceptionDataProvider.GetExceptionDetail(errorCode);
+            IErrorDetail expDetail = _exceptionDataProvider.GetExceptionDetail(errorCode);
 
-            if (!(expDetail.Clone() is ErrorDetailWithHandler errorDetail))
+            if (!(expDetail.Clone() is IErrorDetail errorDetail))
                 return;
 
             SetLocalizedMessage(errorDetail, args);
             if (ex != null) LogException(errorDetail, ex);
             FaultException exception = new FaultException(errorDetail.Message, ex);
-            ExceptionData exceptionData = errorDetail.ExceptionHandler.HandleException(errorDetail);
+            ExceptionData exceptionData = HandleException(errorDetail);
             if (exceptionData != null)
             {
                 foreach (string key in exceptionData.Keys)
@@ -155,7 +155,13 @@ namespace Pavalisoft.ExceptionHandling
             throw exception;
         }
 
-        private void SetLocalizedMessage(ErrorDetail detail, object[] args)
+        private ExceptionData HandleException(IErrorDetail errorDetail, Exception ex = default)
+        {
+            IExceptionHandler exceptionHandler = _exceptionDataProvider.GetExceptionHandler(errorDetail.HandlerName);
+            return exceptionHandler.HandleException(errorDetail, ex);
+        }
+
+        private void SetLocalizedMessage(IErrorDetail detail, object[] args)
         {
             if (_exceptionDataProvider.LocalizationEnabled)
             {

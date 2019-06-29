@@ -29,7 +29,7 @@ namespace Pavalisoft.ExceptionHandling
     {
         private ExceptionSettings _exceptionSettings;
         private IReadOnlyDictionary<string, IExceptionHandler> _exceptionHandlers;
-        private IReadOnlyDictionary<string, ErrorDetailWithHandler> _exceptionDetails;
+        private IReadOnlyDictionary<string, IErrorDetail> _exceptionDetails;
         private readonly Func<HandlingBehaviour, string, IExceptionHandler> _exceptionHandlerAccessor;
 
         /// <summary>
@@ -70,28 +70,28 @@ namespace Pavalisoft.ExceptionHandling
         }
 
         /// <summary>
-        /// Gets <see cref="ErrorDetailWithHandler"/>s from <see cref="ExceptionSettings"/>
+        /// Gets <see cref="IErrorDetail"/>s from <see cref="ExceptionSettings"/>
         /// </summary>
-        /// <returns><see cref="ErrorDetailWithHandler"/>s</returns>
-        public IEnumerable<ErrorDetailWithHandler> GetExceptionDetails()
+        /// <returns><see cref="IErrorDetail"/>s</returns>
+        public IEnumerable<IErrorDetail> GetExceptionDetails()
         {
             LoadExceptionDetails();
             return _exceptionDetails.Values;
         }
 
         /// <summary>
-        /// Gets <see cref="ErrorDetailWithHandler"/> having <paramref name="errorCodeName"/>
+        /// Gets <see cref="IErrorDetail"/> having <paramref name="errorCodeName"/>
         /// </summary>
         /// <param name="errorCodeName">Error Code</param>
         /// <returns><see cref="ErrorDetail"/></returns>
-        public ErrorDetailWithHandler GetExceptionDetail(string errorCodeName)
+        public IErrorDetail GetExceptionDetail(string errorCodeName)
         {
             LoadExceptionDetails();
             return _exceptionDetails.TryGetValue(string.IsNullOrWhiteSpace(errorCodeName)
                 ? ExceptionSettings.DefaultErrorDetail
-                : errorCodeName, out ErrorDetailWithHandler errorDetail)
+                : errorCodeName, out IErrorDetail errorDetail)
                 ? errorDetail
-                : null;
+                : default;
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Pavalisoft.ExceptionHandling
                 Dictionary<string, IExceptionHandler> exceptionHandlers = new Dictionary<string, IExceptionHandler>();
                 foreach (var handler in ExceptionSettings.ExceptionHandlers)
                 {
-                    exceptionHandlers.Add(handler.Name, _exceptionHandlerAccessor.Invoke(handler.HandlingBehaviour, handler.HandlerData));
+                    exceptionHandlers.Add(handler.Name, _exceptionHandlerAccessor.Invoke(handler.Behaviour, handler.Config));
                 }
                 _exceptionHandlers = new ReadOnlyDictionary<string, IExceptionHandler>(exceptionHandlers);
             }
@@ -132,12 +132,12 @@ namespace Pavalisoft.ExceptionHandling
         {
             if (_exceptionDetails == null || !_exceptionDetails.Any())
             {
-                Dictionary<string, ErrorDetailWithHandler> exceptionDetails = new Dictionary<string, ErrorDetailWithHandler>();
-                foreach (var exceptionDetail in ExceptionSettings.ErrorDetails)
+                Dictionary<string, IErrorDetail> exceptionDetails = new Dictionary<string, IErrorDetail>();
+                foreach (IErrorDetail exceptionDetail in ExceptionSettings.ErrorDetails)
                 {
-                    exceptionDetails.Add(exceptionDetail.Name, new ErrorDetailWithHandler(exceptionDetail.Clone() as ErrorDetail, GetExceptionHandler(exceptionDetail.HandlerName)));
+                    exceptionDetails.Add(exceptionDetail.Name, exceptionDetail);
                 }
-                _exceptionDetails = new ReadOnlyDictionary<string, ErrorDetailWithHandler>(exceptionDetails);
+                _exceptionDetails = new ReadOnlyDictionary<string, IErrorDetail>(exceptionDetails);
             }
         }
     }

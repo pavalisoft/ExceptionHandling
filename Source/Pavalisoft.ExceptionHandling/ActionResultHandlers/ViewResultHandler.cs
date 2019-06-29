@@ -14,43 +14,33 @@
    limitations under the License. 
 */
 
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Pavalisoft.ExceptionHandling.Interfaces;
 
-namespace Pavalisoft.ExceptionHandling.ActionResultCreators
+namespace Pavalisoft.ExceptionHandling.ActionResultHandlers
 {
     /// <summary>
     /// Provides implementation to create <see cref="ViewResult"/>
     /// </summary>
-    public class ViewResultCreator : IActionResultCreator
+    public class ViewResultHandler : IActionResultHandler
     {
         private readonly IModelMetadataProvider _modelMetadataProvider;
 
         /// <summary>
-        /// Creates and instance of <see cref="ViewResultCreator"/> with <see cref="IModelMetadataProvider"/>
+        /// Creates and instance of <see cref="ViewResultHandler"/> with <see cref="IModelMetadataProvider"/>
         /// </summary>
         /// <param name="modelMetadataProvider"><see cref="IModelMetadataProvider"/> instance</param>
-        public ViewResultCreator(IModelMetadataProvider modelMetadataProvider)
+        public ViewResultHandler(IModelMetadataProvider modelMetadataProvider)
         {
             _modelMetadataProvider = modelMetadataProvider;
         }
 
         /// <inheritdoc />
-        public virtual IActionResult CreateActionResult(IErrorDetail details, IDictionary<string, object> data)
+        public virtual Task HandleActionResult(ActionResultContext actionResultContext)
         {
-            var viewResult = new ViewResult
-            {
-                StatusCode = (int)details.StatusCode,
-                ViewName = details.ViewName,
-                ViewData = new ViewDataDictionary(_modelMetadataProvider, new ModelStateDictionary())
-            };
-            if (data != null)
-                foreach (var key in data.Keys)
-                    viewResult.ViewData.Add(key, data[key]);
-            return viewResult;
+            return Task.CompletedTask;
         }
     }
 }

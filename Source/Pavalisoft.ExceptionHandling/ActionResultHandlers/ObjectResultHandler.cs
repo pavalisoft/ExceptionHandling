@@ -14,21 +14,21 @@
    limitations under the License. 
 */
 
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Pavalisoft.ExceptionHandling.Interfaces;
 
-namespace Pavalisoft.ExceptionHandling.ActionResultCreators
+namespace Pavalisoft.ExceptionHandling.ActionResultHandlers
 {
     /// <summary>
-    /// Provides implementation to create <see cref="ActionResult"/>
+    /// Provides implementation to handle <see cref="ActionResult"/>
     /// </summary>
-    public class ObjectResultCreator : IActionResultCreator
+    public class ObjectResultHandler : IActionResultHandler
     {
         /// <inheritdoc />
-        public virtual IActionResult CreateActionResult(IErrorDetail details, IDictionary<string, object> data)
+        public virtual Task HandleActionResult(ActionResultContext actionResultContext)
         {
-            return new ObjectResult(data) { StatusCode = (int)details.StatusCode };
+            return Task.CompletedTask;
         }
     }
 }
