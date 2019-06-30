@@ -19,6 +19,7 @@ using System.Net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Pavalisoft.ExceptionHandling.Interfaces;
 
 namespace Pavalisoft.ExceptionHandling
 {
@@ -30,7 +31,7 @@ namespace Pavalisoft.ExceptionHandling
         /// <summary>
         /// Injects Custom ASP.NET Core Application exception handling to <see cref="IExceptionHandlerFeature"/>
         /// </summary>
-        /// <param name="applicationBuilder"><<see cref="IExceptionHandlerFeature"/>/param>
+        /// <param name="applicationBuilder"><see cref="IExceptionHandlerFeature"/></param>
         /// <param name="responseFunc"><see cref="IExceptionHandlerFeature"/> delegate with <see cref="ResponseInformation"/></param>
         /// <returns><see cref="IApplicationBuilder"/> instance</returns>
         public static IApplicationBuilder UseExceptionHandling(this IApplicationBuilder applicationBuilder,
@@ -58,7 +59,7 @@ namespace Pavalisoft.ExceptionHandling
         }
 
         /// <summary>
-        /// Adds <see cref="ExceptionHandlingMiddleware"/> to application request pipeline
+        /// Adds <see cref="IExceptionManager"/> implementation as <see cref="ExceptionHandlingMiddleware"/> to application request pipeline
         /// </summary>
         /// <param name="applicationBuilder"><see cref="IApplicationBuilder"/>application request pipeline</param>
         /// <returns><see cref="IApplicationBuilder"/> instance</returns>

@@ -15,13 +15,12 @@
 */
 
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Pavalisoft.ExceptionHandling.Interfaces;
 
 namespace Pavalisoft.ExceptionHandling.ActionResultHandlers
 {
     /// <summary>
-    /// Provides implementation to handle <see cref="ActionResult"/>
+    /// Provides features to handle REST API Application additional exception handling conditions
     /// </summary>
     public class ObjectResultHandler : IActionResultHandler
     {

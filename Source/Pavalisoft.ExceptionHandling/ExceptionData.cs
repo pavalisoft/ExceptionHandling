@@ -72,7 +72,7 @@ namespace Pavalisoft.ExceptionHandling
             {
                 foreach (DictionaryEntry key in data)
                 {
-                    Add(key.Key as string, key.Value);
+                    this[key.Key as string] = key.Value;
                 }
             }
         }

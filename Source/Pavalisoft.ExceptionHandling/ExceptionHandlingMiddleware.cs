@@ -81,6 +81,6 @@ namespace Pavalisoft.ExceptionHandling
                 await _actionResultHandler?.HandleActionResult(new ActionResultContext
                         (_exceptionManager, context, requestScope, exception));
             }
-        }
+        }        
     }
 }

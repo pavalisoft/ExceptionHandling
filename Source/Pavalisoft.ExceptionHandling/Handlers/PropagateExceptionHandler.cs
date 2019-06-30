@@ -20,26 +20,24 @@ using Pavalisoft.ExceptionHandling.Interfaces;
 namespace Pavalisoft.ExceptionHandling.Handlers
 {
     /// <summary>
-    /// Rethrow implementation of <see cref="IExceptionHandler"/>
+    /// Provides <see cref="IExceptionHandler"/> implementation to propagate the <see cref="Exception"/> after handling.
     /// </summary>
-    public class RethrowExceptionHandler : IExceptionHandler
+    public class PropagateExceptionHandler : BaseExceptionHandler
     {
         /// <inheritdoc />
-        public virtual ExceptionData HandleException(IErrorDetail detail, Exception ex = null)
+        public override ExceptionData HandleException(IErrorDetail detail, Exception ex = null)
         {
-            return new ExceptionData
+            ExceptionData exceptionData = base.HandleException(detail, ex);
+            if (ex == null)
+                ex = new RaisedException(exceptionData.Message);
+            foreach(string key in exceptionData.Keys)
             {
-                ExceptionCode = detail.Name,
-                Message = ex == null ? detail.Message : string.Format(detail.Message, ex.Message),
-                EventId = detail.EventId.Id,
-                EventName = detail.EventId.Name
-            };
-        }
+                ex.Data[key] = exceptionData[key];
+            }
 
-        /// <inheritdoc />
-        public virtual void SetHandlerConfig(string handlerConfig)
-        {
-            throw new NotImplementedException();
+            // TODO remove return statement and implement logic to throw ex
+            return exceptionData;
+            // throw ex;
         }
     }
 }

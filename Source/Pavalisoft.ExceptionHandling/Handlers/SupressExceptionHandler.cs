@@ -20,12 +20,12 @@ using Pavalisoft.ExceptionHandling.Interfaces;
 namespace Pavalisoft.ExceptionHandling.Handlers
 {
     /// <summary>
-    /// Supress implementation of <see cref="IExceptionHandler"/>
+    /// Provides <see cref="IExceptionHandler"/> implementation to supress the <see cref="Exception"/> after handling.
     /// </summary>
-    public class SupressExceptionHandler : IExceptionHandler
+    public class SupressExceptionHandler : BaseExceptionHandler
     {
         /// <inheritdoc />
-        public virtual ExceptionData HandleException(IErrorDetail detail, Exception ex = null)
+        public override ExceptionData HandleException(IErrorDetail detail, Exception ex = null)
         {
             return new ExceptionData
             {
@@ -34,12 +34,6 @@ namespace Pavalisoft.ExceptionHandling.Handlers
                 EventId = detail.EventId.Id,
                 EventName = detail.EventId.Name
             };
-        }
-
-        /// <inheritdoc />
-        public virtual void SetHandlerConfig(string handlerConfig)
-        {
-            throw new NotImplementedException();
         }
     }
 }

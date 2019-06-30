@@ -23,8 +23,9 @@ using Pavalisoft.ExceptionHandling.Interfaces;
 namespace Pavalisoft.ExceptionHandling.ActionResultCreators
 {
     /// <summary>
-    /// Provides implementation to create <see cref="ViewResult"/>
+    /// Creates <see cref="ViewResult"/> with the ViewName in the <see cref="IErrorDetail"/>
     /// </summary>
+    /// <remarks><see cref="ViewResultCreator"/> should be used in ASP.NET Core MVC Website Applications</remarks>
     public class ViewResultCreator : IActionResultCreator
     {
         private readonly IModelMetadataProvider _modelMetadataProvider;

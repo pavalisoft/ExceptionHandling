@@ -14,32 +14,15 @@
    limitations under the License. 
 */
 
-using System;
 using Pavalisoft.ExceptionHandling.Interfaces;
 
 namespace Pavalisoft.ExceptionHandling.Handlers
 {
     /// <summary>
-    /// Default implementation of <see cref="IExceptionHandler"/>
+    /// Provides Default implementation of <see cref="IExceptionHandler"/>
     /// </summary>
-    public class DefaultExceptionHandler : IExceptionHandler
+    public class DefaultExceptionHandler : BaseExceptionHandler
     {
-        /// <inheritdoc />
-        public virtual ExceptionData HandleException(IErrorDetail detail, Exception ex = null)
-        {
-            return new ExceptionData
-            {
-                ExceptionCode = detail.Name,
-                Message = ex == null ? detail.Message : string.Format(detail.Message, ex.Message),
-                EventId = detail.EventId.Id,
-                EventName = detail.EventId.Name
-            };
-        }
-
-        /// <inheritdoc />
-        public virtual void SetHandlerConfig(string handlerConfig)
-        {
-            return;
-        }
+       
     }
 }

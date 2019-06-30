@@ -14,6 +14,7 @@
    limitations under the License. 
 */
 
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Pavalisoft.ExceptionHandling.Handlers;
 using Pavalisoft.ExceptionHandling.Interfaces;
@@ -63,7 +64,11 @@ namespace Pavalisoft.ExceptionHandling
             services.AddTransient(typeof(IActionResultCreator), typeof(TActionResultCreatorType));
             services.AddTransient(typeof(IActionResultHandler), typeof(TActionResultHandlerType));
             services.AddTransient(typeof(TCustomExceptionHandlerType));
+
+            services.AddSingleton<IExceptionLogger, ExceptionLogger>();
+            services.AddSingleton<IErrorDetailLocalizer, ErrorDetailLocalizer>();
             services.AddTransient<IExceptionManager, ExceptionManager>();
+            services.AddTransient<IExceptionRaiser, ExceptionRaiser>();
 
             if (exceptionHandlerAccessor != null)
             {
@@ -71,7 +76,7 @@ namespace Pavalisoft.ExceptionHandling
             }
             else
             {
-                services.AddTransient<RethrowExceptionHandler>();
+                services.AddTransient<PropagateExceptionHandler>();
                 services.AddTransient<WrapExceptionHandler>();
                 services.AddTransient<SupressExceptionHandler>();
                 services.AddTransient(typeof(TCustomExceptionHandlerType));
@@ -81,8 +86,8 @@ namespace Pavalisoft.ExceptionHandling
                     IExceptionHandler exceptionHandler;
                     switch (handlingBehaviour)
                     {
-                        case HandlingBehaviour.Rethrow:
-                            exceptionHandler = serviceProvider.GetService<RethrowExceptionHandler>();
+                        case HandlingBehaviour.Propagate:
+                            exceptionHandler = serviceProvider.GetService<PropagateExceptionHandler>();
                             break;
                         case HandlingBehaviour.Wrap:
                             exceptionHandler = serviceProvider.GetService<WrapExceptionHandler>();
@@ -110,6 +115,51 @@ namespace Pavalisoft.ExceptionHandling
             else
                 services.AddSingleton<IExceptionDataProvider, ConfigurationExceptionDataProvider>();
 
+            return services;
+        }
+
+        /// <summary>
+        /// Adds <see cref="ExceptionFilter"/> to pipeline with <see cref="IExceptionManager"/> functionality
+        /// </summary>
+        /// <typeparam name="TActionResultCreatorType"><see cref="IActionResultCreator"/> type</typeparam>
+        /// <typeparam name="TActionResultHandlerType"><see cref="IActionResultHandler"/> type</typeparam>
+        /// <typeparam name="TExceptionFilterType"><see cref="IFilterMetadata"/> type</typeparam>
+        /// <param name="services"><see cref="IServiceCollection"/> instance</param>
+        /// <param name="exceptionHandlerAccessor">Dependency Accessor for <see cref="IExceptionHandler"/></param>
+        /// <param name="exceptionSettings"><see cref="ExceptionSettings"/> object to be used in <see cref="IExceptionManager"/></param>
+        /// <returns><see cref="IServiceCollection"/> add with Exception Manager</returns>
+        public static IServiceCollection AddExceptionFilter<TActionResultCreatorType, TActionResultHandlerType, TExceptionFilterType>(this IServiceCollection services
+            , Func<HandlingBehaviour, string, IExceptionHandler> exceptionHandlerAccessor = default, ExceptionSettings exceptionSettings = default)
+            where TActionResultCreatorType : IActionResultCreator
+            where TActionResultHandlerType : IActionResultHandler
+            where TExceptionFilterType : IFilterMetadata
+        {
+            services.AddExceptionFilter<TActionResultCreatorType, TActionResultHandlerType, TExceptionFilterType, ExceptionCodesDecider>(exceptionHandlerAccessor, exceptionSettings);
+            return services;
+        }
+
+        /// <summary>
+        /// Adds <see cref="ExceptionFilter"/> to pipeline with <see cref="IExceptionManager"/> functionality
+        /// </summary>
+        /// <typeparam name="TActionResultCreatorType"><see cref="IActionResultCreator"/> type</typeparam>
+        /// <typeparam name="TActionResultHandlerType"><see cref="IActionResultHandler"/> type</typeparam>
+        /// <typeparam name="TExceptionFilterType"><see cref="IFilterMetadata"/> type</typeparam>
+        /// <typeparam name="TExceptionCodesDeciderType"><see cref="IExceptionCodesDecider"/> type</typeparam>
+        /// <param name="services"><see cref="IServiceCollection"/> instance</param>
+        /// <param name="exceptionHandlerAccessor">Dependency Accessor for <see cref="IExceptionHandler"/></param>
+        /// <param name="exceptionSettings"><see cref="ExceptionSettings"/> object to be used in <see cref="IExceptionManager"/></param>
+        /// <returns><see cref="IServiceCollection"/> add with Exception Manager</returns>
+        public static IServiceCollection AddExceptionFilter<TActionResultCreatorType, TActionResultHandlerType, TExceptionFilterType, TExceptionCodesDeciderType>
+            (this IServiceCollection services
+            , Func<HandlingBehaviour, string, IExceptionHandler> exceptionHandlerAccessor = default, ExceptionSettings exceptionSettings = default)
+            where TActionResultCreatorType : IActionResultCreator
+            where TActionResultHandlerType : IActionResultHandler
+            where TExceptionFilterType : IFilterMetadata
+            where TExceptionCodesDeciderType : IExceptionCodesDecider
+        {
+            services.AddMvcCore(options => options.Filters.Add<TExceptionFilterType>());
+            services.AddSingleton(typeof(IExceptionCodesDecider), typeof(TExceptionCodesDeciderType));
+            services.AddExceptionHandling<TActionResultCreatorType, TActionResultHandlerType, BaseExceptionHandler>(exceptionHandlerAccessor, exceptionSettings);
             return services;
         }
     }

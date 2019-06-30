@@ -20,7 +20,7 @@ using Pavalisoft.ExceptionHandling.Interfaces;
 namespace Pavalisoft.ExceptionHandling.Handlers
 {
     /// <summary>
-    /// Base implementation of <see cref="IExceptionHandler"/>
+    /// Provides Base <see cref="IExceptionHandler"/> implementation
     /// </summary>
     public class BaseExceptionHandler : IExceptionHandler
     {
@@ -39,7 +39,7 @@ namespace Pavalisoft.ExceptionHandling.Handlers
         /// <inheritdoc />
         public virtual void SetHandlerConfig(string handlerConfig)
         {
-            throw new NotImplementedException();
+            return;
         }
     }
 }

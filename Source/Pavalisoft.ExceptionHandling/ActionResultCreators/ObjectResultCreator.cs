@@ -21,8 +21,9 @@ using Pavalisoft.ExceptionHandling.Interfaces;
 namespace Pavalisoft.ExceptionHandling.ActionResultCreators
 {
     /// <summary>
-    /// Provides implementation to create <see cref="ActionResult"/>
+    /// Creates <see cref="ObjectResult"/> using <see cref="IErrorDetail"/>
     /// </summary>
+    /// <remarks><see cref="ObjectResultCreator"/> should be used in ASP.NET MVC REST Application</remarks>
     public class ObjectResultCreator : IActionResultCreator
     {
         /// <inheritdoc />

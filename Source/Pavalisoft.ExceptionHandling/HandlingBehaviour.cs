@@ -31,7 +31,7 @@ namespace Pavalisoft.ExceptionHandling
         /// <summary>
         /// Rethrows the raised exception after handling.
         /// </summary>
-        Rethrow,
+        Propagate,
 
         /// <summary>
         /// Wraps the exception after handling.

@@ -14,12 +14,13 @@
    limitations under the License. 
 */
 
+using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace Pavalisoft.ExceptionHandling.Interfaces
 {
     /// <summary>
-    /// Represents the <see cref="IExceptionHandler"/> to be implemented
+    /// Handles <see cref="Exception"/> and provides <see cref="ExceptionData"/> used in <see cref="IActionResult"/> creation
     /// </summary>
     public interface IExceptionHandler
     {
@@ -28,7 +29,7 @@ namespace Pavalisoft.ExceptionHandling.Interfaces
         /// </summary>
         /// <param name="detail"><see cref="IErrorDetail"/> used to handle exception <paramref name="ex"/></param>
         /// <param name="ex"><see cref="Exception"/> to be handled.</param>
-        /// <returns><see cref="ExceptionData"/> after handling the exception <paramref name="ex"/></returns>
+        /// <returns><see cref="ExceptionData"/> to be used in <see cref="IActionResult"/> creation after handling the exception <paramref name="ex"/></returns>
         ExceptionData HandleException(IErrorDetail detail, Exception ex = null);
 
         /// <summary>

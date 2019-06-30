@@ -19,7 +19,7 @@ using System.Collections.Generic;
 namespace Pavalisoft.ExceptionHandling.Interfaces
 {
     /// <summary>
-    /// Implementation to provide <see cref="ExceptionSettings"/> to <see cref="IExceptionManager"/> and <see cref="IExceptionHandler"/>
+    /// Provide the <see cref="ExceptionSettings"/> to <see cref="IExceptionManager"/> and <see cref="IExceptionHandler"/>
     /// </summary>
     public interface IExceptionDataProvider
     {
@@ -52,7 +52,7 @@ namespace Pavalisoft.ExceptionHandling.Interfaces
         /// Gets <see cref="IErrorDetail"/> having <paramref name="errorCodeName"/>
         /// </summary>
         /// <param name="errorCodeName">Error code of the <see cref="IErrorDetail"/></param>
-        /// <returns><see cref="ErrorDetailWithHandler"/> with <paramref name="errorCodeName"/></returns>
+        /// <returns><see cref="IErrorDetail"/> with <paramref name="errorCodeName"/></returns>
         IErrorDetail GetExceptionDetail(string errorCodeName = null);
 
         /// <summary>

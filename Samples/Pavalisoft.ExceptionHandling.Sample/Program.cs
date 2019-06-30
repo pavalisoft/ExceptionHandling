@@ -14,6 +14,7 @@
    limitations under the License. 
 */
 
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pavalisoft.ExceptionHandling.ActionResultCreators;
@@ -29,8 +30,13 @@ namespace Pavalisoft.ExceptionHandling.Sample
         static void Main(string[] args)
         {
             IExceptionManager exceptionManager = CreateExceptionManager();
-            var actionResult = exceptionManager.HandleException(new Exception("Sample Test Exception"));
-            Console.Write(actionResult.ToString());
+            ObjectResult actionResult = exceptionManager.ManageException(new Exception("Sample Test Exception")) as ObjectResult;
+            ExceptionData exceptionData = actionResult.Value as ExceptionData;
+            Console.Write("Object Result Created with HttpResponseCode " + actionResult.StatusCode
+                + " and value is { EventId=" + exceptionData.EventId 
+                + ", EventName=" + exceptionData.EventName 
+                + ", ExceptionCode=" + exceptionData.ExceptionCode 
+                + ", Message=" + exceptionData.Message + "}");
             Console.ReadKey();
         }
 
@@ -51,8 +57,8 @@ namespace Pavalisoft.ExceptionHandling.Sample
             services.AddExceptionHandling<ObjectResultCreator,ObjectResultHandler>();
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
-            IExceptionManager cacheManager = serviceProvider.GetService<IExceptionManager>();
-            return cacheManager;
+            IExceptionManager exceptionManager = serviceProvider.GetService<IExceptionManager>();
+            return exceptionManager;
         }
     }
 }

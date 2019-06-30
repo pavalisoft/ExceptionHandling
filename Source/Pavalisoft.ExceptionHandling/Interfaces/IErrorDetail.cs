@@ -21,7 +21,7 @@ using Microsoft.Extensions.Logging;
 namespace Pavalisoft.ExceptionHandling.Interfaces
 {
     /// <summary>
-    /// Defines the Error Detail information
+    /// Holds information of an Error to be handled in <see cref="IExceptionManager"/>
     /// </summary>
     public interface IErrorDetail : ICloneable
     {

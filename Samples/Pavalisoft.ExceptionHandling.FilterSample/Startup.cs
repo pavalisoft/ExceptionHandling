@@ -1,0 +1,117 @@
+﻿/* 
+   Copyright 2019 Pavalisoft
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License. 
+*/
+
+using System;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+// Imports Pavalisoft.ExceptionHandling
+using Pavalisoft.ExceptionHandling.ActionResultCreators;
+using Pavalisoft.ExceptionHandling.ActionResultHandlers;
+
+namespace Pavalisoft.ExceptionHandling.FilterSample
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            // Add Logging and Localization Middlewares to services
+            services.AddLogging();
+            services.AddLocalization();
+
+            // Adds Pavalisoft.ExceptionHandling Exception Filer to MVC Middleware services with Application Specific Exception Codes decider.
+            services.AddExceptionFilter<ViewResultCreator, ViewResultHandler, ExceptionFilter, AppExceptionCodesDecider>();
+            
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+
+            // Uses Pavalisoft.ExceptionHandling Exception Filer in Request Pipeline
+            app.UseExceptionHandling(GetResponseInformation);            
+
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
+
+        /// <summary>
+        /// Provides Custom page implementation when the specified view is not available.
+        /// </summary>
+        /// <param name="exceptionHandlerFeature"></param>
+        /// <returns></returns>
+        private ResponseInformation GetResponseInformation(IExceptionHandlerFeature exceptionHandlerFeature)
+        {
+            return new ResponseInformation
+            {
+                ContentType = "text/html",
+                StatusCode = System.Net.HttpStatusCode.InternalServerError,
+                Message = $"<h1 class=\"text-danger\">Error: {exceptionHandlerFeature.Error.Message}</h1>{exceptionHandlerFeature.Error.StackTrace}"
+            };
+        }
+    }
+
+    /// <summary>
+    /// Application Specific Exception Codes provider implementation
+    /// </summary>
+    public class AppExceptionCodesDecider : ExceptionCodesDecider
+    {
+        public override ExceptionCodeDetails DecideExceptionCode(Exception ex)
+        {
+            if(ex is System.ArgumentOutOfRangeException)
+            {
+                return new ExceptionCodeDetails("E6004", new object[] { "test1" });
+            }
+            return base.DecideExceptionCode(ex);
+        }
+    }
+}

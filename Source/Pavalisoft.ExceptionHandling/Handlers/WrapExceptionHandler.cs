@@ -20,26 +20,16 @@ using Pavalisoft.ExceptionHandling.Interfaces;
 namespace Pavalisoft.ExceptionHandling.Handlers
 {
     /// <summary>
-    /// Wrap implementation of <see cref="IExceptionHandler"/>
+    /// Provides <see cref="IExceptionHandler"/> implementation to wrap the <see cref="Exception"/> after handling.
     /// </summary>
-    public class WrapExceptionHandler : IExceptionHandler
+    public class WrapExceptionHandler : BaseExceptionHandler
     {
         /// <inheritdoc />
-        public virtual ExceptionData HandleException(IErrorDetail detail, Exception ex = null)
+        public override ExceptionData HandleException(IErrorDetail detail, Exception ex = null)
         {
-            return new ExceptionData
-            {
-                ExceptionCode = detail.Name,
-                Message = ex == null ? detail.Message : string.Format(detail.Message, ex.Message),
-                EventId = detail.EventId.Id,
-                EventName = detail.EventId.Name
-            };
-        }
-
-        /// <inheritdoc />
-        public virtual void SetHandlerConfig(string handlerConfig)
-        {
-            throw new NotImplementedException();
+            ExceptionData exceptionData = base.HandleException(detail, ex);
+            exceptionData.Message = ex == null ? detail.WrapMessage : string.Format(detail.WrapMessage, ex.Message);
+            return exceptionData;
         }
     }
 }

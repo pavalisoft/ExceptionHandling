@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 namespace Pavalisoft.ExceptionHandling.Interfaces
 {
     /// <summary>
-    /// <see cref="IActionResult"/> response handler implementation
+    /// Provides implementation to add application specific handling after creating <see cref="IActionResult"/>
     /// </summary>
     public interface IActionResultHandler
     {

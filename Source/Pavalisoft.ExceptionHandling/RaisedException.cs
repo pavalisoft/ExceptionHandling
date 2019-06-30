@@ -22,38 +22,38 @@ namespace Pavalisoft.ExceptionHandling
     /// <summary>
     /// Datastructure to represent REST exceptions
     /// </summary>
-    public class FaultException : Exception
+    public class RaisedException : Exception
     {
         /// <summary>
-        /// Creates and instance of <see cref="FaultException"/>
+        /// Creates and instance of <see cref="RaisedException"/>
         /// </summary>
-        public FaultException()
+        public RaisedException()
         {
         }
 
         /// <summary>
-        /// Creates and instance of <see cref="FaultException"/> with <paramref name="message"/>.
+        /// Creates and instance of <see cref="RaisedException"/> with <paramref name="message"/>.
         /// </summary>
         /// <param name="message">Fault exception Message</param>
-        public FaultException(string message) : base(message)
+        public RaisedException(string message) : base(message)
         {
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="FaultException"/> with <paramref name="message"/> and <paramref name="innerException"/>
+        /// Creates an instance of <see cref="RaisedException"/> with <paramref name="message"/> and <paramref name="innerException"/>
         /// </summary>
         /// <param name="message">Fault exception message</param>
-        /// <param name="innerException"><see cref="Exception"/> to be wrapped in <see cref="FaultException"/></param>
-        public FaultException(string message, Exception innerException) : base(message, innerException)
+        /// <param name="innerException"><see cref="Exception"/> to be wrapped in <see cref="RaisedException"/></param>
+        public RaisedException(string message, Exception innerException) : base(message, innerException)
         {
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="FaultException"/> with <paramref name="info"/> and <paramref name="context"/>
+        /// Creates an instance of <see cref="RaisedException"/> with <paramref name="info"/> and <paramref name="context"/>
         /// </summary>
-        /// <param name="info">The <see cref="SerializationInfo"/> used while creating <see cref="FaultException"/></param>
-        /// <param name="context">The <see cref="StreamingContext"/> used while creating <see cref="FaultException"/></param>
-        protected FaultException(SerializationInfo info, StreamingContext context) : base(info, context)
+        /// <param name="info">The <see cref="SerializationInfo"/> used while creating <see cref="RaisedException"/></param>
+        /// <param name="context">The <see cref="StreamingContext"/> used while creating <see cref="RaisedException"/></param>
+        protected RaisedException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

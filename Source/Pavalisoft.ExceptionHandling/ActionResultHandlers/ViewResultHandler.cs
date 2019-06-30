@@ -15,14 +15,13 @@
 */
 
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Pavalisoft.ExceptionHandling.Interfaces;
 
 namespace Pavalisoft.ExceptionHandling.ActionResultHandlers
 {
     /// <summary>
-    /// Provides implementation to create <see cref="ViewResult"/>
+    /// Provides features to handle Web Application additional exception handling conditions
     /// </summary>
     public class ViewResultHandler : IActionResultHandler
     {

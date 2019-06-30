@@ -27,14 +27,17 @@ namespace Pavalisoft.ExceptionHandling
     public class ExceptionFilter : ExceptionFilterAttribute
     {
         private readonly IExceptionManager _exceptionManager;
+        private readonly IExceptionCodesDecider _exceptionCodesDecider;
 
         /// <summary>
         /// Creates an instance of <see cref="ExceptionFilter"/> with <see cref="IExceptionManager"/>
         /// </summary>
-        /// <param name="exceptionManager"></param>
-        public ExceptionFilter(IExceptionManager exceptionManager)
+        /// <param name="exceptionManager"><see cref="IExceptionManager"/> to be used in <see cref="ExceptionFilter"/></param>
+        /// <param name="exceptionCodesDecider"><see cref="IExceptionCodesDecider"/> to be used in <see cref="ExceptionFilter"/></param>
+        public ExceptionFilter(IExceptionManager exceptionManager, IExceptionCodesDecider exceptionCodesDecider)
         {
             _exceptionManager = exceptionManager;
+            _exceptionCodesDecider = exceptionCodesDecider;
         }
 
         /// <summary>
@@ -43,22 +46,12 @@ namespace Pavalisoft.ExceptionHandling
         /// <param name="context"></param>
         public override void OnException(ExceptionContext context)
         {
-            ExceptionCodeDetails details = DecideExceptionCode(context.Exception);
+            ExceptionCodeDetails details = _exceptionCodesDecider.DecideExceptionCode(context.Exception);
             context.Result = details == null
-                ? _exceptionManager.HandleException(context.Exception)
-                : _exceptionManager.HandleException(details.ExceptionCode, context.Exception, details.Params);
+                ? _exceptionManager.ManageException(context.Exception)
+                : _exceptionManager.ManageException(details.ExceptionCode, context.Exception, details.Params);
             context.Exception = null;
             base.OnException(context);
-        }
-
-        /// <summary>
-        /// Gets <see cref="ExceptionCodeDetails"/> for the handled <see cref="Exception"/> <paramref name="ex"/>.
-        /// </summary>
-        /// <param name="ex"><see cref="Exception"/> object</param>
-        /// <returns><see cref="ExceptionCodeDetails"/> object from <paramref name="ex"/></returns>
-        protected virtual ExceptionCodeDetails DecideExceptionCode(Exception ex)
-        {
-            return null;
         }
     }
 

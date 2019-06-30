@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Pavalisoft.ExceptionHandling.Interfaces
 {
     /// <summary>
-    /// <see cref="IActionResult"/> creator implementation
+    /// Provides implementation to add application specific handling while creating <see cref="IActionResult"/>
     /// </summary>
     public interface IActionResultCreator
     {
