@@ -15,6 +15,9 @@
 */
 
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Pavalisoft.ExceptionHandling.Interfaces;
 
 namespace Pavalisoft.ExceptionHandling.ActionResultHandlers
@@ -27,6 +30,13 @@ namespace Pavalisoft.ExceptionHandling.ActionResultHandlers
         /// <inheritdoc />
         public virtual Task HandleActionResult(ActionResultContext actionResultContext)
         {
+            if (actionResultContext.ActionResult != null && actionResultContext.ActionResult is ObjectResult)
+            {
+                var objectResult = actionResultContext.ActionResult as ObjectResult;
+                actionResultContext.Context.Response.StatusCode = objectResult.StatusCode.Value;
+                actionResultContext.Context.Response.ContentType = "application/json";
+                actionResultContext.Context.Response.WriteAsync(JsonConvert.SerializeObject(objectResult.Value));
+            }
             return Task.CompletedTask;
         }
     }

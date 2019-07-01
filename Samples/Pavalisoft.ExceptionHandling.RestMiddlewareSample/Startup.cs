@@ -14,13 +14,9 @@
    limitations under the License. 
 */
 
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,8 +24,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Pavalisoft.ExceptionHandling.ActionResultCreators;
 using Pavalisoft.ExceptionHandling.ActionResultHandlers;
 using Pavalisoft.ExceptionHandling.Interfaces;
+using System.Threading.Tasks;
 
-namespace Pavalisoft.ExceptionHandling.MiddlewareSample
+namespace Pavalisoft.ExceptionHandling.RestMiddlewareSample
 {
     public class Startup
     {
@@ -43,19 +40,12 @@ namespace Pavalisoft.ExceptionHandling.MiddlewareSample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
             // Add Logging and Localization Middlewares to services
             services.AddLogging();
             services.AddLocalization();
 
             // Adds Pavalisoft.ExceptionHandling Middleware to MVC Middleware services with Application Specific Exception Codes decider.
-            services.AddExceptionHandling<ViewResultCreator, AppViewResultHandler>();
+            services.AddExceptionHandling<ObjectResultCreator, AppObjectResultHandler>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -67,42 +57,36 @@ namespace Pavalisoft.ExceptionHandling.MiddlewareSample
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
 
             // Uses Pavalisoft.ExceptionHandling Middleware in Request Pipeline
             app.UseExceptionHandling();
 
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvc();
         }
     }
 
     /// <summary>
     /// Application Specific Exception Codes provider implementation
     /// </summary>
-    public class AppViewResultHandler : ViewResultHandler
+    public class AppObjectResultHandler : ObjectResultHandler
     {
-        /// <inhertidoc />
+        /// <summary>
+        /// Creates and instance of <see cref="AppObjectResultHandler"/>
+        /// </summary>
+        public AppObjectResultHandler() : base()
+        {
+        }
+
         public override Task HandleActionResult(ActionResultContext actionResultContext)
         {
-            ViewResult viewResult = null;
+            ObjectResult objectResult = null;
             if (actionResultContext.Exception is System.ArgumentOutOfRangeException)
             {
-                viewResult = actionResultContext.ExceptionManager.ManageException("E6004", actionResultContext.Exception, new object[] { "test1" }) as ViewResult;
+                objectResult = actionResultContext.ExceptionManager.ManageException("E6004", actionResultContext.Exception, new object[] { "test1" }) as ObjectResult;
             }
 
-            if (viewResult != null)
-                actionResultContext.ActionResult = viewResult;
+            if (objectResult != null)
+                actionResultContext.ActionResult = objectResult;
             return base.HandleActionResult(actionResultContext);
         }
     }

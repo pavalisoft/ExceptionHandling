@@ -73,5 +73,10 @@ namespace Pavalisoft.ExceptionHandling.Interfaces
         /// Gets the handled <see cref="Exception"/>
         /// </summary>
         public Exception Exception { get; set; }
+
+        /// <summary>
+        /// Gets or Sets <see cref="IActionResult"/> from the result of the <see cref="IExceptionManager"/>
+        /// </summary>
+        public IActionResult ActionResult { get; set; }
     }
 }

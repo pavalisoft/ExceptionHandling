@@ -17,11 +17,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pavalisoft.ExceptionHandling", "Source\Pavalisoft.ExceptionHandling\Pavalisoft.ExceptionHandling.csproj", "{D8009A00-DE02-49A3-BFD6-DA06AB0DD4BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pavalisoft.ExceptionHandling.Sample", "Samples\Pavalisoft.ExceptionHandling.Sample\Pavalisoft.ExceptionHandling.Sample.csproj", "{8E6EFC2D-AFF6-42ED-B867-42AF56850074}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pavalisoft.ExceptionHandling.Sample", "Samples\Pavalisoft.ExceptionHandling.Sample\Pavalisoft.ExceptionHandling.Sample.csproj", "{8E6EFC2D-AFF6-42ED-B867-42AF56850074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pavalisoft.ExceptionHandling.MiddlewareSample", "Samples\Pavalisoft.ExceptionHandling.MiddlewareSample\Pavalisoft.ExceptionHandling.MiddlewareSample.csproj", "{E5E7B7AC-EB4D-4B5F-B36A-958EABCD359E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pavalisoft.ExceptionHandling.MiddlewareSample", "Samples\Pavalisoft.ExceptionHandling.MiddlewareSample\Pavalisoft.ExceptionHandling.MiddlewareSample.csproj", "{E5E7B7AC-EB4D-4B5F-B36A-958EABCD359E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pavalisoft.ExceptionHandling.FilterSample", "Samples\Pavalisoft.ExceptionHandling.FilterSample\Pavalisoft.ExceptionHandling.FilterSample.csproj", "{0C0BF246-1FC3-4C1D-8820-1D700E12614B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pavalisoft.ExceptionHandling.FilterSample", "Samples\Pavalisoft.ExceptionHandling.FilterSample\Pavalisoft.ExceptionHandling.FilterSample.csproj", "{0C0BF246-1FC3-4C1D-8820-1D700E12614B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pavalisoft.ExceptionHandling.NoConfigSample", "Samples\Pavalisoft.ExceptionHandling.NoConfigSample\Pavalisoft.ExceptionHandling.NoConfigSample.csproj", "{5C857125-F083-41A9-B16A-FA7E0B04FB8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pavalisoft.ExceptionHandling.RestFilterSample", "Samples\Pavalisoft.ExceptionHandling.RestFilterSample\Pavalisoft.ExceptionHandling.RestFilterSample.csproj", "{492972BB-A2B1-4031-88EB-B797426905F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pavalisoft.ExceptionHandling.RestMiddlewareSample", "Samples\Pavalisoft.ExceptionHandling.RestMiddlewareSample\Pavalisoft.ExceptionHandling.RestMiddlewareSample.csproj", "{04D5C649-544E-44CB-A54A-9803863D60CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +51,18 @@ Global
 		{0C0BF246-1FC3-4C1D-8820-1D700E12614B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C0BF246-1FC3-4C1D-8820-1D700E12614B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C0BF246-1FC3-4C1D-8820-1D700E12614B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C857125-F083-41A9-B16A-FA7E0B04FB8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C857125-F083-41A9-B16A-FA7E0B04FB8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C857125-F083-41A9-B16A-FA7E0B04FB8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C857125-F083-41A9-B16A-FA7E0B04FB8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{492972BB-A2B1-4031-88EB-B797426905F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{492972BB-A2B1-4031-88EB-B797426905F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{492972BB-A2B1-4031-88EB-B797426905F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{492972BB-A2B1-4031-88EB-B797426905F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04D5C649-544E-44CB-A54A-9803863D60CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04D5C649-544E-44CB-A54A-9803863D60CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04D5C649-544E-44CB-A54A-9803863D60CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04D5C649-544E-44CB-A54A-9803863D60CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +72,9 @@ Global
 		{8E6EFC2D-AFF6-42ED-B867-42AF56850074} = {014F9E2C-CA38-4430-A40A-469575CD77A9}
 		{E5E7B7AC-EB4D-4B5F-B36A-958EABCD359E} = {014F9E2C-CA38-4430-A40A-469575CD77A9}
 		{0C0BF246-1FC3-4C1D-8820-1D700E12614B} = {014F9E2C-CA38-4430-A40A-469575CD77A9}
+		{5C857125-F083-41A9-B16A-FA7E0B04FB8B} = {014F9E2C-CA38-4430-A40A-469575CD77A9}
+		{492972BB-A2B1-4031-88EB-B797426905F7} = {014F9E2C-CA38-4430-A40A-469575CD77A9}
+		{04D5C649-544E-44CB-A54A-9803863D60CC} = {014F9E2C-CA38-4430-A40A-469575CD77A9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A580C62-723F-4CC9-8343-26065AFC73AE}

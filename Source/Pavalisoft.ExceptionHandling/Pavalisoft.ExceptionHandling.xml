@@ -41,14 +41,21 @@
             Provides features to handle Web Application additional exception handling conditions
             </summary>
         </member>
-        <member name="M:Pavalisoft.ExceptionHandling.ActionResultHandlers.ViewResultHandler.#ctor(Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider)">
-            <summary>
-            Creates and instance of <see cref="T:Pavalisoft.ExceptionHandling.ActionResultHandlers.ViewResultHandler"/> with <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider"/>
-            </summary>
-            <param name="modelMetadataProvider"><see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider"/> instance</param>
-        </member>
         <member name="M:Pavalisoft.ExceptionHandling.ActionResultHandlers.ViewResultHandler.HandleActionResult(Pavalisoft.ExceptionHandling.Interfaces.ActionResultContext)">
             <inheritdoc />
+        </member>
+        <member name="T:Pavalisoft.ExceptionHandling.ActionResultHandlers.ViewResultExtensions">
+            <summary>
+            Provides Extensions to generate Html from <see cref="T:Microsoft.AspNetCore.Mvc.ViewResult"/>
+            </summary>
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.ActionResultHandlers.ViewResultExtensions.ToHtml(Microsoft.AspNetCore.Mvc.ViewResult,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Generates html from <see cref="T:Microsoft.AspNetCore.Mvc.ViewResult"/> using <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>
+            </summary>
+            <param name="result">source <see cref="T:Microsoft.AspNetCore.Mvc.ViewResult"/></param>
+            <param name="httpContext">Used <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/></param>
+            <returns>Html content of the <see cref="T:Microsoft.AspNetCore.Mvc.ViewResult"/></returns>
         </member>
         <member name="T:Pavalisoft.ExceptionHandling.ApplicationExtensions">
             <summary>
@@ -618,6 +625,11 @@
         <member name="P:Pavalisoft.ExceptionHandling.Interfaces.ActionResultContext.Exception">
             <summary>
             Gets the handled <see cref="P:Pavalisoft.ExceptionHandling.Interfaces.ActionResultContext.Exception"/>
+            </summary>
+        </member>
+        <member name="P:Pavalisoft.ExceptionHandling.Interfaces.ActionResultContext.ActionResult">
+            <summary>
+            Gets or Sets <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/> from the result of the <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionManager"/>
             </summary>
         </member>
         <member name="T:Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail">

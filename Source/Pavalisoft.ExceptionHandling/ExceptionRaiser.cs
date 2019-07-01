@@ -64,7 +64,7 @@ namespace Pavalisoft.ExceptionHandling
             {
                 foreach (string key in exceptionData.Keys)
                 {
-                    exception.Data.Add(key, exceptionData[key]);
+                    exception.Data[key] = exceptionData[key];
                 }
             }
             throw exception;

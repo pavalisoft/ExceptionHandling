@@ -70,16 +70,14 @@ namespace Pavalisoft.ExceptionHandling
 
                     await _next(context);
 
-                    await _actionResultHandler?.HandleActionResult(new ActionResultContext
-                        (_exceptionManager, context, requestScope));
+                    await _actionResultHandler?.HandleActionResult(new ActionResultContext(_exceptionManager, context, requestScope));
 
                     _logger.LogTrace("End: " + url);
                 }
             }
             catch (Exception exception)
             {
-                await _actionResultHandler?.HandleActionResult(new ActionResultContext
-                        (_exceptionManager, context, requestScope, exception));
+                await _actionResultHandler?.HandleActionResult(new ActionResultContext(_exceptionManager, context, requestScope, exception));
             }
         }        
     }
