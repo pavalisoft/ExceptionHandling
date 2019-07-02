@@ -14,12 +14,11 @@
    limitations under the License. 
 */
 
-using System.Threading.Tasks;
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,7 +26,6 @@ using Microsoft.Extensions.DependencyInjection;
 // Imports Pavalisoft.ExceptionHandling
 using Pavalisoft.ExceptionHandling.ActionResultCreators;
 using Pavalisoft.ExceptionHandling.ActionResultHandlers;
-using Pavalisoft.ExceptionHandling.Interfaces;
 
 namespace Pavalisoft.ExceptionHandling.MiddlewareSample
 {
@@ -55,7 +53,7 @@ namespace Pavalisoft.ExceptionHandling.MiddlewareSample
             services.AddLocalization();
 
             // Adds Pavalisoft.ExceptionHandling Middleware to MVC Middleware services with Application Specific Exception Codes decider.
-            services.AddExceptionHandling<ViewResultCreator, AppViewResultHandler>();
+            services.AddExceptionHandling<ViewResultCreator, ViewResultHandler, AppExceptionCodesDecider>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -73,7 +71,7 @@ namespace Pavalisoft.ExceptionHandling.MiddlewareSample
             }
 
             // Uses Pavalisoft.ExceptionHandling Middleware in Request Pipeline
-            app.UseExceptionHandling();
+            app.UseExceptionHandlingMiddleware();
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -90,20 +88,15 @@ namespace Pavalisoft.ExceptionHandling.MiddlewareSample
     /// <summary>
     /// Application Specific Exception Codes provider implementation
     /// </summary>
-    public class AppViewResultHandler : ViewResultHandler
+    public class AppExceptionCodesDecider : ExceptionCodesDecider
     {
-        /// <inhertidoc />
-        public override Task HandleActionResult(ActionResultContext actionResultContext)
+        public override ExceptionCodeDetails DecideExceptionCode(Exception ex)
         {
-            ViewResult viewResult = null;
-            if (actionResultContext.Exception is System.ArgumentOutOfRangeException)
+            if (ex is System.ArgumentOutOfRangeException)
             {
-                viewResult = actionResultContext.ExceptionManager.ManageException("E6004", actionResultContext.Exception, new object[] { "test1" }) as ViewResult;
+                return new ExceptionCodeDetails("E6004", new object[] { "test1" });
             }
-
-            if (viewResult != null)
-                actionResultContext.ActionResult = viewResult;
-            return base.HandleActionResult(actionResultContext);
+            return base.DecideExceptionCode(ex);
         }
     }
 }

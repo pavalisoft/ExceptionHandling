@@ -53,7 +53,7 @@ namespace Pavalisoft.ExceptionHandling.FilterSample
             services.AddLocalization();
 
             // Adds Pavalisoft.ExceptionHandling Exception Filer to MVC Middleware services with Application Specific Exception Codes decider.
-            services.AddExceptionFilter<ViewResultCreator, ViewResultHandler, ExceptionFilter, AppExceptionCodesDecider>();
+            services.AddExceptionFilter<ViewResultCreator, ViewResultHandler, AppExceptionCodesDecider>();
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -71,7 +71,7 @@ namespace Pavalisoft.ExceptionHandling.FilterSample
             }
 
             // Uses Pavalisoft.ExceptionHandling Exception Filer in Request Pipeline
-            app.UseExceptionHandling(GetResponseInformation);            
+            app.UseExceptionHandlingFilter();            
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -82,21 +82,6 @@ namespace Pavalisoft.ExceptionHandling.FilterSample
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-        }
-
-        /// <summary>
-        /// Provides Custom page implementation when the specified view is not available.
-        /// </summary>
-        /// <param name="exceptionHandlerFeature"></param>
-        /// <returns></returns>
-        private ResponseInformation GetResponseInformation(IExceptionHandlerFeature exceptionHandlerFeature)
-        {
-            return new ResponseInformation
-            {
-                ContentType = "text/html",
-                StatusCode = System.Net.HttpStatusCode.InternalServerError,
-                Message = $"<h1 class=\"text-danger\">Error: {exceptionHandlerFeature.Error.Message}</h1>{exceptionHandlerFeature.Error.StackTrace}"
-            };
         }
     }
 

@@ -32,16 +32,18 @@ namespace Pavalisoft.ExceptionHandling
         /// </summary>
         /// <typeparam name="TActionResultCreatorType"><see cref="IActionResultCreator"/> type</typeparam>
         /// <typeparam name="TActionResultHandlerType"><see cref="IActionResultHandler"/> type</typeparam>
+        /// <typeparam name="TExceptionCodesDeciderType"><see cref="IExceptionCodesDecider"/> type</typeparam>
         /// <param name="services"><see cref="IServiceCollection"/> instance</param>
         /// <param name="exceptionHandlerAccessor">Dependency Accessor for <see cref="IExceptionHandler"/></param>
         /// <param name="exceptionSettings"><see cref="ExceptionSettings"/> object to be used in <see cref="IExceptionManager"/></param>
         /// <returns><see cref="IServiceCollection"/> add with Exception Manager</returns>
-        public static IServiceCollection AddExceptionHandling<TActionResultCreatorType, TActionResultHandlerType>(this IServiceCollection services
+        public static IServiceCollection AddExceptionHandling<TActionResultCreatorType, TActionResultHandlerType, TExceptionCodesDeciderType>(this IServiceCollection services
             , Func<HandlingBehaviour, string, IExceptionHandler> exceptionHandlerAccessor = default, ExceptionSettings exceptionSettings = default)             
             where TActionResultCreatorType: IActionResultCreator
             where TActionResultHandlerType: IActionResultHandler
+            where TExceptionCodesDeciderType : IExceptionCodesDecider
         {
-            services.AddExceptionHandling<TActionResultCreatorType, TActionResultHandlerType, BaseExceptionHandler>(exceptionHandlerAccessor, exceptionSettings);
+            services.AddExceptionHandling<TActionResultCreatorType, TActionResultHandlerType, TExceptionCodesDeciderType, BaseExceptionHandler>(exceptionHandlerAccessor, exceptionSettings);
             return services;
         }
 
@@ -50,16 +52,18 @@ namespace Pavalisoft.ExceptionHandling
         /// </summary>
         /// <typeparam name="TActionResultCreatorType"><see cref="IActionResultCreator"/> type</typeparam>
         /// <typeparam name="TActionResultHandlerType"><see cref="IActionResultHandler"/> type</typeparam>
+        /// <typeparam name="TExceptionCodesDeciderType"><see cref="IExceptionCodesDecider"/> type</typeparam>
         /// <typeparam name="TCustomExceptionHandlerType"><see cref="IExceptionHandler"/> type</typeparam>
         /// <param name="services"><see cref="IServiceCollection"/> instance</param>
         /// <param name="exceptionHandlerAccessor">Dependency Accessor for <see cref="IExceptionHandler"/></param>
         /// <param name="exceptionSettings"><see cref="ExceptionSettings"/> object to be used in <see cref="IExceptionManager"/></param>
         /// <returns><see cref="IServiceCollection"/> add with Exception Manager</returns>
-        public static IServiceCollection AddExceptionHandling<TActionResultCreatorType, TActionResultHandlerType, TCustomExceptionHandlerType>(this IServiceCollection services
+        public static IServiceCollection AddExceptionHandling<TActionResultCreatorType, TActionResultHandlerType, TExceptionCodesDeciderType, TCustomExceptionHandlerType>(this IServiceCollection services
             , Func<HandlingBehaviour, string, IExceptionHandler> exceptionHandlerAccessor = default, ExceptionSettings exceptionSettings = default)
             where TActionResultCreatorType : IActionResultCreator
             where TActionResultHandlerType : IActionResultHandler
             where TCustomExceptionHandlerType : IExceptionHandler
+            where TExceptionCodesDeciderType : IExceptionCodesDecider
         {
             services.AddTransient(typeof(IActionResultCreator), typeof(TActionResultCreatorType));
             services.AddTransient(typeof(IActionResultHandler), typeof(TActionResultHandlerType));
@@ -123,18 +127,18 @@ namespace Pavalisoft.ExceptionHandling
         /// </summary>
         /// <typeparam name="TActionResultCreatorType"><see cref="IActionResultCreator"/> type</typeparam>
         /// <typeparam name="TActionResultHandlerType"><see cref="IActionResultHandler"/> type</typeparam>
-        /// <typeparam name="TExceptionFilterType"><see cref="IFilterMetadata"/> type</typeparam>
+        /// <typeparam name="TExceptionCodesDeciderType"><see cref="IExceptionCodesDecider"/> type</typeparam>
         /// <param name="services"><see cref="IServiceCollection"/> instance</param>
         /// <param name="exceptionHandlerAccessor">Dependency Accessor for <see cref="IExceptionHandler"/></param>
         /// <param name="exceptionSettings"><see cref="ExceptionSettings"/> object to be used in <see cref="IExceptionManager"/></param>
         /// <returns><see cref="IServiceCollection"/> add with Exception Manager</returns>
-        public static IServiceCollection AddExceptionFilter<TActionResultCreatorType, TActionResultHandlerType, TExceptionFilterType>(this IServiceCollection services
+        public static IServiceCollection AddExceptionFilter<TActionResultCreatorType, TActionResultHandlerType, TExceptionCodesDeciderType>(this IServiceCollection services
             , Func<HandlingBehaviour, string, IExceptionHandler> exceptionHandlerAccessor = default, ExceptionSettings exceptionSettings = default)
             where TActionResultCreatorType : IActionResultCreator
             where TActionResultHandlerType : IActionResultHandler
-            where TExceptionFilterType : IFilterMetadata
+            where TExceptionCodesDeciderType : IExceptionCodesDecider
         {
-            services.AddExceptionFilter<TActionResultCreatorType, TActionResultHandlerType, TExceptionFilterType, ExceptionCodesDecider>(exceptionHandlerAccessor, exceptionSettings);
+            services.AddExceptionFilter<TActionResultCreatorType, TActionResultHandlerType, TExceptionCodesDeciderType, ExceptionFilter>(exceptionHandlerAccessor, exceptionSettings);
             return services;
         }
 
@@ -149,9 +153,8 @@ namespace Pavalisoft.ExceptionHandling
         /// <param name="exceptionHandlerAccessor">Dependency Accessor for <see cref="IExceptionHandler"/></param>
         /// <param name="exceptionSettings"><see cref="ExceptionSettings"/> object to be used in <see cref="IExceptionManager"/></param>
         /// <returns><see cref="IServiceCollection"/> add with Exception Manager</returns>
-        public static IServiceCollection AddExceptionFilter<TActionResultCreatorType, TActionResultHandlerType, TExceptionFilterType, TExceptionCodesDeciderType>
-            (this IServiceCollection services
-            , Func<HandlingBehaviour, string, IExceptionHandler> exceptionHandlerAccessor = default, ExceptionSettings exceptionSettings = default)
+        public static IServiceCollection AddExceptionFilter<TActionResultCreatorType, TActionResultHandlerType, TExceptionCodesDeciderType, TExceptionFilterType>
+            (this IServiceCollection services, Func<HandlingBehaviour, string, IExceptionHandler> exceptionHandlerAccessor = default, ExceptionSettings exceptionSettings = default)
             where TActionResultCreatorType : IActionResultCreator
             where TActionResultHandlerType : IActionResultHandler
             where TExceptionFilterType : IFilterMetadata
@@ -159,7 +162,7 @@ namespace Pavalisoft.ExceptionHandling
         {
             services.AddMvcCore(options => options.Filters.Add<TExceptionFilterType>());
             services.AddSingleton(typeof(IExceptionCodesDecider), typeof(TExceptionCodesDeciderType));
-            services.AddExceptionHandling<TActionResultCreatorType, TActionResultHandlerType, BaseExceptionHandler>(exceptionHandlerAccessor, exceptionSettings);
+            services.AddExceptionHandling<TActionResultCreatorType, TActionResultHandlerType, TExceptionCodesDeciderType, BaseExceptionHandler>(exceptionHandlerAccessor, exceptionSettings);
             return services;
         }
     }

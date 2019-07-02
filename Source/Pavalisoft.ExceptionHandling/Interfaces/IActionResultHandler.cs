@@ -41,33 +41,20 @@ namespace Pavalisoft.ExceptionHandling.Interfaces
         /// <summary>
         /// Creates an instance of <see cref="ActionResultContext"/>
         /// </summary>
-        /// <param name="exceptionManager"><see cref="IExceptionManager"/> which created the <see cref="IActionResult"/></param>
         /// <param name="context">Created Response <see cref="HttpContext"/></param>
-        /// <param name="loggingScope">Created logging scope</param>
         /// <param name="exception">Handled <see cref="Exception"/></param>
-        public ActionResultContext(IExceptionManager exceptionManager, HttpContext context, 
-            string loggingScope, Exception exception = default)
+        /// <param name="actionResult"><see cref="IActionResult"/> to be added to response</param>
+        public ActionResultContext(HttpContext context, Exception exception = default, IActionResult actionResult = default)
         {
-            ExceptionManager = exceptionManager;
             Context = context;
-            LoggingScope = loggingScope;
             Exception = exception;
+            ActionResult = actionResult;
         }
-
-        /// <summary>
-        /// Gets the <see cref="IExceptionManager"/> used to handle <see cref="Exception"/>
-        /// </summary>
-        public IExceptionManager ExceptionManager { get; }
 
         /// <summary>
         /// Gets the Response <see cref="HttpContext"/>
         /// </summary>
         public HttpContext Context { get; }
-
-        /// <summary>
-        /// Gets the Logging scope created in the <see cref="IExceptionManager"/>
-        /// </summary>
-        public string LoggingScope { get; }
 
         /// <summary>
         /// Gets the handled <see cref="Exception"/>

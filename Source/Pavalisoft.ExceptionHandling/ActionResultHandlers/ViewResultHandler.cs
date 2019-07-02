@@ -42,8 +42,15 @@ namespace Pavalisoft.ExceptionHandling.ActionResultHandlers
             {
                 var viewResult = actionResultContext.ActionResult as ViewResult;
                 actionResultContext.Context.Response.StatusCode = viewResult.StatusCode.Value;
-                actionResultContext.Context.Response.ContentType = viewResult.ContentType;
-                actionResultContext.Context.Response.WriteAsync(viewResult.ToHtml(actionResultContext.Context));
+                actionResultContext.Context.Response.ContentType = viewResult.ContentType; // "text/html"
+                actionResultContext.Context.Response.WriteAsync(viewResult.ToHtml(actionResultContext.Context)).ConfigureAwait(false);
+            }
+            else
+            {
+                actionResultContext.Context.Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                actionResultContext.Context.Response.ContentType = "text/html";
+                actionResultContext.Context.Response.WriteAsync($"<h1 class=\"text-danger\">Error: {actionResultContext.Exception.Message}</h1>{actionResultContext.Exception.StackTrace}")
+                    .ConfigureAwait(false);
             }
             return Task.CompletedTask;
         }

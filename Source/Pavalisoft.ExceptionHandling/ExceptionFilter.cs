@@ -15,6 +15,7 @@
 */
 
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Pavalisoft.ExceptionHandling.Interfaces;
 
@@ -46,39 +47,28 @@ namespace Pavalisoft.ExceptionHandling
         /// <param name="context"></param>
         public override void OnException(ExceptionContext context)
         {
+            SetExceptionResult(context);
+            base.OnException(context);
+        }
+
+        /// <summary>
+        /// Handles exception using <see cref="IExceptionManager"/> asynchronously
+        /// </summary>
+        /// <param name="context"></param>
+        public override Task OnExceptionAsync(ExceptionContext context)
+        {
+            SetExceptionResult(context);
+            return base.OnExceptionAsync(context);
+        }
+
+        private void SetExceptionResult(ExceptionContext context)
+        {
             ExceptionCodeDetails details = _exceptionCodesDecider.DecideExceptionCode(context.Exception);
             context.Result = details == null
                 ? _exceptionManager.ManageException(context.Exception)
                 : _exceptionManager.ManageException(details.ExceptionCode, context.Exception, details.Params);
             context.Exception = null;
-            base.OnException(context);
+            context.ExceptionHandled = true;
         }
-    }
-
-    /// <summary>
-    /// Datastructure to provide exception Code Details.
-    /// </summary>
-    public class ExceptionCodeDetails
-    {
-        /// <summary>
-        /// Creates an instance of <see cref="ExceptionCodeDetails"/> with <paramref name="exceptionCode"/> and <paramref name="params"/>
-        /// </summary>
-        /// <param name="exceptionCode">Exception code</param>
-        /// <param name="params">Additional data objects</param>
-        public ExceptionCodeDetails(string exceptionCode, object[] @params)
-        {
-            ExceptionCode = exceptionCode;
-            Params = @params;
-        }
-
-        /// <summary>
-        /// Gets Exception code
-        /// </summary>
-        public string ExceptionCode { get; }
-
-        /// <summary>
-        /// Gets Additional Data objects
-        /// </summary>
-        public object[] Params { get; }
     }
 }

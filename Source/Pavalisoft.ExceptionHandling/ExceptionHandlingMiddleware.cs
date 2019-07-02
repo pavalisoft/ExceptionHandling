@@ -19,7 +19,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Extensions;
 using Pavalisoft.ExceptionHandling.Interfaces;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Pavalisoft.ExceptionHandling
 {
@@ -30,26 +30,26 @@ namespace Pavalisoft.ExceptionHandling
     {
         private readonly RequestDelegate _next;
         private readonly IExceptionManager _exceptionManager;
+        private readonly IExceptionCodesDecider _exceptionCodesDecider;
         private readonly IActionResultHandler _actionResultHandler;
-        private readonly ILogger<ExceptionHandlingMiddleware> _logger;
 
         /// <summary>
         /// Creates and instance of <see cref="ExceptionHandlingMiddleware"/>
         /// </summary>
         /// <param name="next">Next <see cref="RequestDelegate"/> to be executed after <see cref="ExceptionHandlerDefinition"/> invocation.</param>
         /// <param name="exceptionManager"><see cref="IExceptionManager"/> added to the middleware</param>
+        /// <param name="exceptionCodesDecider"><see cref="IExceptionCodesDecider"/> to be used in <see cref="ExceptionFilter"/></param>
         /// <param name="actionResultHandler"><see cref="IActionResultHandler"/> used to handle created <see cref="IExceptionManager"/></param>
-        /// <param name="logger"><see cref="ILogger"/> instance used to log <see cref="Exception"/>s</param>
         public ExceptionHandlingMiddleware(
             RequestDelegate next,
             IExceptionManager exceptionManager,
-            IActionResultHandler actionResultHandler,
-            ILogger<ExceptionHandlingMiddleware> logger)
+            IExceptionCodesDecider exceptionCodesDecider,
+            IActionResultHandler actionResultHandler)
         {
             _next = next ?? throw new ArgumentNullException(nameof(next));
             _exceptionManager = exceptionManager ?? throw new ArgumentNullException(nameof(exceptionManager));
+            _exceptionCodesDecider = exceptionCodesDecider ?? throw new ArgumentNullException(nameof(exceptionCodesDecider));
             _actionResultHandler = actionResultHandler ?? throw new ArgumentException(nameof(actionResultHandler));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>
@@ -64,20 +64,18 @@ namespace Pavalisoft.ExceptionHandling
 
             try
             {
-                using (_logger.BeginScope(requestScope))
-                {
-                    _logger.LogTrace("Start :" + url);
+                await _next(context);
 
-                    await _next(context);
-
-                    await _actionResultHandler?.HandleActionResult(new ActionResultContext(_exceptionManager, context, requestScope));
-
-                    _logger.LogTrace("End: " + url);
-                }
+                //await _actionResultHandler?.HandleActionResult(new ActionResultContext(_exceptionManager, context, requestScope));
             }
             catch (Exception exception)
             {
-                await _actionResultHandler?.HandleActionResult(new ActionResultContext(_exceptionManager, context, requestScope, exception));
+                ExceptionCodeDetails details = _exceptionCodesDecider.DecideExceptionCode(exception);
+                IActionResult result = details == null
+                    ? _exceptionManager.ManageException(exception)
+                    : _exceptionManager.ManageException(details.ExceptionCode, exception, details.Params);
+
+                await _actionResultHandler?.HandleActionResult(new ActionResultContext(context, exception, result));
             }
         }        
     }

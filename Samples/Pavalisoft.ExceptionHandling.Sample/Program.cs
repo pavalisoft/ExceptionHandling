@@ -54,11 +54,26 @@ namespace Pavalisoft.ExceptionHandling.Sample
 
             services.AddLogging();
             services.AddLocalization();
-            services.AddExceptionHandling<ObjectResultCreator,ObjectResultHandler>();
+            services.AddExceptionHandling<ObjectResultCreator,ObjectResultHandler, AppExceptionCodesDecider>();
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
             IExceptionManager exceptionManager = serviceProvider.GetService<IExceptionManager>();
             return exceptionManager;
+        }
+    }
+
+    /// <summary>
+    /// Application Specific Exception Codes provider implementation
+    /// </summary>
+    public class AppExceptionCodesDecider : ExceptionCodesDecider
+    {
+        public override ExceptionCodeDetails DecideExceptionCode(Exception ex)
+        {
+            if (ex is System.ArgumentOutOfRangeException)
+            {
+                return new ExceptionCodeDetails("E6004", new object[] { "test1" });
+            }
+            return base.DecideExceptionCode(ex);
         }
     }
 }

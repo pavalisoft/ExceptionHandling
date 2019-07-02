@@ -14,11 +14,8 @@
    limitations under the License. 
 */
 
-using System;
-using System.Net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
 using Pavalisoft.ExceptionHandling.Interfaces;
 
 namespace Pavalisoft.ExceptionHandling
@@ -32,10 +29,8 @@ namespace Pavalisoft.ExceptionHandling
         /// Injects Custom ASP.NET Core Application exception handling to <see cref="IExceptionHandlerFeature"/>
         /// </summary>
         /// <param name="applicationBuilder"><see cref="IExceptionHandlerFeature"/></param>
-        /// <param name="responseFunc"><see cref="IExceptionHandlerFeature"/> delegate with <see cref="ResponseInformation"/></param>
         /// <returns><see cref="IApplicationBuilder"/> instance</returns>
-        public static IApplicationBuilder UseExceptionHandling(this IApplicationBuilder applicationBuilder,
-            Func<IExceptionHandlerFeature, ResponseInformation> responseFunc)
+        public static IApplicationBuilder UseExceptionHandlingFilter(this IApplicationBuilder applicationBuilder)
         {
             applicationBuilder.UseExceptionHandler(
                 options =>
@@ -46,10 +41,8 @@ namespace Pavalisoft.ExceptionHandling
                             var ex = context.Features.Get<IExceptionHandlerFeature>();
                             if (ex != null)
                             {
-                                ResponseInformation info = responseFunc.Invoke(ex);
-                                context.Response.StatusCode = (int)info.StatusCode;
-                                context.Response.ContentType = info.ContentType;
-                                await context.Response.WriteAsync(info.Message).ConfigureAwait(false);
+                                IActionResultHandler actionResultHandler = context.RequestServices.GetService(typeof(IActionResultHandler)) as IActionResultHandler;
+                                await actionResultHandler?.HandleActionResult(new ActionResultContext(context, ex.Error));
                             }
                         });
                 }
@@ -63,32 +56,11 @@ namespace Pavalisoft.ExceptionHandling
         /// </summary>
         /// <param name="applicationBuilder"><see cref="IApplicationBuilder"/>application request pipeline</param>
         /// <returns><see cref="IApplicationBuilder"/> instance</returns>
-        public static IApplicationBuilder UseExceptionHandling(this IApplicationBuilder applicationBuilder)
+        public static IApplicationBuilder UseExceptionHandlingMiddleware(this IApplicationBuilder applicationBuilder)
         {
             applicationBuilder.UseMiddleware<ExceptionHandlingMiddleware>();
 
             return applicationBuilder;
         }
-    }
-
-    /// <summary>
-    /// Datastructure holds Response code information
-    /// </summary>
-    public class ResponseInformation
-    {
-        /// <summary>
-        /// Gets or Sets <see cref="HttpStatusCode"/>
-        /// </summary>
-        public HttpStatusCode StatusCode { get; set; }
-
-        /// <summary>
-        /// Gets or gets the Response Content type
-        /// </summary>
-        public string ContentType { get; set; }
-
-        /// <summary>
-        /// Gets or Sets the Response Message
-        /// </summary>
-        public string Message { get; set; }
     }
 }

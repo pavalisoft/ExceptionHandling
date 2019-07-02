@@ -37,6 +37,16 @@ namespace Pavalisoft.ExceptionHandling.ActionResultHandlers
                 actionResultContext.Context.Response.ContentType = "application/json";
                 actionResultContext.Context.Response.WriteAsync(JsonConvert.SerializeObject(objectResult.Value));
             }
+            else
+            {
+                actionResultContext.Context.Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                actionResultContext.Context.Response.ContentType = "application/json";
+                actionResultContext.Context.Response.WriteAsync(JsonConvert.SerializeObject(new 
+                {
+                    Message = actionResultContext.Exception.Message,
+                    StackTrace = actionResultContext.Exception.StackTrace
+                })).ConfigureAwait(false);
+            }
             return Task.CompletedTask;
         }
     }

@@ -16,7 +16,6 @@
 
 using System;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -45,7 +44,7 @@ namespace Pavalisoft.ExceptionHandling.RestFilterSample
             services.AddLocalization();
 
             // Adds Pavalisoft.ExceptionHandling Exception Filer to MVC Middleware services with Application Specific Exception Codes decider.
-            services.AddExceptionFilter<ObjectResultCreator, ObjectResultHandler, ExceptionFilter, AppExceptionCodesDecider>();
+            services.AddExceptionFilter<ObjectResultCreator, ObjectResultHandler, AppExceptionCodesDecider>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -59,24 +58,9 @@ namespace Pavalisoft.ExceptionHandling.RestFilterSample
             }
 
             // Uses Pavalisoft.ExceptionHandling Exception Filer in Request Pipeline
-            app.UseExceptionHandling(GetResponseInformation);
+            app.UseExceptionHandlingFilter();
 
             app.UseMvc();
-        }
-
-        /// <summary>
-        /// Provides Custom page implementation when the specified view is not available.
-        /// </summary>
-        /// <param name="exceptionHandlerFeature"></param>
-        /// <returns></returns>
-        private ResponseInformation GetResponseInformation(IExceptionHandlerFeature exceptionHandlerFeature)
-        {
-            return new ResponseInformation
-            {
-                ContentType = "text/html",
-                StatusCode = System.Net.HttpStatusCode.InternalServerError,
-                Message = $"<h1 class=\"text-danger\">Error: {exceptionHandlerFeature.Error.Message}</h1>{exceptionHandlerFeature.Error.StackTrace}"
-            };
         }
     }
 

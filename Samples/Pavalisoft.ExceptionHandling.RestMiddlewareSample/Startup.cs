@@ -23,8 +23,7 @@ using Microsoft.Extensions.DependencyInjection;
 // Imports Pavalisoft.ExceptionHandling
 using Pavalisoft.ExceptionHandling.ActionResultCreators;
 using Pavalisoft.ExceptionHandling.ActionResultHandlers;
-using Pavalisoft.ExceptionHandling.Interfaces;
-using System.Threading.Tasks;
+using System;
 
 namespace Pavalisoft.ExceptionHandling.RestMiddlewareSample
 {
@@ -45,7 +44,7 @@ namespace Pavalisoft.ExceptionHandling.RestMiddlewareSample
             services.AddLocalization();
 
             // Adds Pavalisoft.ExceptionHandling Middleware to MVC Middleware services with Application Specific Exception Codes decider.
-            services.AddExceptionHandling<ObjectResultCreator, AppObjectResultHandler>();
+            services.AddExceptionHandling<ObjectResultCreator, ObjectResultHandler, AppExceptionCodesDecider>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -59,7 +58,7 @@ namespace Pavalisoft.ExceptionHandling.RestMiddlewareSample
             }
 
             // Uses Pavalisoft.ExceptionHandling Middleware in Request Pipeline
-            app.UseExceptionHandling();
+            app.UseExceptionHandlingMiddleware();
 
             app.UseMvc();
         }
@@ -68,26 +67,15 @@ namespace Pavalisoft.ExceptionHandling.RestMiddlewareSample
     /// <summary>
     /// Application Specific Exception Codes provider implementation
     /// </summary>
-    public class AppObjectResultHandler : ObjectResultHandler
+    public class AppExceptionCodesDecider : ExceptionCodesDecider
     {
-        /// <summary>
-        /// Creates and instance of <see cref="AppObjectResultHandler"/>
-        /// </summary>
-        public AppObjectResultHandler() : base()
+        public override ExceptionCodeDetails DecideExceptionCode(Exception ex)
         {
-        }
-
-        public override Task HandleActionResult(ActionResultContext actionResultContext)
-        {
-            ObjectResult objectResult = null;
-            if (actionResultContext.Exception is System.ArgumentOutOfRangeException)
+            if (ex is System.ArgumentOutOfRangeException)
             {
-                objectResult = actionResultContext.ExceptionManager.ManageException("E6004", actionResultContext.Exception, new object[] { "test1" }) as ObjectResult;
+                return new ExceptionCodeDetails("E6004", new object[] { "test1" });
             }
-
-            if (objectResult != null)
-                actionResultContext.ActionResult = objectResult;
-            return base.HandleActionResult(actionResultContext);
+            return base.DecideExceptionCode(ex);
         }
     }
 }
