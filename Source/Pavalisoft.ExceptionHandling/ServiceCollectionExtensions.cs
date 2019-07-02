@@ -68,6 +68,7 @@ namespace Pavalisoft.ExceptionHandling
             services.AddTransient(typeof(IActionResultCreator), typeof(TActionResultCreatorType));
             services.AddTransient(typeof(IActionResultHandler), typeof(TActionResultHandlerType));
             services.AddTransient(typeof(TCustomExceptionHandlerType));
+            services.AddSingleton(typeof(IExceptionCodesDecider), typeof(TExceptionCodesDeciderType));
 
             services.AddSingleton<IExceptionLogger, ExceptionLogger>();
             services.AddSingleton<IErrorDetailLocalizer, ErrorDetailLocalizer>();
@@ -161,7 +162,6 @@ namespace Pavalisoft.ExceptionHandling
             where TExceptionCodesDeciderType : IExceptionCodesDecider
         {
             services.AddMvcCore(options => options.Filters.Add<TExceptionFilterType>());
-            services.AddSingleton(typeof(IExceptionCodesDecider), typeof(TExceptionCodesDeciderType));
             services.AddExceptionHandling<TActionResultCreatorType, TActionResultHandlerType, TExceptionCodesDeciderType, BaseExceptionHandler>(exceptionHandlerAccessor, exceptionSettings);
             return services;
         }

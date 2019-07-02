@@ -163,7 +163,7 @@
         <member name="T:Pavalisoft.ExceptionHandling.ErrorDetailLocalizer">
             <inheritdoc />
         </member>
-        <member name="M:Pavalisoft.ExceptionHandling.ErrorDetailLocalizer.#ctor(Pavalisoft.ExceptionHandling.Interfaces.IExceptionDataProvider,Microsoft.Extensions.Localization.IStringLocalizer{Pavalisoft.ExceptionHandling.ErrorDetailLocalizer})">
+        <member name="M:Pavalisoft.ExceptionHandling.ErrorDetailLocalizer.#ctor(Pavalisoft.ExceptionHandling.Interfaces.IExceptionDataProvider,Microsoft.Extensions.Localization.IStringLocalizer)">
             <summary>
             Creates an instance of <see cref="T:Pavalisoft.ExceptionHandling.ErrorDetailLocalizer"/>
             </summary>

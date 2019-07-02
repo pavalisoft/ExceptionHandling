@@ -47,7 +47,8 @@ namespace Pavalisoft.ExceptionHandling
         /// <param name="context"></param>
         public override void OnException(ExceptionContext context)
         {
-            SetExceptionResult(context);
+            if(!context.ExceptionHandled)
+                SetExceptionResult(context);
             base.OnException(context);
         }
 
@@ -57,7 +58,8 @@ namespace Pavalisoft.ExceptionHandling
         /// <param name="context"></param>
         public override Task OnExceptionAsync(ExceptionContext context)
         {
-            SetExceptionResult(context);
+            if(!context.ExceptionHandled)
+                SetExceptionResult(context);
             return base.OnExceptionAsync(context);
         }
 
