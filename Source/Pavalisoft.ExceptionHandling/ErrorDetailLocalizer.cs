@@ -4,18 +4,18 @@ using Pavalisoft.ExceptionHandling.Interfaces;
 namespace Pavalisoft.ExceptionHandling
 {
     /// <inheritdoc />
-    public class ErrorDetailLocalizer : IErrorDetailLocalizer
+    public class ErrorDetailLocalizer<TSharedResourceType> : IErrorDetailLocalizer
     {
-        private readonly IStringLocalizer<ErrorDetailLocalizer> _errorDetailLocalizer;
+        private readonly IStringLocalizer<TSharedResourceType> _errorDetailLocalizer;
         private readonly IExceptionDataProvider _exceptionDataProvider;
 
         /// <summary>
-        /// Creates an instance of <see cref="ErrorDetailLocalizer"/>
+        /// Creates an instance of <see cref="ErrorDetailLocalizer{TSharedResourceType}"/>
         /// </summary>
         /// <param name="exceptionDataProvider">Provides <see cref="ExceptionSettings"/> for exception hnandling.</param>
-        /// <param name="errorDetailLocalizer">The <see cref="IStringLocalizer{T}"/> to use the localized exception messages.</param>
+        /// <param name="errorDetailLocalizer">The <see cref="IStringLocalizer{TSharedResourceType}"/> to use the localized exception messages.</param>
         public ErrorDetailLocalizer(IExceptionDataProvider exceptionDataProvider
-            , IStringLocalizer<ErrorDetailLocalizer> errorDetailLocalizer)
+            , IStringLocalizer<TSharedResourceType> errorDetailLocalizer)
         {
             _exceptionDataProvider = exceptionDataProvider;
             _errorDetailLocalizer = errorDetailLocalizer;

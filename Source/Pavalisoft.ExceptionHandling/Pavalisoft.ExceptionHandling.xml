@@ -160,17 +160,17 @@
         <member name="M:Pavalisoft.ExceptionHandling.ErrorDetail.Clone">
             <inheritdoc />
         </member>
-        <member name="T:Pavalisoft.ExceptionHandling.ErrorDetailLocalizer">
+        <member name="T:Pavalisoft.ExceptionHandling.ErrorDetailLocalizer`1">
             <inheritdoc />
         </member>
-        <member name="M:Pavalisoft.ExceptionHandling.ErrorDetailLocalizer.#ctor(Pavalisoft.ExceptionHandling.Interfaces.IExceptionDataProvider,Microsoft.Extensions.Localization.IStringLocalizer)">
+        <member name="M:Pavalisoft.ExceptionHandling.ErrorDetailLocalizer`1.#ctor(Pavalisoft.ExceptionHandling.Interfaces.IExceptionDataProvider,Microsoft.Extensions.Localization.IStringLocalizer{`0})">
             <summary>
-            Creates an instance of <see cref="T:Pavalisoft.ExceptionHandling.ErrorDetailLocalizer"/>
+            Creates an instance of <see cref="T:Pavalisoft.ExceptionHandling.ErrorDetailLocalizer`1"/>
             </summary>
             <param name="exceptionDataProvider">Provides <see cref="T:Pavalisoft.ExceptionHandling.ExceptionSettings"/> for exception hnandling.</param>
             <param name="errorDetailLocalizer">The <see cref="T:Microsoft.Extensions.Localization.IStringLocalizer`1"/> to use the localized exception messages.</param>
         </member>
-        <member name="M:Pavalisoft.ExceptionHandling.ErrorDetailLocalizer.LocalizeErrorDetail(Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail,System.Object[])">
+        <member name="M:Pavalisoft.ExceptionHandling.ErrorDetailLocalizer`1.LocalizeErrorDetail(Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail,System.Object[])">
             <inheritdoc />
         </member>
         <member name="T:Pavalisoft.ExceptionHandling.ExceptionCodeDetails">
@@ -835,18 +835,6 @@
             Provides <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> extensions for Exception Manager integration
             </summary>
         </member>
-        <member name="M:Pavalisoft.ExceptionHandling.ServiceCollectionExtensions.AddExceptionHandling``3(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{Pavalisoft.ExceptionHandling.HandlingBehaviour,System.String,Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler},Pavalisoft.ExceptionHandling.ExceptionSettings)">
-            <summary>
-            Adds Exception Handling Middleware to pipeline with Exception Manager functionality
-            </summary>
-            <typeparam name="TActionResultCreatorType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultCreator"/> type</typeparam>
-            <typeparam name="TActionResultHandlerType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultHandler"/> type</typeparam>
-            <typeparam name="TExceptionCodesDeciderType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionCodesDecider"/> type</typeparam>
-            <param name="services"><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance</param>
-            <param name="exceptionHandlerAccessor">Dependency Accessor for <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/></param>
-            <param name="exceptionSettings"><see cref="T:Pavalisoft.ExceptionHandling.ExceptionSettings"/> object to be used in <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionManager"/></param>
-            <returns><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> add with Exception Manager</returns>
-        </member>
         <member name="M:Pavalisoft.ExceptionHandling.ServiceCollectionExtensions.AddExceptionHandling``4(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{Pavalisoft.ExceptionHandling.HandlingBehaviour,System.String,Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler},Pavalisoft.ExceptionHandling.ExceptionSettings)">
             <summary>
             Adds Exception Handling Middleware to pipeline with Exception Manager functionality
@@ -854,19 +842,21 @@
             <typeparam name="TActionResultCreatorType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultCreator"/> type</typeparam>
             <typeparam name="TActionResultHandlerType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultHandler"/> type</typeparam>
             <typeparam name="TExceptionCodesDeciderType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionCodesDecider"/> type</typeparam>
-            <typeparam name="TCustomExceptionHandlerType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/> type</typeparam>
+            <typeparam name="TSharedResourceType"> shared resource type</typeparam>
             <param name="services"><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance</param>
             <param name="exceptionHandlerAccessor">Dependency Accessor for <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/></param>
             <param name="exceptionSettings"><see cref="T:Pavalisoft.ExceptionHandling.ExceptionSettings"/> object to be used in <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionManager"/></param>
             <returns><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> add with Exception Manager</returns>
         </member>
-        <member name="M:Pavalisoft.ExceptionHandling.ServiceCollectionExtensions.AddExceptionFilter``3(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{Pavalisoft.ExceptionHandling.HandlingBehaviour,System.String,Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler},Pavalisoft.ExceptionHandling.ExceptionSettings)">
+        <member name="M:Pavalisoft.ExceptionHandling.ServiceCollectionExtensions.AddExceptionHandling``5(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{Pavalisoft.ExceptionHandling.HandlingBehaviour,System.String,Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler},Pavalisoft.ExceptionHandling.ExceptionSettings)">
             <summary>
-            Adds <see cref="T:Pavalisoft.ExceptionHandling.ExceptionFilter"/> to pipeline with <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionManager"/> functionality
+            Adds Exception Handling Middleware to pipeline with Exception Manager functionality
             </summary>
             <typeparam name="TActionResultCreatorType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultCreator"/> type</typeparam>
             <typeparam name="TActionResultHandlerType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultHandler"/> type</typeparam>
             <typeparam name="TExceptionCodesDeciderType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionCodesDecider"/> type</typeparam>
+            <typeparam name="TCustomExceptionHandlerType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/> type</typeparam>
+            <typeparam name="TSharedResourceType"> shared resource type</typeparam>
             <param name="services"><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance</param>
             <param name="exceptionHandlerAccessor">Dependency Accessor for <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/></param>
             <param name="exceptionSettings"><see cref="T:Pavalisoft.ExceptionHandling.ExceptionSettings"/> object to be used in <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionManager"/></param>
@@ -878,6 +868,20 @@
             </summary>
             <typeparam name="TActionResultCreatorType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultCreator"/> type</typeparam>
             <typeparam name="TActionResultHandlerType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultHandler"/> type</typeparam>
+            <typeparam name="TSharedResourceType"> shared resource type</typeparam>
+            <typeparam name="TExceptionCodesDeciderType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionCodesDecider"/> type</typeparam>
+            <param name="services"><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance</param>
+            <param name="exceptionHandlerAccessor">Dependency Accessor for <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler"/></param>
+            <param name="exceptionSettings"><see cref="T:Pavalisoft.ExceptionHandling.ExceptionSettings"/> object to be used in <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionManager"/></param>
+            <returns><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> add with Exception Manager</returns>
+        </member>
+        <member name="M:Pavalisoft.ExceptionHandling.ServiceCollectionExtensions.AddExceptionFilter``5(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{Pavalisoft.ExceptionHandling.HandlingBehaviour,System.String,Pavalisoft.ExceptionHandling.Interfaces.IExceptionHandler},Pavalisoft.ExceptionHandling.ExceptionSettings)">
+            <summary>
+            Adds <see cref="T:Pavalisoft.ExceptionHandling.ExceptionFilter"/> to pipeline with <see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionManager"/> functionality
+            </summary>
+            <typeparam name="TActionResultCreatorType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultCreator"/> type</typeparam>
+            <typeparam name="TActionResultHandlerType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IActionResultHandler"/> type</typeparam>
+            <typeparam name="TSharedResourceType"> shared resource type</typeparam>
             <typeparam name="TExceptionFilterType"><see cref="T:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata"/> type</typeparam>
             <typeparam name="TExceptionCodesDeciderType"><see cref="T:Pavalisoft.ExceptionHandling.Interfaces.IExceptionCodesDecider"/> type</typeparam>
             <param name="services"><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance</param>

@@ -45,8 +45,8 @@ namespace Pavalisoft.ExceptionHandling.NoConfigSample
             IServiceCollection services = new ServiceCollection();
                         
             services.AddLogging();
-            services.AddLocalization();
-            services.AddExceptionHandling<ObjectResultCreator, ObjectResultHandler, AppExceptionCodesDecider>(null, CreateExceptionSettings());
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddExceptionHandling<ObjectResultCreator, ObjectResultHandler, AppExceptionCodesDecider, AppExceptionCodesDecider>(null, CreateExceptionSettings());
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
             IExceptionManager exceptionManager = serviceProvider.GetService<IExceptionManager>();
@@ -58,19 +58,18 @@ namespace Pavalisoft.ExceptionHandling.NoConfigSample
             return new ExceptionSettings {
                 EnableLocalization = true,
                 EnableLogging = true,
-                DefaultErrorDetail = "Default",
+                DefaultErrorDetail = "E6001",
                 DefaulExceptiontHandler = "BaseHandler",
                 ErrorDetails = new List<ErrorDetail> {
                     new ErrorDetail
                     {
-                        Name = "Default",
                         LogLevel = LogLevel.Error,
                         ErrorCode = "6001",
                         StatusCode = System.Net.HttpStatusCode.OK,
-                        Message = "Test",
-                        WrapMessage = "Test",
+                        Message = "Unhandled Exception occured.",
+                        WrapMessage = "Unhandled Exception occured.",
                         HandlerName = "BaseHandler",
-                        EventId =
+                        EventId = new EventId
                         {
                             Id = 1,
                             Name = "General"

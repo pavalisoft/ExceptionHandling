@@ -14,9 +14,6 @@
    limitations under the License. 
 */
 
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using Microsoft.Extensions.Logging;
 using Pavalisoft.ExceptionHandling.Interfaces;
@@ -31,7 +28,7 @@ namespace Pavalisoft.ExceptionHandling
         /// <summary>
         /// Gets or Sets the Error detail unique name
         /// </summary>
-        public string Name { get; set; }
+        public string Name => LogLevel.ToString().Substring(0, 1) + ErrorCode;
 
         /// <summary>
         /// Gets or Sets the <see cref="LogLevel"/> to define type of error.
@@ -77,7 +74,6 @@ namespace Pavalisoft.ExceptionHandling
         public virtual object Clone()
         {
             return new ErrorDetail {
-                Name = Name,
                 LogLevel = LogLevel,
                 ErrorCode = ErrorCode,
                 StatusCode = StatusCode,

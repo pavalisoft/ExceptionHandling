@@ -50,7 +50,7 @@ namespace Pavalisoft.ExceptionHandling.ActionResultCreators
             };
             if (data != null)
                 foreach (var key in data.Keys)
-                    viewResult.ViewData.Add(key, data[key]);
+                    viewResult.ViewData[key] = data[key];
             return viewResult;
         }
     }

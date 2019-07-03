@@ -122,7 +122,7 @@ namespace Pavalisoft.ExceptionHandling
                 Dictionary<string, IExceptionHandler> exceptionHandlers = new Dictionary<string, IExceptionHandler>();
                 foreach (var handler in ExceptionSettings.ExceptionHandlers)
                 {
-                    exceptionHandlers.Add(handler.Name, _exceptionHandlerAccessor.Invoke(handler.Behaviour, handler.Config));
+                    exceptionHandlers[handler.Name] = _exceptionHandlerAccessor.Invoke(handler.Behaviour, handler.Config);
                 }
                 _exceptionHandlers = new ReadOnlyDictionary<string, IExceptionHandler>(exceptionHandlers);
             }
@@ -135,7 +135,7 @@ namespace Pavalisoft.ExceptionHandling
                 Dictionary<string, IErrorDetail> exceptionDetails = new Dictionary<string, IErrorDetail>();
                 foreach (IErrorDetail exceptionDetail in ExceptionSettings.ErrorDetails)
                 {
-                    exceptionDetails.Add(exceptionDetail.Name, exceptionDetail);
+                    exceptionDetails[exceptionDetail.Name] = exceptionDetail;
                 }
                 _exceptionDetails = new ReadOnlyDictionary<string, IErrorDetail>(exceptionDetails);
             }

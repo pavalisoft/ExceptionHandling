@@ -41,10 +41,10 @@ namespace Pavalisoft.ExceptionHandling.RestMiddlewareSample
         {
             // Add Logging and Localization Middlewares to services
             services.AddLogging();
-            services.AddLocalization();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             // Adds Pavalisoft.ExceptionHandling Middleware to MVC Middleware services with Application Specific Exception Codes decider.
-            services.AddExceptionHandling<ObjectResultCreator, ObjectResultHandler, AppExceptionCodesDecider>();
+            services.AddExceptionHandling<ObjectResultCreator, ObjectResultHandler, AppExceptionCodesDecider, AppExceptionCodesDecider>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

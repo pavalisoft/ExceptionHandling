@@ -53,8 +53,8 @@ namespace Pavalisoft.ExceptionHandling.Sample
             services.AddSingleton(configuration);
 
             services.AddLogging();
-            services.AddLocalization();
-            services.AddExceptionHandling<ObjectResultCreator,ObjectResultHandler, AppExceptionCodesDecider>();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddExceptionHandling<ObjectResultCreator,ObjectResultHandler, AppExceptionCodesDecider, AppExceptionCodesDecider>();
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
             IExceptionManager exceptionManager = serviceProvider.GetService<IExceptionManager>();

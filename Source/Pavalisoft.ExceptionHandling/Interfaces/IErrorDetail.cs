@@ -28,7 +28,7 @@ namespace Pavalisoft.ExceptionHandling.Interfaces
         /// <summary>
         /// Gets or Sets the Error detail unique name
         /// </summary>
-        string Name { get; set; }
+        string Name { get; }
 
         /// <summary>
         /// Gets or Sets the <see cref="LogLevel"/> to define type of error.

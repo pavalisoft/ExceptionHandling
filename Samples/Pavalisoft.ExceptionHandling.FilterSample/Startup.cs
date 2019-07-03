@@ -16,7 +16,6 @@
 
 using System;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +52,7 @@ namespace Pavalisoft.ExceptionHandling.FilterSample
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             // Adds Pavalisoft.ExceptionHandling Exception Filer to MVC Middleware services with Application Specific Exception Codes decider.
-            services.AddExceptionFilter<ViewResultCreator, ViewResultHandler, AppExceptionCodesDecider>();
+            services.AddExceptionFilter<ViewResultCreator, ViewResultHandler, AppExceptionCodesDecider, AppExceptionCodesDecider>();
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
