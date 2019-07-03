@@ -289,7 +289,7 @@ namespace Pavalisoft.ExceptionHandling.FilterSample
 
 *Note:* Use `ObjectResultCreator` and `ObjectResultHandler` in WebAPI applications instead of `ViewResultCreator` and `ViewResultHandler`
 
-4. Use [ExceptionManager](https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_manager.html) and/or [ExceptionRaiser](https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_raiser.html) methods handle and raise exceptions.
+5. Use [ExceptionManager](https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_manager.html) and/or [ExceptionRaiser](https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_raiser.html) methods handle and raise exceptions.
 
 ```csharp
 // Import Pavalisoft.ExceptionHandling interfaces
@@ -332,6 +332,30 @@ namespace Pavalisoft.ExceptionHandling.FilterSample.Controllers
         }
     }
 }
+```
+
+6. Create ErrorResponse.cshtml to View/Shared folder with the below html
+
+```html
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+<p>
+    <strong>Exception Code:</strong><code>@ViewData["ExceptionCode"]</code>
+</p>
+<p>
+    <strong>Message:</strong><code>@ViewData["Message"]</code>
+</p>
+<p>
+    <strong>Event Id:</strong><code>@ViewData["EventId"]</code>
+</p>
+<p>
+    <strong>Event Name:</strong><code>@ViewData["EventName"]</code>
+</p>
 ```
 
 ## Exception Manager Usage with [ExceptionHandlingMiddleware](https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_handling_middleware.html)
@@ -600,7 +624,7 @@ namespace Pavalisoft.ExceptionHandling.MiddlewareSample
 
 *Note:* Use `ObjectResultCreator` and `ObjectResultHandler` in WebAPI applications instead of `ViewResultCreator` and `ViewResultHandler`
 
-4. Use [ExceptionManager](https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_manager.html) and/or [ExceptionRaiser](https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_raiser.html) methods handle and raise exceptions.
+5. Use [ExceptionManager](https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_manager.html) and/or [ExceptionRaiser](https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_raiser.html) methods handle and raise exceptions.
 
 ```csharp
 // Import Pavalisoft.ExceptionHandling interfaces
@@ -643,6 +667,30 @@ namespace Pavalisoft.ExceptionHandling.MiddlewareSample.Controllers
         }
     }
 }
+```
+
+6. Create ErrorResponse.cshtml to View/Shared folder with the below html
+
+```html
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+<p>
+    <strong>Exception Code:</strong><code>@ViewData["ExceptionCode"]</code>
+</p>
+<p>
+    <strong>Message:</strong><code>@ViewData["Message"]</code>
+</p>
+<p>
+    <strong>Event Id:</strong><code>@ViewData["EventId"]</code>
+</p>
+<p>
+    <strong>Event Name:</strong><code>@ViewData["EventName"]</code>
+</p>
 ```
 
 ## Exception Handlers

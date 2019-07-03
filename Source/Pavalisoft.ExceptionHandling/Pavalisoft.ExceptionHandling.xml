@@ -21,7 +21,7 @@
         </member>
         <member name="M:Pavalisoft.ExceptionHandling.ActionResultCreators.ViewResultCreator.#ctor(Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider)">
             <summary>
-            Creates and instance of <see cref="T:Pavalisoft.ExceptionHandling.ActionResultCreators.ViewResultCreator"/> with <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider"/>
+            Creates an instance of <see cref="T:Pavalisoft.ExceptionHandling.ActionResultCreators.ViewResultCreator"/> with <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider"/>
             </summary>
             <param name="modelMetadataProvider"><see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider"/> instance</param>
         </member>
