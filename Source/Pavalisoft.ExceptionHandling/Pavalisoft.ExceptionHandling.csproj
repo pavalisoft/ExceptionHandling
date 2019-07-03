@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/pavalisoft/ExceptionHandling</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>exception-handling;exception;exception-manager;handler;manager;handling</PackageTags>
-    <PackageReleaseNotes>Pavalisoft.ExceptionHandling is an open source exception handler extension for .NET Standard written in C#, which provides single unified API to handle both .NET Core and ASP.NET Core Exceptions with 
+    <PackageReleaseNotes>Pavalisoft.ExceptionHandling is an open source exception handler extension for .NET Standard written in C#, which provides single unified API to handle both ASP.NET Core and ASP.NET Core MVC Exceptions with 
 - Exceptions Logging
 - Exceptions Messages Localization
 - Extensible ActionResult creators for both WebApp and WebApi (REST)
@@ -22,8 +22,8 @@
 - ExceptionCodesDecider to specify the error details code to be picked up for the application level Exceptions
 
 Provides the below inbuild Exception Handlers
-- WrapExceptionHandler : Wraps the original Exception with the Wrap Error message specified in ErrorDetail
-- PropagateExceptionHandler: Creates the ActionResult for the exception raised using supplied ErrorDetail.
+- WrapExceptionHandler : Wraps the original Exception with the Wrap Error message specified in ErrorDetail and creates ActionResult
+- DefaultExceptionHandler: Creates the ActionResult for the exception raised using supplied ErrorDetail.
 
 This Api provides ExceptionFilter and ExceptionHandlingMiddleware.
 - ExceptionFilter : Hanldes the exception raised in ASP.NET Core MVC middleware in Filters pipeline

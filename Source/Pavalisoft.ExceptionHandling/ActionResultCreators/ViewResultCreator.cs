@@ -31,7 +31,7 @@ namespace Pavalisoft.ExceptionHandling.ActionResultCreators
         private readonly IModelMetadataProvider _modelMetadataProvider;
 
         /// <summary>
-        /// Creates and instance of <see cref="ViewResultCreator"/> with <see cref="IModelMetadataProvider"/>
+        /// Creates an instance of <see cref="ViewResultCreator"/> with <see cref="IModelMetadataProvider"/>
         /// </summary>
         /// <param name="modelMetadataProvider"><see cref="IModelMetadataProvider"/> instance</param>
         public ViewResultCreator(IModelMetadataProvider modelMetadataProvider)
