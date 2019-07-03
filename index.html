@@ -91,6 +91,667 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="title">Pavalisoft.ExceptionHandling Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
+<article class="markdown-body entry-content p-5" itemprop="text"><h1><a id="user-content-exception-handling" class="anchor" aria-hidden="true" href="#exception-handling"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exception Handling</h1>
+<p><a href="https://www.nuget.org/packages/Pavalisoft.ExceptionHandling/" rel="nofollow">Pavalisoft.ExceptionHandling</a> is an open source ASP.NET Core global exception handler extension complaint with .NET Standard 2.0 written in C#, which provides <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_filter.html" rel="nofollow">ExceptionFilter</a> and <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_handling_middleware.html" rel="nofollow">ExceptionHandlingMiddleware</a> APIs.</p>
+<p>The main goal of the <a href="https://www.nuget.org/packages/Pavalisoft.ExceptionHandling/" rel="nofollow">Pavalisoft.ExceptionHandling</a> package is to make developer's life easier to handle exceptions handling scenarios at single place and concentrate on functionality. It's additional feature <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_manager.html" rel="nofollow">ExceptionManager</a> and inbuilt <code>ExceptionHandlers</code> supports various exception handling mechanisms with configurable <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_settings.html" rel="nofollow">ExceptionSettings</a></p>
+<p>By default, <a href="https://www.nuget.org/packages/Pavalisoft.ExceptionHandling/" rel="nofollow">Pavalisoft.ExceptionHandling</a> also supports exceptions logging and exception messages localization through <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_settings.html" rel="nofollow">ExceptionSettings</a> configuration.</p>
+<p><a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_raiser.html" rel="nofollow">ExceptionRaiser</a> supports to raise the exceptions from the code wherever required which should be handled through <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_manager.html" rel="nofollow">ExceptionManager</a> using <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_error_detail.html" rel="nofollow">ErrorDetail</a>.</p>
+<p>Provides inbuilt <code>ObjectResult</code> and <code>ViewResult</code> specific creators and result handlers to create <code>HttpResponseMessage</code>s for WebApi and WebApp implementations. While creating the <code>ViewResult</code> for the handled exception, the <code>ViewResult</code> creators takes the the Error <code>ViewName</code> from <code>ErrorDetail.ViewName</code> from <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_settings.html" rel="nofollow">ExceptionSettings</a>. The <a href="/pavalisoft/ExceptionHandling/blob/master/class_pavalisoft_1_1_exception_handling_1_1_exception_data.html">ExceptionData</a> object will be returned in <code>ObjectResult</code> as json content and will be returned its properties/attributes as <code>ViewData</code> in <code>ViewResult</code> to the <code>ErrorDetail.ViewName</code>view.</p>
+<h2><a id="user-content-documentation--samples" class="anchor" aria-hidden="true" href="#documentation--samples"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Documentation &amp; Samples</h2>
+<p>Complete Documentation is available at <a href="https://pavalisoft.github.io/ExceptionHandling/" rel="nofollow">https://pavalisoft.github.io/ExceptionHandling/</a> for <a href="https://github.com/pavalisoft/ExceptionHandling">Pavalisoft.ExceptionHandling</a> API</p>
+<p>Refer <a href="https://github.com/pavalisoft/ExceptionHandling/tree/master/Samples">https://github.com/pavalisoft/ExceptionHandling/tree/master/Samples</a> for reference implementations</p>
+<ul>
+<li><a href="https://github.com/pavalisoft/ExceptionHandling/tree/master/Samples/Pavalisoft.ExceptionHandling.Sample"><strong>Pavalisoft.ExceptionHandling.Sample</strong></a> - Console application : <code>ExceptionHandlingMiddleware</code> with <code>ObjectResultCreator</code>, <code>ObjectResultHandler</code>, Application specific <code>ExceptionCodesDecider</code>, <code>ExceptionSettings</code> in appsettings.json, exceptions logging and exception messages localization.</li>
+<li><a href="https://github.com/pavalisoft/ExceptionHandling/tree/master/Samples/Pavalisoft.ExceptionHandling.NoConfigSample"><strong>Pavalisoft.ExceptionHandling.NoConfigSample</strong></a> - Console application : <code>ExceptionHandlingMiddleware</code> with <code>ObjectResultCreator</code>, <code>ObjectResultHandler</code>, Application specific <code>ExceptionCodesDecider</code>, <code>ExceptionSettings</code> object creation in Program.cs, exceptions logging and exception messages localization.</li>
+<li><a href="https://github.com/pavalisoft/ExceptionHandling/tree/master/Samples/Pavalisoft.ExceptionHandling.FilterSample"><strong>Pavalisoft.ExceptionHandling.FilerSample</strong></a> - ASP.NET Core MVC WebApp : <code>ExceptionFilter</code> with <code>ViewResultCreator</code>, <code>ViewResultHandler</code>, Application specific <code>ExceptionCodesDecider</code>, <code>ExceptionSettings</code> in appsettings.json, exceptions logging and exception messages localization.</li>
+<li><a href="https://github.com/pavalisoft/ExceptionHandling/tree/master/Samples/Pavalisoft.ExceptionHandling.RestFilterSample"><strong>Pavalisoft.ExceptionHandling.RestFilerSample</strong></a> - ASP.NET Core MVC WebApi : <code>ExceptionFilter</code> with <code>ObjectResultCreator</code>, <code>ObjectResultHandler</code>, Application specific <code>ExceptionCodesDecider</code>, <code>ExceptionSettings</code> in appsettings.json, exceptions logging and exception messages localization.</li>
+<li><a href="https://github.com/pavalisoft/ExceptionHandling/tree/master/Samples/Pavalisoft.ExceptionHandling.MiddlewareSample"><strong>Pavalisoft.ExceptionHandling.MiddlewareSample</strong></a> - ASP.NET Core MVC WebApp : <code>ExceptionHandlingMiddleware</code> with <code>ViewResultCreator</code>, <code>ViewResultHandler</code>, Application specific <code>ExceptionCodesDecider</code>, <code>ExceptionSettings</code> in appsettings.json, exceptions logging and exception messages localization.</li>
+<li><a href="https://github.com/pavalisoft/ExceptionHandling/tree/master/Samples/Pavalisoft.ExceptionHandling.RestMiddlewareSample"><strong>Pavalisoft.ExceptionHandling.FilerSample</strong></a> - ASP.NET Core MVC WebApi : <code>ExceptionHandlingMiddleware</code> with <code>ObjectResultCreator</code>, <code>ObjectResultHandler</code>, Application specific <code>ExceptionCodesDecider</code>, <code>ExceptionSettings</code> in appsettings.json, exceptions logging and exception messages localization.</li>
+</ul>
+<h2><a id="user-content-exception-manager-usage-with-exceptionfilter" class="anchor" aria-hidden="true" href="#exception-manager-usage-with-exceptionfilter"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exception Manager Usage with <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_filter.html" rel="nofollow">ExceptionFilter</a></h2>
+<ol>
+<li>Define the <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_settings.html#aa50b30e56ff52de16e1f40428a1bf5c8" rel="nofollow">Error Details</a> and <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_settings.html#a73777e99d64b50ad1b63bced9b7a6ec4" rel="nofollow">Exception Handlers</a> in Exceptions configuration section in appSettings.json.</li>
+</ol>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>Exceptions<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>EnableLocalization<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>EnableLogging<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>DefaultErrorDetail<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>E6000<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>DefaulExceptiontHandler<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SupressHandler<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>ErrorDetails<span class="pl-pds">"</span></span>: [
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>LogLevel<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>ErrorCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>6000<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>StatusCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>500<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Message<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>{0}<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>HandlerName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SupressHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>EventId<span class="pl-pds">"</span></span>: {
+          <span class="pl-s"><span class="pl-pds">"</span>Id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>General<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>ViewName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ErrorResponse<span class="pl-pds">"</span></span>
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>LogLevel<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>ErrorCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>6001<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>StatusCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>500<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Message<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Unhandled Exception occured.<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>HandlerName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SupressHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>EventId<span class="pl-pds">"</span></span>: {
+          <span class="pl-s"><span class="pl-pds">"</span>Id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>General<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>ViewName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ErrorResponse<span class="pl-pds">"</span></span>
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>LogLevel<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>ErrorCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>6002<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>StatusCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>200<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Message<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Argument {0} is null<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>HandlerName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>PropagateHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>EventId<span class="pl-pds">"</span></span>: {
+          <span class="pl-s"><span class="pl-pds">"</span>Id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>General<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>ViewName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ErrorResponse<span class="pl-pds">"</span></span>
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>LogLevel<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>ErrorCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>6003<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>StatusCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>202<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Message<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Unbale to connect to {0} server<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>WrapMessage<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Username or password is invalid<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>HandlerName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>WrapHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>EventId<span class="pl-pds">"</span></span>: {
+          <span class="pl-s"><span class="pl-pds">"</span>Id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Secured<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>ViewName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ErrorResponse<span class="pl-pds">"</span></span>
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>LogLevel<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>ErrorCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>6004<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>StatusCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>404<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Message<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Argument out of index at {0}<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>HandlerName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SupressHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>EventId<span class="pl-pds">"</span></span>: {
+          <span class="pl-s"><span class="pl-pds">"</span>Id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>General<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>ViewName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ErrorResponse<span class="pl-pds">"</span></span>
+      }
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>ExceptionHandlers<span class="pl-pds">"</span></span>: [
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SupressHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Behaviour<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Supress<span class="pl-pds">"</span></span>
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>WrapHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Behaviour<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Wrap<span class="pl-pds">"</span></span>
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>PropagateHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Behaviour<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Propagate<span class="pl-pds">"</span></span>
+      }
+    ]
+  }
+}</pre></div>
+<ol start="2">
+<li>Add the resx (e.g SharedResource.resx) file with the exception localization test to the Resources folder and a class with the same name as resx file(e.g. SharedResource.cs to support localization.</li>
+</ol>
+<div class="highlight highlight-source-cs"><pre><span class="pl-smi">Pavalisoft</span>.<span class="pl-smi">ExceptionHandling</span>.<span class="pl-smi">FilterSample</span>
+<span class="pl-k">|</span><span class="pl-k">-</span> <span class="pl-smi">Resources</span>
+<span class="pl-k">|</span><span class="pl-k">----</span><span class="pl-k">-</span> <span class="pl-smi">SharedResource</span>.<span class="pl-smi">resx</span>
+<span class="pl-k">|</span><span class="pl-k">----</span><span class="pl-k">-</span> <span class="pl-smi">SharedResource</span>.<span class="pl-smi">te</span><span class="pl-k">-</span><span class="pl-smi">in</span>.<span class="pl-smi">resx</span>
+<span class="pl-k">|</span><span class="pl-k">-</span> <span class="pl-smi">SharedResource</span>.<span class="pl-smi">cs</span>
+
+<span class="pl-k">using</span> <span class="pl-en">Microsoft</span>.<span class="pl-en">Extensions</span>.<span class="pl-en">Localization</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">FilterSample</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-en">ISharedResource</span>
+    {
+    }
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">SharedResource</span> : <span class="pl-en">ISharedResource</span>
+    {
+        <span class="pl-k">private</span> <span class="pl-k">readonly</span> <span class="pl-en">IStringLocalizer</span> <span class="pl-smi">_localizer</span>;
+
+        <span class="pl-k">public</span> <span class="pl-en">SharedResource</span>(<span class="pl-en">IStringLocalizer</span>&lt;<span class="pl-en">SharedResource</span>&gt; <span class="pl-smi">localizer</span>)
+        {
+            <span class="pl-smi">_localizer</span> <span class="pl-k">=</span> <span class="pl-smi">localizer</span>;
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-k">this</span>[<span class="pl-k">string</span> <span class="pl-smi">index</span>]
+        {
+            <span class="pl-k">get</span>
+            {
+                <span class="pl-k">return</span> <span class="pl-smi">_localizer</span>[<span class="pl-smi">index</span>];
+            }
+        }
+    }
+}</pre></div>
+<ol start="3">
+<li>Add <a href="https://www.nuget.org/packages/Pavalisoft.ExceptionHandling/" rel="nofollow">Pavalisoft.ExceptionHandling</a> package to project then add `ExceptionFilter' to MVC services and request pipeline with logging and localization.</li>
+</ol>
+<div class="highlight highlight-source-cs"><pre>...
+<span class="pl-c"><span class="pl-c">//</span> Imports Pavalisoft.ExceptionHandling</span>
+<span class="pl-k">using</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">ActionResultCreators</span>;
+<span class="pl-k">using</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">ActionResultHandlers</span>;
+...
+
+<span class="pl-k">namespace</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">FilterSample</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Startup</span>
+    {
+		...
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">ConfigureServices</span>(<span class="pl-en">IServiceCollection</span> <span class="pl-smi">services</span>)
+        {
+            ...
+            <span class="pl-c"><span class="pl-c">//</span> Add Logging and Localization Middleware to services</span>
+            <span class="pl-smi">services</span>.<span class="pl-en">AddLogging</span>();
+            <span class="pl-smi">services</span>.<span class="pl-en">AddLocalization</span>(<span class="pl-smi">options</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">options</span>.<span class="pl-smi">ResourcesPath</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Resources<span class="pl-pds">"</span></span>);
+
+            <span class="pl-c"><span class="pl-c">//</span> Adds Pavalisoft.ExceptionHandling Exception Filer to MVC Middleware services with Application Specific Exception Codes decider.</span>
+            <span class="pl-smi">services</span>.<span class="pl-en">AddExceptionFilter</span>&lt;<span class="pl-en">ViewResultCreator</span>, <span class="pl-en">ViewResultHandler</span>, <span class="pl-en">SharedResources</span>, <span class="pl-en">AppExceptionCodesDecider</span>&gt;();
+			...
+        }
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">Configure</span>(<span class="pl-en">IApplicationBuilder</span> <span class="pl-smi">app</span>, <span class="pl-en">IHostingEnvironment</span> <span class="pl-smi">env</span>)
+        {
+			...
+            <span class="pl-c"><span class="pl-c">//</span> Uses Pavalisoft.ExceptionHandling Exception Filer in Request Pipeline</span>
+            <span class="pl-smi">app</span>.<span class="pl-en">UseExceptionHandlingFilter</span>();            
+			...
+        }
+		...
+    }
+    <span class="pl-c"><span class="pl-c">///</span> &lt;<span class="pl-ent"><span class="pl-ent">summary</span></span>&gt;</span>
+    <span class="pl-c"><span class="pl-c">///</span> Application Specific Exception Codes provider implementation</span>
+    <span class="pl-c"><span class="pl-c">///</span> &lt;/<span class="pl-ent"><span class="pl-ent">summary</span></span>&gt;</span>
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">AppExceptionCodesDecider</span> : <span class="pl-en">ExceptionCodesDecider</span>
+    {
+        <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-en">ExceptionCodeDetails</span> <span class="pl-en">DecideExceptionCode</span>(<span class="pl-en">Exception</span> <span class="pl-smi">ex</span>)
+        {
+            <span class="pl-k">if</span>(<span class="pl-smi">ex</span> <span class="pl-k">is</span> <span class="pl-k">System</span>.<span class="pl-en">ArgumentOutOfRangeException</span>)
+            {
+                <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">ExceptionCodeDetails</span>(<span class="pl-s"><span class="pl-pds">"</span>E6004<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-k">object</span>[] { <span class="pl-s"><span class="pl-pds">"</span>test1<span class="pl-pds">"</span></span> });
+            }
+            <span class="pl-k">return</span> <span class="pl-k">base</span>.<span class="pl-en">DecideExceptionCode</span>(<span class="pl-smi">ex</span>);
+        }
+    }
+}</pre></div>
+<ol start="4">
+<li>Use the other <code>services.AddExceptionFilter&lt;ViewResultCreator, ViewResultHandler, SharedResources, AppExceptionCodesDecider&gt;()</code> extension method to pass the <code>ExceptionSettings</code> instead of json in appsettings.json file in <code>services.AddExceptionFilter&lt;ViewResultCreator, ViewResultHandler, SharedResources, AppExceptionCodesDecider&gt;();</code> method.</li>
+</ol>
+<div class="highlight highlight-source-cs"><pre>...
+<span class="pl-c"><span class="pl-c">//</span> Imports Pavalisoft.ExceptionHandling</span>
+<span class="pl-k">using</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">ActionResultCreators</span>;
+<span class="pl-k">using</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">ActionResultHandlers</span>;
+...
+
+<span class="pl-k">namespace</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">FilterSample</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Startup</span>
+    {
+		...
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">ConfigureServices</span>(<span class="pl-en">IServiceCollection</span> <span class="pl-smi">services</span>)
+        {
+            ...
+            <span class="pl-c"><span class="pl-c">//</span> Add Logging and Localization Middleware to services</span>
+            <span class="pl-smi">services</span>.<span class="pl-en">AddLogging</span>();
+            <span class="pl-smi">services</span>.<span class="pl-en">AddLocalization</span>(<span class="pl-smi">options</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">options</span>.<span class="pl-smi">ResourcesPath</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Resources<span class="pl-pds">"</span></span>);
+
+            <span class="pl-c"><span class="pl-c">//</span> Adds Pavalisoft.ExceptionHandling Exception Filer to MVC Middleware services with Application Specific Exception Codes decider.</span>
+            <span class="pl-smi">services</span>.<span class="pl-en">AddExceptionFilter</span>&lt;<span class="pl-en">ViewResultCreator</span>, <span class="pl-en">ViewResultHandler</span>, <span class="pl-en">SharedResources</span>, <span class="pl-en">AppExceptionCodesDecider</span>&gt;(<span class="pl-c1">null</span>, <span class="pl-en">CreateExceptionSettings</span>());
+			...
+        }
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">Configure</span>(<span class="pl-en">IApplicationBuilder</span> <span class="pl-smi">app</span>, <span class="pl-en">IHostingEnvironment</span> <span class="pl-smi">env</span>)
+        {
+			...
+            <span class="pl-c"><span class="pl-c">//</span> Uses Pavalisoft.ExceptionHandling Exception Filer in Request Pipeline</span>
+            <span class="pl-smi">app</span>.<span class="pl-en">UseExceptionHandlingFilter</span>();            
+			...
+        }
+		...
+        <span class="pl-k">private</span> <span class="pl-en">ExceptionSettings</span> <span class="pl-en">CreateExceptionSettings</span>()
+        {
+            <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">ExceptionSettings</span> {
+                <span class="pl-smi">EnableLocalization</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>,
+                <span class="pl-smi">EnableLogging</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>,
+                <span class="pl-smi">DefaultErrorDetail</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>E6001<span class="pl-pds">"</span></span>,
+                <span class="pl-smi">DefaulExceptiontHandler</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>BaseHandler<span class="pl-pds">"</span></span>,
+                <span class="pl-smi">ErrorDetails</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">List</span>&lt;<span class="pl-en">ErrorDetail</span>&gt; {
+                    <span class="pl-k">new</span> <span class="pl-en">ErrorDetail</span>
+                    {
+                        <span class="pl-smi">LogLevel</span> <span class="pl-k">=</span> <span class="pl-smi">LogLevel</span>.<span class="pl-smi">Error</span>,
+                        <span class="pl-smi">ErrorCode</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>6001<span class="pl-pds">"</span></span>,
+                        <span class="pl-smi">StatusCode</span> <span class="pl-k">=</span> <span class="pl-smi">System</span>.<span class="pl-smi">Net</span>.<span class="pl-smi">HttpStatusCode</span>.<span class="pl-smi">OK</span>,
+                        <span class="pl-smi">Message</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Unhandled Exception occurred.<span class="pl-pds">"</span></span>,
+                        <span class="pl-smi">WrapMessage</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Unhandled Exception occurred.<span class="pl-pds">"</span></span>,
+                        <span class="pl-smi">HandlerName</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>BaseHandler<span class="pl-pds">"</span></span>,
+                        <span class="pl-smi">EventId</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">EventId</span>
+                        {
+                            <span class="pl-smi">Id</span> <span class="pl-k">=</span> <span class="pl-c1">1</span>,
+                            <span class="pl-smi">Name</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>General<span class="pl-pds">"</span></span>
+                        },
+                        <span class="pl-smi">ViewName</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>
+                    }
+                },
+                <span class="pl-smi">ExceptionHandlers</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">List</span>&lt;<span class="pl-en">ExceptionHandlerDefinition</span>&gt;
+                {
+                    <span class="pl-k">new</span> <span class="pl-en">ExceptionHandlerDefinition</span>
+                    {
+                        <span class="pl-smi">Name</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>BaseHandler<span class="pl-pds">"</span></span>,
+                        <span class="pl-smi">Behaviour</span> <span class="pl-k">=</span> <span class="pl-smi">HandlingBehaviour</span>.<span class="pl-smi">Supress</span>,
+                        <span class="pl-smi">Config</span> <span class="pl-k">=</span> <span class="pl-smi">string</span>.<span class="pl-smi">Empty</span>
+                    }
+                }
+            };
+        }
+    }
+    <span class="pl-c"><span class="pl-c">///</span> &lt;<span class="pl-ent"><span class="pl-ent">summary</span></span>&gt;</span>
+    <span class="pl-c"><span class="pl-c">///</span> Application Specific Exception Codes provider implementation</span>
+    <span class="pl-c"><span class="pl-c">///</span> &lt;/<span class="pl-ent"><span class="pl-ent">summary</span></span>&gt;</span>
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">AppExceptionCodesDecider</span> : <span class="pl-en">ExceptionCodesDecider</span>
+    {
+        <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-en">ExceptionCodeDetails</span> <span class="pl-en">DecideExceptionCode</span>(<span class="pl-en">Exception</span> <span class="pl-smi">ex</span>)
+        {
+            <span class="pl-k">if</span>(<span class="pl-smi">ex</span> <span class="pl-k">is</span> <span class="pl-k">System</span>.<span class="pl-en">ArgumentOutOfRangeException</span>)
+            {
+                <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">ExceptionCodeDetails</span>(<span class="pl-s"><span class="pl-pds">"</span>E6004<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-k">object</span>[] { <span class="pl-s"><span class="pl-pds">"</span>test1<span class="pl-pds">"</span></span> });
+            }
+            <span class="pl-k">return</span> <span class="pl-k">base</span>.<span class="pl-en">DecideExceptionCode</span>(<span class="pl-smi">ex</span>);
+        }
+    }
+}</pre></div>
+<p><em>Note:</em> Use <code>ObjectResultCreator</code> and <code>ObjectResultHandler</code> in WebAPI applications instead of <code>ViewResultCreator</code> and <code>ViewResultHandler</code></p>
+<ol start="4">
+<li>Use <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_manager.html" rel="nofollow">ExceptionManager</a> and/or <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_raiser.html" rel="nofollow">ExceptionRaiser</a> methods handle and raise exceptions.</li>
+</ol>
+<div class="highlight highlight-source-cs"><pre><span class="pl-c"><span class="pl-c">//</span> Import Pavalisoft.ExceptionHandling interfaces</span>
+<span class="pl-k">using</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">Interfaces</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">FilterSample</span>.<span class="pl-en">Controllers</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">TestController</span> : <span class="pl-en">Controller</span>
+    {
+        <span class="pl-k">private</span> <span class="pl-k">readonly</span> <span class="pl-en">IExceptionManager</span> <span class="pl-smi">_exceptionManager</span>;
+        <span class="pl-k">private</span> <span class="pl-k">readonly</span> <span class="pl-en">IExceptionRaiser</span> <span class="pl-smi">_exceptionRaiser</span>;
+
+        <span class="pl-k">public</span> <span class="pl-en">TestController</span>(<span class="pl-en">IExceptionManager</span> <span class="pl-smi">exceptionManager</span>, <span class="pl-en">IExceptionRaiser</span> <span class="pl-smi">exceptionRaiser</span>)
+        {
+            <span class="pl-smi">_exceptionManager</span> <span class="pl-k">=</span> <span class="pl-smi">exceptionManager</span>;
+            <span class="pl-smi">_exceptionRaiser</span> <span class="pl-k">=</span> <span class="pl-smi">exceptionRaiser</span>;
+        }
+
+        <span class="pl-k">public</span> <span class="pl-en">IActionResult</span> <span class="pl-en">Index</span>()
+        {
+            <span class="pl-c"><span class="pl-c">//</span> This exception will be caught at ExceptionFilter and gets handled automatically.</span>
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-k">System</span>.<span class="pl-en">ArgumentOutOfRangeException</span>(<span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>);
+        }
+
+        <span class="pl-k">public</span> <span class="pl-en">IActionResult</span> <span class="pl-en">RaiseException</span>()
+        {
+            <span class="pl-c"><span class="pl-c">//</span> Raises an exception with the error code which will be handled by </span>
+            <span class="pl-c"><span class="pl-c">//</span> ExceptionManager at ExceptionFilter level using the ErrorDetail having LogLevel</span>
+            <span class="pl-c"><span class="pl-c">//</span> as Error and ExceptionCode as 6002. </span>
+            <span class="pl-smi">_exceptionRaiser</span>.<span class="pl-en">RaiseException</span>(<span class="pl-s"><span class="pl-pds">"</span>E6002<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-k">System</span>.<span class="pl-en">ArgumentNullException</span>(), <span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>);
+            <span class="pl-k">return</span> <span class="pl-en">View</span>();
+        }
+
+        <span class="pl-k">public</span> <span class="pl-en">IActionResult</span> <span class="pl-en">ManageException</span>()
+        {
+            <span class="pl-c"><span class="pl-c">//</span> Handles the an exception with the error code which will be caught at ExceptionFilter level </span>
+            <span class="pl-c"><span class="pl-c">//</span> using the ErrorDetail having LogLevel as Error and ExceptionCode as 6002. </span>
+            <span class="pl-smi">_exceptionManager</span>.<span class="pl-en">ManageException</span>(<span class="pl-s"><span class="pl-pds">"</span>E6002<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-k">System</span>.<span class="pl-en">ArgumentNullException</span>(), <span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>);
+            <span class="pl-k">return</span> <span class="pl-en">View</span>();
+        }
+    }
+}</pre></div>
+<h2><a id="user-content-exception-manager-usage-with-exceptionhandlingmiddleware" class="anchor" aria-hidden="true" href="#exception-manager-usage-with-exceptionhandlingmiddleware"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exception Manager Usage with <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_handling_middleware.html" rel="nofollow">ExceptionHandlingMiddleware</a></h2>
+<ol>
+<li>Define the <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_settings.html#aa50b30e56ff52de16e1f40428a1bf5c8" rel="nofollow">Error Details</a> and <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_settings.html#a73777e99d64b50ad1b63bced9b7a6ec4" rel="nofollow">Exception Handlers</a> in Exceptions configuration section in appSettings.json.</li>
+</ol>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>Exceptions<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>EnableLocalization<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>EnableLogging<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>DefaultErrorDetail<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>E6000<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>DefaulExceptiontHandler<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SupressHandler<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>ErrorDetails<span class="pl-pds">"</span></span>: [
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>LogLevel<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>ErrorCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>6000<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>StatusCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>500<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Message<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>{0}<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>HandlerName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SupressHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>EventId<span class="pl-pds">"</span></span>: {
+          <span class="pl-s"><span class="pl-pds">"</span>Id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>General<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>ViewName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ErrorResponse<span class="pl-pds">"</span></span>
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>LogLevel<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>ErrorCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>6001<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>StatusCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>500<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Message<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Unhandled Exception occured.<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>HandlerName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SupressHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>EventId<span class="pl-pds">"</span></span>: {
+          <span class="pl-s"><span class="pl-pds">"</span>Id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>General<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>ViewName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ErrorResponse<span class="pl-pds">"</span></span>
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>LogLevel<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>ErrorCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>6002<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>StatusCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>200<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Message<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Argument {0} is null<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>HandlerName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>PropagateHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>EventId<span class="pl-pds">"</span></span>: {
+          <span class="pl-s"><span class="pl-pds">"</span>Id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>General<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>ViewName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ErrorResponse<span class="pl-pds">"</span></span>
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>LogLevel<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>ErrorCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>6003<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>StatusCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>202<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Message<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Unbale to connect to {0} server<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>WrapMessage<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Username or password is invalid<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>HandlerName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>WrapHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>EventId<span class="pl-pds">"</span></span>: {
+          <span class="pl-s"><span class="pl-pds">"</span>Id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Secured<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>ViewName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ErrorResponse<span class="pl-pds">"</span></span>
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>LogLevel<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>ErrorCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>6004<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>StatusCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>404<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Message<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Argument out of index at {0}<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>HandlerName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SupressHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>EventId<span class="pl-pds">"</span></span>: {
+          <span class="pl-s"><span class="pl-pds">"</span>Id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>General<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>ViewName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ErrorResponse<span class="pl-pds">"</span></span>
+      }
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>ExceptionHandlers<span class="pl-pds">"</span></span>: [
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SupressHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Behaviour<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Supress<span class="pl-pds">"</span></span>
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>WrapHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Behaviour<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Wrap<span class="pl-pds">"</span></span>
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>PropagateHandler<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Behaviour<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Propagate<span class="pl-pds">"</span></span>
+      }
+    ]
+  }
+}</pre></div>
+<ol start="2">
+<li>Add the resx (e.g SharedResource.resx) file with the exception localization test to the Resources folder and a class with the same name as resx file(e.g. SharedResource.cs to support localization.</li>
+</ol>
+<div class="highlight highlight-source-cs"><pre><span class="pl-smi">Pavalisoft</span>.<span class="pl-smi">ExceptionHandling</span>.<span class="pl-smi">MiddlewareSample</span>
+<span class="pl-k">|</span><span class="pl-k">-</span> <span class="pl-smi">Resources</span>
+<span class="pl-k">|</span><span class="pl-k">----</span><span class="pl-k">-</span> <span class="pl-smi">SharedResource</span>.<span class="pl-smi">resx</span>
+<span class="pl-k">|</span><span class="pl-k">----</span><span class="pl-k">-</span> <span class="pl-smi">SharedResource</span>.<span class="pl-smi">te</span><span class="pl-k">-</span><span class="pl-smi">in</span>.<span class="pl-smi">resx</span>
+<span class="pl-k">|</span><span class="pl-k">-</span> <span class="pl-smi">SharedResource</span>.<span class="pl-smi">cs</span>
+
+<span class="pl-k">using</span> <span class="pl-en">Microsoft</span>.<span class="pl-en">Extensions</span>.<span class="pl-en">Localization</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">MiddlewareSample</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-en">ISharedResource</span>
+    {
+    }
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">SharedResource</span> : <span class="pl-en">ISharedResource</span>
+    {
+        <span class="pl-k">private</span> <span class="pl-k">readonly</span> <span class="pl-en">IStringLocalizer</span> <span class="pl-smi">_localizer</span>;
+
+        <span class="pl-k">public</span> <span class="pl-en">SharedResource</span>(<span class="pl-en">IStringLocalizer</span>&lt;<span class="pl-en">SharedResource</span>&gt; <span class="pl-smi">localizer</span>)
+        {
+            <span class="pl-smi">_localizer</span> <span class="pl-k">=</span> <span class="pl-smi">localizer</span>;
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-k">this</span>[<span class="pl-k">string</span> <span class="pl-smi">index</span>]
+        {
+            <span class="pl-k">get</span>
+            {
+                <span class="pl-k">return</span> <span class="pl-smi">_localizer</span>[<span class="pl-smi">index</span>];
+            }
+        }
+    }
+}</pre></div>
+<ol start="3">
+<li>Add <a href="https://www.nuget.org/packages/Pavalisoft.ExceptionHandling/" rel="nofollow">Pavalisoft.ExceptionHandling</a> package to project then add `ExceptionFilter' to MVC services and request pipeline with logging and localization.</li>
+</ol>
+<div class="highlight highlight-source-cs"><pre>...
+<span class="pl-c"><span class="pl-c">//</span> Imports Pavalisoft.ExceptionHandling</span>
+<span class="pl-k">using</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">ActionResultCreators</span>;
+<span class="pl-k">using</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">ActionResultHandlers</span>;
+...
+
+<span class="pl-k">namespace</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">MiddlewareSample</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Startup</span>
+    {
+		...
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">ConfigureServices</span>(<span class="pl-en">IServiceCollection</span> <span class="pl-smi">services</span>)
+        {
+            ...
+            <span class="pl-c"><span class="pl-c">//</span> Add Logging and Localization Middleware to services</span>
+            <span class="pl-smi">services</span>.<span class="pl-en">AddLogging</span>();
+            <span class="pl-smi">services</span>.<span class="pl-en">AddLocalization</span>(<span class="pl-smi">options</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">options</span>.<span class="pl-smi">ResourcesPath</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Resources<span class="pl-pds">"</span></span>);
+
+            <span class="pl-c"><span class="pl-c">//</span> Adds Pavalisoft.ExceptionHandling Middleware to MVC Middleware services with Application Specific Exception Codes decider.</span>
+            <span class="pl-smi">services</span>.<span class="pl-en">AddExceptionHandling</span>&lt;<span class="pl-en">ViewResultCreator</span>, <span class="pl-en">ViewResultHandler</span>,<span class="pl-en">SharedResource</span>, <span class="pl-en">AppExceptionCodesDecider</span>&gt;();
+			...
+        }
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">Configure</span>(<span class="pl-en">IApplicationBuilder</span> <span class="pl-smi">app</span>, <span class="pl-en">IHostingEnvironment</span> <span class="pl-smi">env</span>)
+        {
+			...
+            <span class="pl-c"><span class="pl-c">//</span> Uses Pavalisoft.ExceptionHandling Middleware in Request Pipeline</span>
+            <span class="pl-smi">app</span>.<span class="pl-en">UseExceptionHandlingMiddleware</span>();
+			...
+        }
+		...
+    }
+    <span class="pl-c"><span class="pl-c">///</span> &lt;<span class="pl-ent"><span class="pl-ent">summary</span></span>&gt;</span>
+    <span class="pl-c"><span class="pl-c">///</span> Application Specific Exception Codes provider implementation</span>
+    <span class="pl-c"><span class="pl-c">///</span> &lt;/<span class="pl-ent"><span class="pl-ent">summary</span></span>&gt;</span>
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">AppExceptionCodesDecider</span> : <span class="pl-en">ExceptionCodesDecider</span>
+    {
+        <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-en">ExceptionCodeDetails</span> <span class="pl-en">DecideExceptionCode</span>(<span class="pl-en">Exception</span> <span class="pl-smi">ex</span>)
+        {
+            <span class="pl-k">if</span>(<span class="pl-smi">ex</span> <span class="pl-k">is</span> <span class="pl-k">System</span>.<span class="pl-en">ArgumentOutOfRangeException</span>)
+            {
+                <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">ExceptionCodeDetails</span>(<span class="pl-s"><span class="pl-pds">"</span>E6004<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-k">object</span>[] { <span class="pl-s"><span class="pl-pds">"</span>test1<span class="pl-pds">"</span></span> });
+            }
+            <span class="pl-k">return</span> <span class="pl-k">base</span>.<span class="pl-en">DecideExceptionCode</span>(<span class="pl-smi">ex</span>);
+        }
+    }
+}</pre></div>
+<ol start="4">
+<li>Use the other <code>services.AddExceptionHandling&lt;ViewResultCreator, ViewResultHandler, SharedResources, AppExceptionCodesDecider&gt;()</code> extension method to pass the <code>ExceptionSettings</code> instead of json in appsettings.json file in <code>services.AddExceptionFilter&lt;ViewResultCreator, ViewResultHandler, SharedResources, AppExceptionCodesDecider&gt;();</code> method.</li>
+</ol>
+<div class="highlight highlight-source-cs"><pre>...
+<span class="pl-c"><span class="pl-c">//</span> Imports Pavalisoft.ExceptionHandling</span>
+<span class="pl-k">using</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">ActionResultCreators</span>;
+<span class="pl-k">using</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">ActionResultHandlers</span>;
+...
+
+<span class="pl-k">namespace</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">MiddlewareSample</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Startup</span>
+    {
+		...
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">ConfigureServices</span>(<span class="pl-en">IServiceCollection</span> <span class="pl-smi">services</span>)
+        {
+            ...
+            <span class="pl-c"><span class="pl-c">//</span> Add Logging and Localization Middleware to services</span>
+            <span class="pl-smi">services</span>.<span class="pl-en">AddLogging</span>();
+            <span class="pl-smi">services</span>.<span class="pl-en">AddLocalization</span>(<span class="pl-smi">options</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">options</span>.<span class="pl-smi">ResourcesPath</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Resources<span class="pl-pds">"</span></span>);
+
+            <span class="pl-c"><span class="pl-c">//</span> Adds Pavalisoft.ExceptionHandling Middleware to MVC Middleware services with Application Specific Exception Codes decider.</span>
+            <span class="pl-smi">services</span>.<span class="pl-en">AddExceptionHandling</span>&lt;<span class="pl-en">ViewResultCreator</span>, <span class="pl-en">ViewResultHandler</span>,<span class="pl-en">SharedResource</span>, <span class="pl-en">AppExceptionCodesDecider</span>&gt;(<span class="pl-c1">null</span>, <span class="pl-en">CreateExceptionSettings</span>());
+			...
+        }
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">Configure</span>(<span class="pl-en">IApplicationBuilder</span> <span class="pl-smi">app</span>, <span class="pl-en">IHostingEnvironment</span> <span class="pl-smi">env</span>)
+        {
+			...
+            <span class="pl-c"><span class="pl-c">//</span> Uses Pavalisoft.ExceptionHandling Middleware in Request Pipeline</span>
+            <span class="pl-smi">app</span>.<span class="pl-en">UseExceptionHandlingMiddleware</span>();
+			...
+        }
+		...
+        <span class="pl-k">private</span> <span class="pl-en">ExceptionSettings</span> <span class="pl-en">CreateExceptionSettings</span>()
+        {
+            <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">ExceptionSettings</span> {
+                <span class="pl-smi">EnableLocalization</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>,
+                <span class="pl-smi">EnableLogging</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>,
+                <span class="pl-smi">DefaultErrorDetail</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>E6001<span class="pl-pds">"</span></span>,
+                <span class="pl-smi">DefaulExceptiontHandler</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>BaseHandler<span class="pl-pds">"</span></span>,
+                <span class="pl-smi">ErrorDetails</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">List</span>&lt;<span class="pl-en">ErrorDetail</span>&gt; {
+                    <span class="pl-k">new</span> <span class="pl-en">ErrorDetail</span>
+                    {
+                        <span class="pl-smi">LogLevel</span> <span class="pl-k">=</span> <span class="pl-smi">LogLevel</span>.<span class="pl-smi">Error</span>,
+                        <span class="pl-smi">ErrorCode</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>6001<span class="pl-pds">"</span></span>,
+                        <span class="pl-smi">StatusCode</span> <span class="pl-k">=</span> <span class="pl-smi">System</span>.<span class="pl-smi">Net</span>.<span class="pl-smi">HttpStatusCode</span>.<span class="pl-smi">OK</span>,
+                        <span class="pl-smi">Message</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Unhandled Exception occurred.<span class="pl-pds">"</span></span>,
+                        <span class="pl-smi">WrapMessage</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Unhandled Exception occurred.<span class="pl-pds">"</span></span>,
+                        <span class="pl-smi">HandlerName</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>BaseHandler<span class="pl-pds">"</span></span>,
+                        <span class="pl-smi">EventId</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">EventId</span>
+                        {
+                            <span class="pl-smi">Id</span> <span class="pl-k">=</span> <span class="pl-c1">1</span>,
+                            <span class="pl-smi">Name</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>General<span class="pl-pds">"</span></span>
+                        },
+                        <span class="pl-smi">ViewName</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>
+                    }
+                },
+                <span class="pl-smi">ExceptionHandlers</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">List</span>&lt;<span class="pl-en">ExceptionHandlerDefinition</span>&gt;
+                {
+                    <span class="pl-k">new</span> <span class="pl-en">ExceptionHandlerDefinition</span>
+                    {
+                        <span class="pl-smi">Name</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>BaseHandler<span class="pl-pds">"</span></span>,
+                        <span class="pl-smi">Behaviour</span> <span class="pl-k">=</span> <span class="pl-smi">HandlingBehaviour</span>.<span class="pl-smi">Supress</span>,
+                        <span class="pl-smi">Config</span> <span class="pl-k">=</span> <span class="pl-smi">string</span>.<span class="pl-smi">Empty</span>
+                    }
+                }
+            };
+        }
+    }
+    <span class="pl-c"><span class="pl-c">///</span> &lt;<span class="pl-ent"><span class="pl-ent">summary</span></span>&gt;</span>
+    <span class="pl-c"><span class="pl-c">///</span> Application Specific Exception Codes provider implementation</span>
+    <span class="pl-c"><span class="pl-c">///</span> &lt;/<span class="pl-ent"><span class="pl-ent">summary</span></span>&gt;</span>
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">AppExceptionCodesDecider</span> : <span class="pl-en">ExceptionCodesDecider</span>
+    {
+        <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-en">ExceptionCodeDetails</span> <span class="pl-en">DecideExceptionCode</span>(<span class="pl-en">Exception</span> <span class="pl-smi">ex</span>)
+        {
+            <span class="pl-k">if</span>(<span class="pl-smi">ex</span> <span class="pl-k">is</span> <span class="pl-k">System</span>.<span class="pl-en">ArgumentOutOfRangeException</span>)
+            {
+                <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">ExceptionCodeDetails</span>(<span class="pl-s"><span class="pl-pds">"</span>E6004<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-k">object</span>[] { <span class="pl-s"><span class="pl-pds">"</span>test1<span class="pl-pds">"</span></span> });
+            }
+            <span class="pl-k">return</span> <span class="pl-k">base</span>.<span class="pl-en">DecideExceptionCode</span>(<span class="pl-smi">ex</span>);
+        }
+    }
+}</pre></div>
+<p><em>Note:</em> Use <code>ObjectResultCreator</code> and <code>ObjectResultHandler</code> in WebAPI applications instead of <code>ViewResultCreator</code> and <code>ViewResultHandler</code></p>
+<ol start="4">
+<li>Use <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_manager.html" rel="nofollow">ExceptionManager</a> and/or <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_raiser.html" rel="nofollow">ExceptionRaiser</a> methods handle and raise exceptions.</li>
+</ol>
+<div class="highlight highlight-source-cs"><pre><span class="pl-c"><span class="pl-c">//</span> Import Pavalisoft.ExceptionHandling interfaces</span>
+<span class="pl-k">using</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">Interfaces</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">Pavalisoft</span>.<span class="pl-en">ExceptionHandling</span>.<span class="pl-en">MiddlewareSample</span>.<span class="pl-en">Controllers</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">TestController</span> : <span class="pl-en">Controller</span>
+    {
+        <span class="pl-k">private</span> <span class="pl-k">readonly</span> <span class="pl-en">IExceptionManager</span> <span class="pl-smi">_exceptionManager</span>;
+        <span class="pl-k">private</span> <span class="pl-k">readonly</span> <span class="pl-en">IExceptionRaiser</span> <span class="pl-smi">_exceptionRaiser</span>;
+
+        <span class="pl-k">public</span> <span class="pl-en">TestController</span>(<span class="pl-en">IExceptionManager</span> <span class="pl-smi">exceptionManager</span>, <span class="pl-en">IExceptionRaiser</span> <span class="pl-smi">exceptionRaiser</span>)
+        {
+            <span class="pl-smi">_exceptionManager</span> <span class="pl-k">=</span> <span class="pl-smi">exceptionManager</span>;
+            <span class="pl-smi">_exceptionRaiser</span> <span class="pl-k">=</span> <span class="pl-smi">exceptionRaiser</span>;
+        }
+
+        <span class="pl-k">public</span> <span class="pl-en">IActionResult</span> <span class="pl-en">Index</span>()
+        {
+            <span class="pl-c"><span class="pl-c">//</span> This exception will be caught at ExceptionHandlingMiddleware and gets handled automatically.</span>
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-k">System</span>.<span class="pl-en">ArgumentOutOfRangeException</span>(<span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>);
+        }
+
+        <span class="pl-k">public</span> <span class="pl-en">IActionResult</span> <span class="pl-en">RaiseException</span>()
+        {
+            <span class="pl-c"><span class="pl-c">//</span> Raises an exception with the error code which will be handled by </span>
+            <span class="pl-c"><span class="pl-c">//</span> ExceptionManager at ExceptionHandlingMiddleware level using the ErrorDetail having LogLevel</span>
+            <span class="pl-c"><span class="pl-c">//</span> as Error and ExceptionCode as 6002. </span>
+            <span class="pl-smi">_exceptionRaiser</span>.<span class="pl-en">RaiseException</span>(<span class="pl-s"><span class="pl-pds">"</span>E6002<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-k">System</span>.<span class="pl-en">ArgumentNullException</span>(), <span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>);
+            <span class="pl-k">return</span> <span class="pl-en">View</span>();
+        }
+
+        <span class="pl-k">public</span> <span class="pl-en">IActionResult</span> <span class="pl-en">ManageException</span>()
+        {
+            <span class="pl-c"><span class="pl-c">//</span> Handles the an exception with the error code which will be caught at ExceptionHandlingMiddleware level </span>
+            <span class="pl-c"><span class="pl-c">//</span> using the ErrorDetail having LogLevel as Error and ExceptionCode as 6002. </span>
+            <span class="pl-smi">_exceptionManager</span>.<span class="pl-en">ManageException</span>(<span class="pl-s"><span class="pl-pds">"</span>E6002<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-k">System</span>.<span class="pl-en">ArgumentNullException</span>(), <span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>);
+            <span class="pl-k">return</span> <span class="pl-en">View</span>();
+        }
+    }
+}</pre></div>
+<h2><a id="user-content-exception-handlers" class="anchor" aria-hidden="true" href="#exception-handlers"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exception Handlers</h2>
+<p>The below are the inbuilt exception handlers provided.</p>
+<ul>
+<li><a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_handlers_1_1_default_exception_handler.html" rel="nofollow"><strong>DefaultExceptionHandler</strong></a> : Provides Default implementation.</li>
+<li><a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_handlers_1_1_wrap_exception_handler.html" rel="nofollow"><strong>WrapExceptionHandler</strong></a> : Provides implementation to wrap the exception after handling.</li>
+</ul>
+<h2><a id="user-content-action-result-creators" class="anchor" aria-hidden="true" href="#action-result-creators"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Action Result Creators</h2>
+<p>The below are the inbuilt action result creators provided.</p>
+<ul>
+<li><a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_action_result_creators_1_1_object_result_creator.html" rel="nofollow"><strong>ObjectResultCreator</strong></a> : Provides implementation to create <code>ObjectResult</code> using <code>ErrorDetail</code>.</li>
+<li><a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_action_result_creators_1_1_view_result_creator.html" rel="nofollow"><strong>ViewResultCreator</strong></a> : Provides implementation to create <code>ViewResult</code> with the ViewName in the <code>ErrorDetail</code>.</li>
+</ul>
+<h2><a id="user-content-action-result-handlers" class="anchor" aria-hidden="true" href="#action-result-handlers"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Action Result Handlers</h2>
+<p>The below are the inbuilt action result handlers provided.</p>
+<ul>
+<li><a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_action_result_handlers_1_1_object_result_handler.html" rel="nofollow"><strong>ObjectResultHandler</strong></a> : Provides features to handle REST API Application additional exception handling conditions.</li>
+<li><a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_action_result_handlers_1_1_view_result_handler.html" rel="nofollow"><strong>ViewResultHandler</strong></a> : Provides features to handle Web Application additional exception handling conditions.</li>
+</ul>
+<h2><a id="user-content-builds" class="anchor" aria-hidden="true" href="#builds"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Builds</h2>
+<p>Get latest builds from <a href="https://www.nuget.org/packages/Pavalisoft.ExceptionHandling/" rel="nofollow">nuget</a></p>
+<table>
+<thead>
+<tr>
+<th align="left">Package</th>
+<th align="center">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><a href="https://github.com/pavalisoft/ExceptionHandling/tree/master/Source/Pavalisoft.ExceptionHandling">Pavalisoft.ExceptionHandling</a></td>
+<td align="center"><a href="https://www.nuget.org/packages/Pavalisoft.ExceptionHandling/1.0.0" rel="nofollow">1.0.0</a></td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-contributing" class="anchor" aria-hidden="true" href="#contributing"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Contributing</h2>
+<p><strong>Getting started with Git and GitHub</strong></p>
+<ul>
+<li><a href="http://help.github.com/win-set-up-git">Setting up Git for Windows and connecting to GitHub</a></li>
+<li><a href="http://help.github.com/fork-a-repo">Forking a GitHub repository</a></li>
+<li><a href="http://rogerdudler.github.com/git-guide">The simple guide to GIT guide</a></li>
+<li><a href="https://github.com/pavalisoft/ExceptionHandling/issues">Open an issue</a> if you encounter a bug or have a suggestion for improvements/features</li>
+</ul>
+<p>Once you're familiar with Git and GitHub, clone the repository and start contributing.</p>
+</article>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
