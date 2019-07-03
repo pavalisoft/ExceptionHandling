@@ -365,7 +365,7 @@ $(document).ready(function(){initNavTree('index.html','');});
     }
 }</pre></div>
 <p><em>Note:</em> Use <code>ObjectResultCreator</code> and <code>ObjectResultHandler</code> in WebAPI applications instead of <code>ViewResultCreator</code> and <code>ViewResultHandler</code></p>
-<ol start="4">
+<ol start="5">
 <li>Use <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_manager.html" rel="nofollow">ExceptionManager</a> and/or <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_raiser.html" rel="nofollow">ExceptionRaiser</a> methods handle and raise exceptions.</li>
 </ol>
 <div class="highlight highlight-source-cs"><pre><span class="pl-c"><span class="pl-c">//</span> Import Pavalisoft.ExceptionHandling interfaces</span>
@@ -408,6 +408,28 @@ $(document).ready(function(){initNavTree('index.html','');});
         }
     }
 }</pre></div>
+<ol start="6">
+<li>Create ErrorResponse.cshtml to View/Shared folder with the below html</li>
+</ol>
+<div class="highlight highlight-text-html-basic"><pre>@{
+    ViewData["Title"] = "Error";
+}
+
+&lt;<span class="pl-ent">h1</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-danger<span class="pl-pds">"</span></span>&gt;Error.&lt;/<span class="pl-ent">h1</span>&gt;
+&lt;<span class="pl-ent">h2</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-danger<span class="pl-pds">"</span></span>&gt;An error occurred while processing your request.&lt;/<span class="pl-ent">h2</span>&gt;
+
+&lt;<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">strong</span>&gt;Exception Code:&lt;/<span class="pl-ent">strong</span>&gt;&lt;<span class="pl-ent">code</span>&gt;@ViewData["ExceptionCode"]&lt;/<span class="pl-ent">code</span>&gt;
+&lt;/<span class="pl-ent">p</span>&gt;
+&lt;<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">strong</span>&gt;Message:&lt;/<span class="pl-ent">strong</span>&gt;&lt;<span class="pl-ent">code</span>&gt;@ViewData["Message"]&lt;/<span class="pl-ent">code</span>&gt;
+&lt;/<span class="pl-ent">p</span>&gt;
+&lt;<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">strong</span>&gt;Event Id:&lt;/<span class="pl-ent">strong</span>&gt;&lt;<span class="pl-ent">code</span>&gt;@ViewData["EventId"]&lt;/<span class="pl-ent">code</span>&gt;
+&lt;/<span class="pl-ent">p</span>&gt;
+&lt;<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">strong</span>&gt;Event Name:&lt;/<span class="pl-ent">strong</span>&gt;&lt;<span class="pl-ent">code</span>&gt;@ViewData["EventName"]&lt;/<span class="pl-ent">code</span>&gt;
+&lt;/<span class="pl-ent">p</span>&gt;</pre></div>
 <h2><a id="user-content-exception-manager-usage-with-exceptionhandlingmiddleware" class="anchor" aria-hidden="true" href="#exception-manager-usage-with-exceptionhandlingmiddleware"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exception Manager Usage with <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_handling_middleware.html" rel="nofollow">ExceptionHandlingMiddleware</a></h2>
 <ol>
 <li>Define the <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_settings.html#aa50b30e56ff52de16e1f40428a1bf5c8" rel="nofollow">Error Details</a> and <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_settings.html#a73777e99d64b50ad1b63bced9b7a6ec4" rel="nofollow">Exception Handlers</a> in Exceptions configuration section in appSettings.json.</li>
@@ -665,7 +687,7 @@ $(document).ready(function(){initNavTree('index.html','');});
     }
 }</pre></div>
 <p><em>Note:</em> Use <code>ObjectResultCreator</code> and <code>ObjectResultHandler</code> in WebAPI applications instead of <code>ViewResultCreator</code> and <code>ViewResultHandler</code></p>
-<ol start="4">
+<ol start="5">
 <li>Use <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_manager.html" rel="nofollow">ExceptionManager</a> and/or <a href="https://pavalisoft.github.io/ExceptionHandling/class_pavalisoft_1_1_exception_handling_1_1_exception_raiser.html" rel="nofollow">ExceptionRaiser</a> methods handle and raise exceptions.</li>
 </ol>
 <div class="highlight highlight-source-cs"><pre><span class="pl-c"><span class="pl-c">//</span> Import Pavalisoft.ExceptionHandling interfaces</span>
@@ -708,6 +730,28 @@ $(document).ready(function(){initNavTree('index.html','');});
         }
     }
 }</pre></div>
+<ol start="6">
+<li>Create ErrorResponse.cshtml to View/Shared folder with the below html</li>
+</ol>
+<div class="highlight highlight-text-html-basic"><pre>@{
+    ViewData["Title"] = "Error";
+}
+
+&lt;<span class="pl-ent">h1</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-danger<span class="pl-pds">"</span></span>&gt;Error.&lt;/<span class="pl-ent">h1</span>&gt;
+&lt;<span class="pl-ent">h2</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-danger<span class="pl-pds">"</span></span>&gt;An error occurred while processing your request.&lt;/<span class="pl-ent">h2</span>&gt;
+
+&lt;<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">strong</span>&gt;Exception Code:&lt;/<span class="pl-ent">strong</span>&gt;&lt;<span class="pl-ent">code</span>&gt;@ViewData["ExceptionCode"]&lt;/<span class="pl-ent">code</span>&gt;
+&lt;/<span class="pl-ent">p</span>&gt;
+&lt;<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">strong</span>&gt;Message:&lt;/<span class="pl-ent">strong</span>&gt;&lt;<span class="pl-ent">code</span>&gt;@ViewData["Message"]&lt;/<span class="pl-ent">code</span>&gt;
+&lt;/<span class="pl-ent">p</span>&gt;
+&lt;<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">strong</span>&gt;Event Id:&lt;/<span class="pl-ent">strong</span>&gt;&lt;<span class="pl-ent">code</span>&gt;@ViewData["EventId"]&lt;/<span class="pl-ent">code</span>&gt;
+&lt;/<span class="pl-ent">p</span>&gt;
+&lt;<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">strong</span>&gt;Event Name:&lt;/<span class="pl-ent">strong</span>&gt;&lt;<span class="pl-ent">code</span>&gt;@ViewData["EventName"]&lt;/<span class="pl-ent">code</span>&gt;
+&lt;/<span class="pl-ent">p</span>&gt;</pre></div>
 <h2><a id="user-content-exception-handlers" class="anchor" aria-hidden="true" href="#exception-handlers"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exception Handlers</h2>
 <p>The below are the inbuilt exception handlers provided.</p>
 <ul>
