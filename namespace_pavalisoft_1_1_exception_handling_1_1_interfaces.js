@@ -1,0 +1,14 @@
+var namespace_pavalisoft_1_1_exception_handling_1_1_interfaces =
+[
+    [ "ActionResultContext", "class_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_action_result_context.html", "class_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_action_result_context" ],
+    [ "IActionResultCreator", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_action_result_creator.html", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_action_result_creator" ],
+    [ "IActionResultHandler", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_action_result_handler.html", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_action_result_handler" ],
+    [ "IErrorDetail", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_error_detail.html", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_error_detail" ],
+    [ "IErrorDetailLocalizer", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_error_detail_localizer.html", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_error_detail_localizer" ],
+    [ "IExceptionCodesDecider", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_exception_codes_decider.html", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_exception_codes_decider" ],
+    [ "IExceptionDataProvider", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_exception_data_provider.html", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_exception_data_provider" ],
+    [ "IExceptionHandler", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_exception_handler.html", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_exception_handler" ],
+    [ "IExceptionLogger", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_exception_logger.html", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_exception_logger" ],
+    [ "IExceptionManager", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_exception_manager.html", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_exception_manager" ],
+    [ "IExceptionRaiser", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_exception_raiser.html", "interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_exception_raiser" ]
+];

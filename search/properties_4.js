@@ -1,0 +1,12 @@
+var searchData=
+[
+  ['enablelocalization',['EnableLocalization',['../class_pavalisoft_1_1_exception_handling_1_1_exception_settings.html#abe87fe03edfb4bee3ca463eb548e22aa',1,'Pavalisoft::ExceptionHandling::ExceptionSettings']]],
+  ['enablelogging',['EnableLogging',['../class_pavalisoft_1_1_exception_handling_1_1_exception_settings.html#a48fc416af626f3ba88939f62c2cecf2d',1,'Pavalisoft::ExceptionHandling::ExceptionSettings']]],
+  ['errorcode',['ErrorCode',['../class_pavalisoft_1_1_exception_handling_1_1_error_detail.html#ad63359d1a45168591f201bf692fca827',1,'Pavalisoft.ExceptionHandling.ErrorDetail.ErrorCode()'],['../interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_error_detail.html#a47f5715830243cc972d744022f256585',1,'Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail.ErrorCode()']]],
+  ['errordetails',['ErrorDetails',['../class_pavalisoft_1_1_exception_handling_1_1_exception_settings.html#aa50b30e56ff52de16e1f40428a1bf5c8',1,'Pavalisoft::ExceptionHandling::ExceptionSettings']]],
+  ['eventid',['EventId',['../class_pavalisoft_1_1_exception_handling_1_1_error_detail.html#af3b909a170244bdba5c7919de106dbd0',1,'Pavalisoft.ExceptionHandling.ErrorDetail.EventId()'],['../class_pavalisoft_1_1_exception_handling_1_1_exception_data.html#a7959fa76eb0ed424f7149df88642f705',1,'Pavalisoft.ExceptionHandling.ExceptionData.EventId()'],['../interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_error_detail.html#aa55da63254469989c71eeae79862e972',1,'Pavalisoft.ExceptionHandling.Interfaces.IErrorDetail.EventId()']]],
+  ['eventname',['EventName',['../class_pavalisoft_1_1_exception_handling_1_1_exception_data.html#ac458dab7c02a484d8f09c46b40dd2414',1,'Pavalisoft::ExceptionHandling::ExceptionData']]],
+  ['exception',['Exception',['../class_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_action_result_context.html#a73bb5e15e8a867295ac970b77d1cf551',1,'Pavalisoft::ExceptionHandling::Interfaces::ActionResultContext']]],
+  ['exceptioncode',['ExceptionCode',['../class_pavalisoft_1_1_exception_handling_1_1_exception_code_details.html#ac427d236fc5beb19d63c9e52081d7603',1,'Pavalisoft.ExceptionHandling.ExceptionCodeDetails.ExceptionCode()'],['../class_pavalisoft_1_1_exception_handling_1_1_exception_data.html#a148c37a289947b33d1bcfe2c19a60bfc',1,'Pavalisoft.ExceptionHandling.ExceptionData.ExceptionCode()']]],
+  ['exceptionhandlers',['ExceptionHandlers',['../class_pavalisoft_1_1_exception_handling_1_1_exception_settings.html#a73777e99d64b50ad1b63bced9b7a6ec4',1,'Pavalisoft::ExceptionHandling::ExceptionSettings']]]
+];

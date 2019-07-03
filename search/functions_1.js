@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['clone',['Clone',['../class_pavalisoft_1_1_exception_handling_1_1_error_detail.html#a7ad5b1f08679bb703275baaf5f3dc9b3',1,'Pavalisoft.ExceptionHandling.ErrorDetail.Clone()'],['../class_pavalisoft_1_1_exception_handling_1_1_event_id.html#a30daf86a2d452d0d59d9442542cfbdab',1,'Pavalisoft.ExceptionHandling.EventId.Clone()']]],
+  ['configurationexceptiondataprovider',['ConfigurationExceptionDataProvider',['../class_pavalisoft_1_1_exception_handling_1_1_configuration_exception_data_provider.html#a8d4317e3d9065c89a997ca9ede5cb027',1,'Pavalisoft::ExceptionHandling::ConfigurationExceptionDataProvider']]],
+  ['createactionresult',['CreateActionResult',['../class_pavalisoft_1_1_exception_handling_1_1_action_result_creators_1_1_object_result_creator.html#ac2e91f4b71504acb4e11d0780527011b',1,'Pavalisoft.ExceptionHandling.ActionResultCreators.ObjectResultCreator.CreateActionResult()'],['../class_pavalisoft_1_1_exception_handling_1_1_action_result_creators_1_1_view_result_creator.html#ab051bc6f860588748e425af6368769fb',1,'Pavalisoft.ExceptionHandling.ActionResultCreators.ViewResultCreator.CreateActionResult()'],['../interface_pavalisoft_1_1_exception_handling_1_1_interfaces_1_1_i_action_result_creator.html#a1f28c201676bbb24f46aa65ba1ed9d45',1,'Pavalisoft.ExceptionHandling.Interfaces.IActionResultCreator.CreateActionResult()']]]
+];

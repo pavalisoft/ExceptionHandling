@@ -1,0 +1,5 @@
+var namespace_pavalisoft_1_1_exception_handling_1_1_action_result_handlers =
+[
+    [ "ObjectResultHandler", "class_pavalisoft_1_1_exception_handling_1_1_action_result_handlers_1_1_object_result_handler.html", "class_pavalisoft_1_1_exception_handling_1_1_action_result_handlers_1_1_object_result_handler" ],
+    [ "ViewResultHandler", "class_pavalisoft_1_1_exception_handling_1_1_action_result_handlers_1_1_view_result_handler.html", "class_pavalisoft_1_1_exception_handling_1_1_action_result_handlers_1_1_view_result_handler" ]
+];
